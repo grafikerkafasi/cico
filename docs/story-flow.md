@@ -115,7 +115,7 @@ flowchart TD
   c1_a4_rooftop -->|"Kabile'ye yaz: #quot;ROTA bir şey sakl…"| c1_end_a_tribe
   c1_a4_rooftop -->|"Telefonu kapat ve sus"| c1_end_a_silence
   c1_a5_chase -->|"Basamaklar"| c1_a5b_fall
-  c1_a5_chase -->|"Pasajda saklan, sabahı bekle"| c1_end_a_escape
+  c1_a5_chase -->|"Pasaja saklan, orada sabahla"| c1_end_a_escape
   c1_a5_chase -.->|"⏱ zaman aşımı"| c1_a5b_fall
   c1_a5b_fall --> c1_a5c_paper
   c1_a5c_paper --> c1_end_a_fall

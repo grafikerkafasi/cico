@@ -202,8 +202,7 @@
         choices: {
           stairs: 'The steps',
           stairs_sub: 'Fast but dangerous',
-          passage: 'Hide in the passage till dawn',
-          passage_sub: 'Safe but slow',
+          passage: 'Hide in the passage, wait for dawn',
         },
       },
       c1_a5b_fall: {

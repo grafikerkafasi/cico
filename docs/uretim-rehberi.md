@@ -864,7 +864,7 @@ Very slow orbit around Cico; city lights twinkle, courier headlights crawl along
 | Seçenek (oyunda) | Görselde ne olmalı | Konum (görselin yüzdesi; sol üst = 0,0) |
 |---|---|---|
 | Basamaklar | sol alttaki dik, ıslak basamaklar | x 19% · y 71% |
-| Pasajda saklan, sabahı bekle | sağ üstteki kemerli pasaj | x 81% · y 20% |
+| Pasaja saklan, orada sabahla | sağ üstteki kemerli pasaj | x 81% · y 20% |
 
 **Görsel promptu (ChatGPT):**
 

@@ -206,8 +206,7 @@
         choices: {
           stairs: 'Basamaklar',
           stairs_sub: 'Hızlı ama tehlikeli',
-          passage: 'Pasajda saklan, sabahı bekle',
-          passage_sub: 'Güvenli ama yavaş',
+          passage: 'Pasaja saklan, orada sabahla',
         },
       },
       c1_a5b_fall: {
