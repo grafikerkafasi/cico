@@ -13,14 +13,14 @@ const body = /<body>([\s\S]*)<\/body>/.exec(html)[1];
 
 const page = `<title>CİCO</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="src/ui/styles.css">
+<link rel="stylesheet" href="src/ui/styles.css?v=${Date.now()}">
 ${body.trim()}
 `;
 fs.mkdirSync(out, { recursive: true });
 fs.writeFileSync(path.join(out, 'index.html'), page);
 
 // Yayınlanacak dosyalar: index.html'de geçen script'ler, stil ve sahne görselleri
-const files = [...html.matchAll(/<script src="([^"]+)"/g)].map((m) => m[1]);
+const files = [...html.matchAll(/<script src="([^"?]+)/g)].map((m) => m[1]);
 files.push('src/ui/styles.css', 'assets/logo.png');
 const story = require(path.join(ROOT, 'src/story/chapter1.js'));
 story.scenes.forEach((s) => [s.image_asset, s.ambient_video, s.video_asset].forEach((f) => f && files.push(f)));
