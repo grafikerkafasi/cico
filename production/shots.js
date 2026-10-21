@@ -26,6 +26,8 @@
       'No logos or brand names on any vehicle, helmet, bag or clothing.',
       'No UI, captions, subtitles, watermarks or borders in the image.',
       'No blood or graphic injury. Falls and accidents are shown by aftermath and implication.',
+      'No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes.',
+      'Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D.',
       'Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.',
     ],
     negative: 'text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore',
@@ -37,7 +39,9 @@
       tr: 'Ana karakter. Değişmez sabitler — her sahnede aynı.',
       prompt: 'Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. ' +
         'Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. ' +
-        'Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet.',
+        'Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. ' +
+        'Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); ' +
+        'if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.',
       ref: 'Geliştiricinin karakter sayfası (önden / yandan / arkadan / üst çapraz) — her üretimde referans olarak ekle.',
     },
     scooter: {
@@ -152,7 +156,7 @@
       location: 'nevizade', cast: ['cico', 'scooter'], time: 'O1 ile aynı an',
       image: 'Same framing as O1: Cico has pulled out his phone and stares at the glowing screen (screen content not visible), surprised and tempted. ' +
         'The scooter and its green delivery box are clearly visible in the lower right foreground.',
-      spots: { envelope: 'scooter\'ın arkasındaki yeşil teslimat kutusu (paketin gideceği yer)', medicine: 'Cico\'nun elindeki parlayan telefon (ilaç talebi)' },
+      spots: { envelope: 'telefonun üstünde süzülen paket kartı', medicine: 'telefonun sağında süzülen ilaç kartı' },
       video: 'Locked-off shot, almost still: phone glow pulses on Cico\'s face, his thumb hovers, fog drifts, neon reflections shimmer in puddles. ' +
         'Seamless loop: first and last frame identical. Ambient street sound only. 8 seconds.',
       loop: true,
@@ -162,7 +166,7 @@
       location: 'printhouse', cast: ['cico'], time: 'Gece yarısına 5 kala',
       image: 'Close-medium shot at the green door of the old print shop: a gloved hand withdraws into the dark doorway as Cico holds a heavy sealed package with red-and-white security tape in both hands at the centre of the frame. ' +
         'One corner of the tape is visibly lifted. His scooter waits in the lower left, delivery box open.',
-      spots: { open: 'paketin kalkmış bant köşesi (ekranın ortası)', keep_closed: 'sol alttaki açık teslimat kutusu' },
+      spots: { open: 'Cico\'nun elindeki bantlı paket', keep_closed: 'sağ alttaki yeşil teslimat kutusu' },
       video: 'Slight handheld feel: the door slams shut, Cico looks down at the package, his thumb hesitates over the lifted tape corner. Seamless loop of his hesitation. ' +
         'Ambient: distant traffic, a dog barking. No speech. 8 seconds.',
       loop: true,
@@ -180,7 +184,7 @@
       location: 'tower', cast: ['cico', 'man', 'car'], time: 'Gece yarısı',
       image: 'At the foot of Galata Tower: the Man in the coat stands calmly in the centre-left holding out his gloved hand towards the viewer, face lit from below, eyes in the upper-centre of the frame. ' +
         'Cico stands in the foreground right next to his scooter, the package under his arm. Behind them at the bottom of the slope, the headlights of the black car glow.',
-      spots: { hand_over: 'paltolu adamın uzanmış eldivenli eli (orta sol)', run: 'sağ alttaki scooter (kaçış)', confront: 'adamın yüzü / gözleri (üst orta)' },
+      spots: { hand_over: 'paltolu adamın uzanmış eldivenli eli (orta sol)', run: 'sağdaki scooter gidonu ve aynası (kaçış)', confront: 'adamın yüzü (üst sol-orta)' },
       video: 'Slow dolly-in on the outstretched gloved hand; the black car\'s headlights flick on behind. The man does not blink. Seamless tense loop. ' +
         'Ambient: wind, distant seagulls, a low engine idling. No speech. 8 seconds.',
       loop: true,
@@ -200,7 +204,7 @@
       location: 'stairs', cast: ['cico', 'scooter', 'car'], time: 'Gece, kovalamaca',
       image: 'High-energy wide shot: Cico on his scooter at the top of Yüksek Kaldırım, package clutched under his arm. To the lower left the steep wet stone steps plunge down; ' +
         'to the right a dark arched passage opens. Behind him the black car\'s doors swing open, headlights glaring.',
-      spots: { stairs: 'sol alttaki dik, ıslak basamaklar', passage: 'sağdaki karanlık kemerli pasaj' },
+      spots: { stairs: 'sol alttaki dik, ıslak basamaklar', passage: 'sağ üstteki kemerli pasaj' },
       video: 'Fast handheld energy: scooter engine revs, headlights sweep across the walls, car doors open behind. Hold on the moment of decision. Seamless loop of the revving moment. ' +
         'Ambient: engine, footsteps, rain. 8 seconds. Extra outcome clips: (1) scooter descending the steps, (2) scooter vanishing into the passage.',
       loop: true,
@@ -227,7 +231,7 @@
       location: 'pharmacy', cast: ['cico', 'kid'], time: 'B1 ile aynı an',
       image: 'Same doorway, closer: the kid holds up his phone towards Cico at the centre-right (screen shows only a soft glow), whispering seriously. ' +
         'The door\'s old lock and chain are visible at the lower left.',
-      spots: { take_photo: 'çocuğun uzattığı telefon (orta sağ)', delete_photo: 'sol alttaki kapı kilidi ve zinciri (kapını kilitle)' },
+      spots: { take_photo: 'kırmızı kapüşonlu kolun uzattığı telefon (orta)', delete_photo: 'sol alttaki pirinç kilit ve zincir (kapını kilitle)' },
       video: 'Quiet close shot, the kid glances down the stairwell nervously, phone glow on both faces. Seamless loop. Ambient: dripping, distant siren. 8 seconds.',
       loop: true,
       continuity: ['B1 ile aynı kapı ve ışık.'],
@@ -246,7 +250,7 @@
       location: 'hospital', cast: ['cico', 'chief'], time: 'Sabaha karşı',
       image: 'Hospital corridor: on the left, a group of couriers in jackets with helmets in their laps gathers, looking at Cico. ' +
         'The Tribe Chief sits on a plastic chair with a bandaged arm, staring at his phone. Cico stands at the lower right holding his own phone.',
-      spots: { strike: 'soldaki kurye grubu (Kabile)', press: 'Cico\'nun elindeki telefon (sağ alt)' },
+      spots: { strike: 'soldaki kurye grubu (Kabile)', press: 'ortada oturan Cico' },
       video: 'Slow lateral dolly along the corridor past tired couriers; fluorescent light flickers once. Seamless loop. Ambient: hospital hum, distant beeps, murmurs. 8 seconds.',
       loop: false,
       continuity: ['Kabile Şefi B3\'teki kıyafetiyle, kolu sargılı.', 'Cico\'nun kaskı elinde.'],

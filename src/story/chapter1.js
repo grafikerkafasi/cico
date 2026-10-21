@@ -38,7 +38,7 @@
  *   ambient_video: sahnenin arkasında sessiz döngüde oynayan video (anlatı videosu değil; vuruşlar
  *                 metin olarak sürer). Yüklenene kadar image_asset altta görünür.
  *   hotspot     : { x, y } — seçeneğin görsel ÜZERİNDEKİ yeri, görselin yüzdesi (0–100) cinsinden.
- *                 Şimdilik GEÇİCİ değerler; gerçek koordinatlar her sahne görseli gelince girilecek.
+ *                 Değerler assets/scenes/ içindeki görsellere göre ayarlandı; görsel değişirse güncellenmeli.
  *                 Geliştirici menüsündeki "Koordinat seçici" görsele dokununca x/y yüzdesini gösterir.
  *
  * Koşul dili:  { flag: 'x' } | { clue: 'id' } | { visited: 'scene_id' }
@@ -127,11 +127,11 @@
         text: [intro('rota'), 'l1', 'l2'],
         timer: { seconds: 15, on_timeout: 'timeout' },
         choices: [
-          { id: 'envelope', hotspot: { x: 80, y: 76 }, effects: [{ set: { route: 'envelope' } }], next: 'c1_a1_printhouse' },
-          { id: 'medicine', hotspot: { x: 69, y: 43 }, effects: [{ set: { route: 'medicine' }, add: { earnings: 85 } }], next: 'c1_b1_pharmacy' },
+          { id: 'envelope', hotspot: { x: 52, y: 46 }, effects: [{ set: { route: 'envelope' } }], next: 'c1_a1_printhouse' },
+          { id: 'medicine', hotspot: { x: 80, y: 48 }, effects: [{ set: { route: 'medicine' }, add: { earnings: 85 } }], next: 'c1_b1_pharmacy' },
           { id: 'timeout', hidden: true, effects: [{ set: { route: 'envelope', system_chose: true } }], next: 'c1_a1_printhouse' },
         ],
-        image_asset: 'assets/scenes/c1_s01_nevizade.jpg', // aynı an: Cico telefona bakıyor
+        image_asset: 'assets/scenes/O2_c1_s02_orders.jpg',
         video_asset: null,
         choice_display: 'over_video',
         loop_asset: null,
@@ -145,11 +145,12 @@
       {
         scene_id: 'c1_a1_printhouse',
         code: 'A1',
+        image_asset: 'assets/scenes/A1_c1_a1_printhouse.jpg',
         scene_type: 'choice',
         text: ['l1', 'l2', 'l3'],
         choices: [
-          { id: 'open', hotspot: { x: 52, y: 60 }, effects: [{ set: { seal_broken: true }, add: { suspicion: 1 }, clue: 'drive' }], next: 'c1_a2_school' },
-          { id: 'keep_closed', hotspot: { x: 30, y: 74 }, next: 'c1_a2_school' },
+          { id: 'open', hotspot: { x: 47, y: 47 }, effects: [{ set: { seal_broken: true }, add: { suspicion: 1 }, clue: 'drive' }], next: 'c1_a2_school' },
+          { id: 'keep_closed', hotspot: { x: 82, y: 65 }, next: 'c1_a2_school' },
         ],
         video_asset: null,
         notes: {
@@ -160,6 +161,7 @@
       {
         scene_id: 'c1_a2_school',
         code: 'A2',
+        image_asset: 'assets/scenes/A2_c1_a2_school.jpg',
         scene_type: 'cinematic',
         text: [
           'l1', 'l2', 'l3',
@@ -176,14 +178,15 @@
       {
         scene_id: 'c1_a3_tower',
         code: 'A3',
+        image_asset: 'assets/scenes/A3_c1_a3_tower.jpg',
         scene_type: 'choice',
         text: ['l1', 'l2', intro('man'), say('man1', 'man'), 'l3', say('man2', 'man'), line('seal_noticed', { flag: 'seal_broken' })],
         on_enter: [{ clue: 'knows_name' }],
         timer: { seconds: 12, on_timeout: 'freeze' },
         choices: [
-          { id: 'hand_over', hotspot: { x: 40, y: 55 }, effects: [{ add: { earnings: 1500 } }], next: 'c1_a4_rooftop' },
-          { id: 'run', hotspot: { x: 72, y: 72 }, effects: [{ add: { suspicion: 1 } }], next: 'c1_a5_chase' },
-          { id: 'confront', hotspot: { x: 56, y: 36 }, conditions: { clue: 'drive' }, show_locked: true, next: 'c1_a6_second_offer' },
+          { id: 'hand_over', hotspot: { x: 37, y: 51 }, effects: [{ add: { earnings: 1500 } }], next: 'c1_a4_rooftop' },
+          { id: 'run', hotspot: { x: 88, y: 68 }, effects: [{ add: { suspicion: 1 } }], next: 'c1_a5_chase' },
+          { id: 'confront', hotspot: { x: 43, y: 24 }, conditions: { clue: 'drive' }, show_locked: true, next: 'c1_a6_second_offer' },
           { id: 'freeze', hidden: true, effects: [{ set: { hesitated: true }, add: { earnings: 750 } }], next: 'c1_a4_rooftop' },
         ],
         video_asset: null,
@@ -197,6 +200,7 @@
       {
         scene_id: 'c1_a4_rooftop',
         code: 'A4',
+        image_asset: 'assets/scenes/A4_c1_a4_rooftop.jpg',
         scene_type: 'choice',
         text: [
           line('paid_full', { not: HESITATED }),
@@ -208,8 +212,8 @@
         ],
         on_enter: [{ if: { flag: 'seal_broken' }, add: { suspicion: 1 } }],
         choices: [
-          { id: 'tip_off', hotspot: { x: 62, y: 56 }, effects: [{ add: { suspicion: 1 } }], next: 'c1_end_a_tribe' },
-          { id: 'stay_silent', hotspot: { x: 32, y: 70 }, next: 'c1_end_a_silence' },
+          { id: 'tip_off', hotspot: { x: 69, y: 52 }, effects: [{ add: { suspicion: 1 } }], next: 'c1_end_a_tribe' },
+          { id: 'stay_silent', hotspot: { x: 22, y: 70 }, next: 'c1_end_a_silence' },
         ],
         video_asset: null,
         notes: {
@@ -220,19 +224,20 @@
       {
         scene_id: 'c1_a5_chase',
         code: 'A5',
+        image_asset: 'assets/scenes/A5_c1_a5_chase.jpg',
         scene_type: 'interaction',
         text: ['l1', 'l2'],
         timer: { seconds: 8, on_timeout: 'stall' },
         choices: [
           {
-            id: 'stairs', hotspot: { x: 30, y: 66 },
+            id: 'stairs', hotspot: { x: 19, y: 71 },
             effects: [{ set: { escape_route: 'stairs' } }],
             next: [
               { if: { var: 'suspicion', gte: 2 }, goto: 'c1_end_a_fall' },
               { goto: 'c1_end_a_escape' },
             ],
           },
-          { id: 'passage', hotspot: { x: 72, y: 48 }, effects: [{ set: { escape_route: 'passage' } }], next: 'c1_end_a_escape' },
+          { id: 'passage', hotspot: { x: 81, y: 20 }, effects: [{ set: { escape_route: 'passage' } }], next: 'c1_end_a_escape' },
           { id: 'stall', hidden: true, next: 'c1_end_a_fall' },
         ],
         video_asset: null,
@@ -246,12 +251,13 @@
       {
         scene_id: 'c1_a6_second_offer',
         code: 'A6',
+        image_asset: 'assets/scenes/A6_c1_a6_second_offer.jpg',
         scene_type: 'choice',
         text: [say('cico', 'cico'), say('m1', 'man'), say('m2', 'man'), 'l1'],
         timer: { seconds: 10, on_timeout: 'silence' },
         choices: [
-          { id: 'accept', hotspot: { x: 38, y: 58 }, next: 'c1_end_a_desk' },
-          { id: 'refuse', hotspot: { x: 68, y: 72 }, effects: [{ add: { suspicion: 1 } }], next: 'c1_a5_chase' },
+          { id: 'accept', hotspot: { x: 44, y: 54 }, next: 'c1_end_a_desk' },
+          { id: 'refuse', hotspot: { x: 63, y: 71 }, effects: [{ add: { suspicion: 1 } }], next: 'c1_a5_chase' },
           { id: 'silence', hidden: true, effects: [{ set: { hesitated: true } }], next: 'c1_end_a_desk' },
         ],
         video_asset: null,
@@ -266,6 +272,7 @@
       {
         scene_id: 'c1_b1_pharmacy',
         code: 'B1',
+        image_asset: 'assets/scenes/B1_c1_b1_pharmacy.jpg',
         scene_type: 'cinematic',
         text: ['l1', 'l2', intro('kid'), say('kid', 'kid')],
         next: 'c1_b2_kid',
@@ -278,11 +285,12 @@
       {
         scene_id: 'c1_b2_kid',
         code: 'B2',
+        image_asset: 'assets/scenes/B2_c1_b2_kid.jpg',
         scene_type: 'choice',
         text: [say('y1', 'kid'), say('y2', 'kid'), 'photo', msg('chief', 'chief')],
         choices: [
-          { id: 'take_photo', hotspot: { x: 60, y: 46 }, effects: [{ set: { kid_involved: true }, clue: 'matbaa_photo' }], next: 'c1_b3_boulevard' },
-          { id: 'delete_photo', hotspot: { x: 34, y: 68 }, next: 'c1_b3_boulevard' },
+          { id: 'take_photo', hotspot: { x: 49, y: 42 }, effects: [{ set: { kid_involved: true }, clue: 'matbaa_photo' }], next: 'c1_b3_boulevard' },
+          { id: 'delete_photo', hotspot: { x: 17, y: 66 }, next: 'c1_b3_boulevard' },
         ],
         video_asset: null,
         notes: {
@@ -293,13 +301,14 @@
       {
         scene_id: 'c1_b3_boulevard',
         code: 'B3',
+        image_asset: 'assets/scenes/B3_c1_b3_boulevard.jpg',
         scene_type: 'choice',
         text: ['l1', 'l2', say('t1', 'chief'), say('t2', 'chief'), msg('rota', 'rota'), 'l3'],
         on_enter: [{ clue: 'not_accident' }],
         timer: { seconds: 12, on_timeout: 'freeze' },
         choices: [
-          { id: 'stay', hotspot: { x: 36, y: 64 }, effects: [{ set: { chief: 'stayed' } }], next: 'c1_b4_hospital' },
-          { id: 'chase', hotspot: { x: 74, y: 44 }, effects: [{ set: { chief: 'chased' } }], next: 'c1_b5_printhouse' },
+          { id: 'stay', hotspot: { x: 44, y: 52 }, effects: [{ set: { chief: 'stayed' } }], next: 'c1_b4_hospital' },
+          { id: 'chase', hotspot: { x: 79, y: 18 }, effects: [{ set: { chief: 'chased' } }], next: 'c1_b5_printhouse' },
           { id: 'freeze', hidden: true, effects: [{ set: { chief: 'stayed', hesitated: true } }], next: 'c1_b4_hospital' },
         ],
         video_asset: null,
@@ -313,11 +322,12 @@
       {
         scene_id: 'c1_b4_hospital',
         code: 'B4',
+        image_asset: 'assets/scenes/B4_c1_b4_hospital.jpg',
         scene_type: 'choice',
         text: [line('froze', HESITATED), 'l1', msg('rota', 'rota'), say('chief', 'chief'), 'l2'],
         choices: [
-          { id: 'strike', hotspot: { x: 34, y: 56 }, next: 'c1_end_b_strike' },
-          { id: 'press', hotspot: { x: 66, y: 70 }, conditions: { clue: 'matbaa_photo' }, show_locked: true, next: 'c1_end_b_headline' },
+          { id: 'strike', hotspot: { x: 17, y: 54 }, next: 'c1_end_b_strike' },
+          { id: 'press', hotspot: { x: 52, y: 52 }, conditions: { clue: 'matbaa_photo' }, show_locked: true, next: 'c1_end_b_headline' },
         ],
         video_asset: null,
         notes: {
@@ -328,12 +338,13 @@
       {
         scene_id: 'c1_b5_printhouse',
         code: 'B5',
+        image_asset: 'assets/scenes/B5_c1_b5_printhouse.jpg',
         scene_type: 'interaction',
         text: ['l1', 'l2', 'l3'],
         timer: { seconds: 10, on_timeout: 'freeze' },
         choices: [
-          { id: 'enter', hotspot: { x: 52, y: 50 }, next: 'c1_end_b_blackbox' },
-          { id: 'photo_run', hotspot: { x: 28, y: 72 }, next: 'c1_end_b_evidence' },
+          { id: 'enter', hotspot: { x: 52, y: 36 }, next: 'c1_end_b_blackbox' },
+          { id: 'photo_run', hotspot: { x: 16, y: 66 }, next: 'c1_end_b_evidence' },
           { id: 'freeze', hidden: true, effects: [{ set: { hesitated: true } }], next: 'c1_end_b_blackbox' },
         ],
         video_asset: null,
@@ -348,6 +359,7 @@
       {
         scene_id: 'c1_end_a_silence',
         code: 'SA1',
+        image_asset: 'assets/scenes/SA1_c1_end_a_silence.jpg',
         scene_type: 'ending',
         text: ['l1', 'l2', ...RENT, ...NO_MEDICINE, line('@common.system_chose', { flag: 'system_chose' }), ...ROTA_HOOK],
         video_asset: null,
@@ -356,6 +368,7 @@
       {
         scene_id: 'c1_end_a_tribe',
         code: 'SA2',
+        image_asset: 'assets/scenes/SA2_c1_end_a_tribe.jpg',
         scene_type: 'ending',
         text: [
           'l1', 'l2',
@@ -371,6 +384,7 @@
       {
         scene_id: 'c1_end_a_escape',
         code: 'SA3',
+        image_asset: 'assets/scenes/SA3_c1_end_a_escape.jpg',
         scene_type: 'ending',
         text: [
           line('stairs', { var: 'escape_route', eq: 'stairs' }),
@@ -389,6 +403,7 @@
       {
         scene_id: 'c1_end_a_fall',
         code: 'SA4',
+        image_asset: 'assets/scenes/SA4_c1_end_a_fall.jpg',
         scene_type: 'ending',
         text: ['l1', 'l2', 'voice', say('fall_1', 'chief'), say('fall_2', 'chief'), 'l3', 'l4', ...NO_MEDICINE, ...ROTA_HOOK],
         on_enter: [{ clue: 'risk_list' }],
@@ -401,6 +416,7 @@
       {
         scene_id: 'c1_end_a_desk',
         code: 'SA5',
+        image_asset: 'assets/scenes/SA5_c1_end_a_desk.jpg',
         scene_type: 'ending',
         text: [line('silence', HESITATED), 'l1', 'l2', 'l3', 'l4'],
         video_asset: null,
@@ -411,6 +427,7 @@
       {
         scene_id: 'c1_end_b_strike',
         code: 'SB1',
+        image_asset: 'assets/scenes/SB1_c1_end_b_strike.jpg',
         scene_type: 'ending',
         text: ['l1', 'l2', msg('kabile', 'kabile'), ...ROTA_HOOK],
         video_asset: null,
@@ -419,6 +436,7 @@
       {
         scene_id: 'c1_end_b_headline',
         code: 'SB2',
+        image_asset: 'assets/scenes/SB2_c1_end_b_headline.jpg',
         scene_type: 'ending',
         text: ['l1', 'l2', msg('kid', 'kid'), 'l3', ...RENT, ...ROTA_HOOK],
         video_asset: null,
@@ -427,6 +445,7 @@
       {
         scene_id: 'c1_end_b_blackbox',
         code: 'SB3',
+        image_asset: 'assets/scenes/SB3_c1_end_b_blackbox.jpg',
         scene_type: 'ending',
         text: [line('froze', HESITATED), 'l1', 'l2', intro('man'), say('man', 'man')],
         on_enter: [{ clue: 'risk_list' }],
@@ -436,6 +455,7 @@
       {
         scene_id: 'c1_end_b_evidence',
         code: 'SB4',
+        image_asset: 'assets/scenes/SB4_c1_end_b_evidence.jpg',
         scene_type: 'ending',
         text: ['l1', 'l2', 'l3', ...RENT, ...ROTA_HOOK],
         video_asset: null,
