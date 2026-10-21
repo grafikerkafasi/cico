@@ -107,6 +107,10 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .8em; 
   animation: hs-in .6s var(--spring) both; animation-delay: calc(var(--i) * 120ms + 150ms);
 }
 .hs.left { flex-direction: row-reverse; transform: translate(calc(-100% + var(--dot) / 2), -50%); }
+.hs.below { flex-direction: column; transform: translate(-50%, calc(var(--dot) / -2)); }
+.hs.above { flex-direction: column-reverse; transform: translate(-50%, calc(-100% + var(--dot) / 2)); }
+.hs.below .hs-line, .hs.above .hs-line { width: 1px; height: 10px; background: linear-gradient(180deg, rgba(160,240,205,.7), rgba(255,255,255,.25)); }
+.hs.below .hs-chip, .hs.above .hs-chip { text-align: center; }
 @keyframes hs-in { from { opacity: 0; scale: .75; } to { opacity: 1; scale: 1; } }
 .hs-dot { position: relative; flex: none; width: var(--dot); height: var(--dot); display: grid; place-items: center; }
 .hs-dot::after { content: ""; position: absolute; inset: -4px; } /* dokunma alanı ≥ 44pt */

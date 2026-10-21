@@ -391,7 +391,7 @@
     const lockSvg = '<svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path d="M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>';
     layer.innerHTML = list.map((c, i) => {
       const h = c.hotspot || DEFAULT_SPOTS[i % DEFAULT_SPOTS.length];
-      const side = h.x > 55 ? 'left' : 'right';
+      const side = h.side || (h.x > 55 ? 'left' : 'right');
       const pos = `left:${h.x}%;top:${h.y}%;--i:${i}`;
       if (c.locked) {
         return `<div class="hs locked ${side}" style="${pos}" aria-disabled="true">
@@ -409,13 +409,19 @@
     layer.querySelectorAll('[data-choice]').forEach((b) => {
       b.onclick = () => { b.classList.add('picked'); act('choose', b.dataset.choice); };
     });
-    // Etiket görselin kenarından taşıyorsa noktanın öbür tarafına al
+    // Etiket görselin kenarından taşıyorsa: yan etiketleri öbür tarafa al, alt/üst etiketleri içeri kaydır
     const fr = $('#frame').getBoundingClientRect();
     layer.querySelectorAll('.hs').forEach((el) => {
       const r = el.getBoundingClientRect();
       if (!r.width) return;
-      if (r.left < fr.left + 4 && el.classList.contains('left')) el.classList.replace('left', 'right');
-      else if (r.right > fr.right - 4 && el.classList.contains('right')) el.classList.replace('right', 'left');
+      if (el.classList.contains('left') && r.left < fr.left + 4) el.classList.replace('left', 'right');
+      else if (el.classList.contains('right') && r.right > fr.right - 4) el.classList.replace('right', 'left');
+      if (el.classList.contains('above') || el.classList.contains('below')) {
+        const chip = el.querySelector('.hs-chip');
+        const c = chip.getBoundingClientRect();
+        const shift = c.right > fr.right - 6 ? fr.right - 6 - c.right : c.left < fr.left + 6 ? fr.left + 6 - c.left : 0;
+        if (shift) chip.style.transform = `translateX(${shift}px)`;
+      }
     });
     if (ui.timer) {
       $('#timer-fill').style.transform = `scaleX(${Math.max(0, ui.timer.left / ui.timer.total)})`;

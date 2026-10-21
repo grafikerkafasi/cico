@@ -39,6 +39,8 @@
  *                 metin olarak sürer). Yüklenene kadar image_asset altta görünür.
  *   hotspot     : { x, y } — seçeneğin görsel ÜZERİNDEKİ yeri, görselin yüzdesi (0–100) cinsinden.
  *                 Değerler assets/scenes/ içindeki görsellere göre ayarlandı; görsel değişirse güncellenmeli.
+ *                 İsteğe bağlı side: 'left' | 'right' | 'above' | 'below' — etiketin noktaya göre yeri
+ *                 (yoksa otomatik: nokta sağ yarıdaysa sola, sol yarıdaysa sağa).
  *                 Geliştirici menüsündeki "Koordinat seçici" görsele dokununca x/y yüzdesini gösterir.
  *
  * Koşul dili:  { flag: 'x' } | { clue: 'id' } | { visited: 'scene_id' }
@@ -127,8 +129,8 @@
         text: [intro('rota'), 'l1', 'l2'],
         timer: { seconds: 15, on_timeout: 'timeout' },
         choices: [
-          { id: 'envelope', hotspot: { x: 52, y: 46 }, effects: [{ set: { route: 'envelope' } }], next: 'c1_a1_printhouse' },
-          { id: 'medicine', hotspot: { x: 80, y: 48 }, effects: [{ set: { route: 'medicine' }, add: { earnings: 85 } }], next: 'c1_b1_pharmacy' },
+          { id: 'envelope', hotspot: { x: 52, y: 46, side: 'left' }, effects: [{ set: { route: 'envelope' } }], next: 'c1_a1_printhouse' },
+          { id: 'medicine', hotspot: { x: 80, y: 48, side: 'below' }, effects: [{ set: { route: 'medicine' }, add: { earnings: 85 } }], next: 'c1_b1_pharmacy' },
           { id: 'timeout', hidden: true, effects: [{ set: { route: 'envelope', system_chose: true } }], next: 'c1_a1_printhouse' },
         ],
         image_asset: 'assets/scenes/O2_c1_s02_orders.jpg',
@@ -327,7 +329,7 @@
         text: [line('froze', HESITATED), 'l1', msg('rota', 'rota'), say('chief', 'chief'), 'l2'],
         choices: [
           { id: 'strike', hotspot: { x: 17, y: 54 }, next: 'c1_end_b_strike' },
-          { id: 'press', hotspot: { x: 52, y: 52 }, conditions: { clue: 'matbaa_photo' }, show_locked: true, next: 'c1_end_b_headline' },
+          { id: 'press', hotspot: { x: 52, y: 52, side: 'below' }, conditions: { clue: 'matbaa_photo' }, show_locked: true, next: 'c1_end_b_headline' },
         ],
         video_asset: null,
         notes: {
