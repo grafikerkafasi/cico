@@ -296,7 +296,8 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .8em; 
 .title-mid { text-align: center; }
 .logo { margin: 0; font: 900 64px/1 var(--sys-display); letter-spacing: .2em; }
 .logo-img { display: block; width: min(92vw, 520px); height: auto; margin: 0 auto; filter: drop-shadow(0 10px 40px rgba(255,140,60,.25)); animation: logo-in 1.2s var(--spring) both, float 6s 1.2s ease-in-out infinite; }
-@keyframes logo-in { from { opacity: 0; transform: scale(.9) translateY(10px); filter: blur(6px); } to { opacity: 1; transform: none; } }
+/* Not: filter'ı burada canlandırmayın — iOS Safari blur → drop-shadow geçişinde logoyu bulanık bırakıyor. */
+@keyframes logo-in { from { opacity: 0; transform: scale(.92) translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes float { 50% { transform: translateY(-6px); } }
 .subtitle { margin-top: 4px; font: 600 13px/1 var(--sys); letter-spacing: .22em; text-transform: uppercase; color: var(--amber); }
 .title-bottom { display: flex; flex-direction: column; gap: 12px; }
