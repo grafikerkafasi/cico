@@ -116,3 +116,16 @@ test('oyuncuya görünen metinde karışıklık yaratan isimler yok (yalnızca C
   const all = JSON.stringify(locales.tr) + JSON.stringify(locales.en);
   for (const name of ['Yusuf', 'Tayfun']) assert.ok(!all.includes(name), name);
 });
+
+test('akış şemasında bütün sonlar aynı (son) sütunda; sayaç 9 son gösterir', () => {
+  const { layout, render } = require('../src/ui/flowchart.js');
+  const L = layout(story);
+  const endings = story.scenes.filter((s) => s.scene_type === 'ending').map((s) => L.nodes.get(s.scene_id).x);
+  const maxX = Math.max(...[...L.nodes.values()].map((n) => n.x));
+  assert.ok(endings.every((x) => x === maxX), 'sonlar farklı sütunlarda');
+  const t = (k) => k;
+  const fc = render(story, { t, now: { scenes: new Set(['c1_end_b_strike']), edges: new Set() }, past: { scenes: new Set(), edges: new Set() }, current: 'c1_end_b_strike' });
+  assert.equal(fc.endingsTotal, 9);
+  assert.equal(fc.endingsFound, 1);
+  assert.ok(fc.svg.includes('ui.unknown_ending'));
+});

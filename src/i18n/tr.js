@@ -47,6 +47,8 @@
       play_again: 'Tekrar oyna',
       explored: 'Keşfedilen: %{p}',
       unknown_node: '???',
+      unknown_ending: 'Son ?',
+      stat_endings: 'Sonlar',
       reset_discovery: 'Keşif kaydını sil',
       flow_legend_now: 'Bu oyun',
       flow_legend_past: 'Önceki oyunlar',

@@ -31,6 +31,9 @@
     const topo = (id) => { if (seen.has(id)) return; seen.add(id); (out.get(id) || []).forEach(topo); order.unshift(id); };
     topo(story.start);
     for (const id of order) for (const n of out.get(id) || []) depth.set(n, Math.max(depth.get(n) || 0, depth.get(id) + 1));
+    // Bütün sonlar en sağdaki tek sütunda: kaç son olduğu bir bakışta görülsün
+    const maxDepth = Math.max(...depth.values());
+    story.scenes.filter((s) => s.scene_type === 'ending').forEach((s) => depth.set(s.scene_id, maxDepth));
 
     const cols = [];
     story.scenes.forEach((s) => {
@@ -65,7 +68,7 @@
     }
     for (const n of L.nodes.values()) {
       const cls = opts.now.scenes.has(n.id) ? 'now' : opts.past.scenes.has(n.id) ? 'past' : 'unknown';
-      const label = known(n.id) ? opts.t(`scenes.${n.id}.title`) : opts.t('ui.unknown_node');
+      const label = known(n.id) ? opts.t(`scenes.${n.id}.title`) : opts.t(n.type === 'ending' ? 'ui.unknown_ending' : 'ui.unknown_node');
       const cur = n.id === opts.current ? ' current' : '';
       svg += `<g class="node ${cls} ${n.type}${cur}" transform="translate(${n.x},${n.y})"><title>${esc(known(n.id) ? n.id : '?')}</title>`;
       svg += `<rect width="${W}" height="${H}" rx="${n.type === 'ending' ? 4 : 10}"/>`;
@@ -76,7 +79,13 @@
     svg += '</svg>';
     const total = story.scenes.length;
     const found = story.scenes.filter((s) => known(s.scene_id)).length;
-    return { svg, completion: Math.round((found / total) * 100) };
+    const endings = story.scenes.filter((s) => s.scene_type === 'ending');
+    return {
+      svg,
+      completion: Math.round((found / total) * 100),
+      endingsFound: endings.filter((s) => known(s.scene_id)).length,
+      endingsTotal: endings.length,
+    };
   }
 
   const api = { layout, render };

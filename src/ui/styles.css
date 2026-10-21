@@ -405,7 +405,10 @@ h4 { font: 700 11px/1 var(--sys); letter-spacing: .2em; text-transform: uppercas
 .flow .node text.id { font-size: 8.5px; fill: var(--amber); opacity: .7; font-family: ui-monospace, monospace; }
 .flow .node.past rect { stroke: var(--violet); } .flow .node.past text { fill: var(--ink); }
 .flow .node.now rect { stroke: var(--green-hi); fill: #10241c; } .flow .node.now text { fill: var(--ink); }
-.flow .node.ending rect { stroke-width: 2; }
+.flow .node.ending rect { stroke-width: 2; stroke: rgba(255,181,71,.55); fill: #1a1408; }
+.flow .node.ending.unknown rect { stroke-dasharray: 4 3; }
+.flow .node.ending.unknown text { fill: rgba(255,181,71,.7); }
+.flow .node.ending.now rect { stroke: var(--amber); fill: #2a1d08; }
 .flow .node.current rect { stroke: var(--amber); stroke-width: 2.4; }
 .legend { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--ink-3); }
 .lg { width: 14px; height: 3px; display: inline-block; margin-left: 8px; }

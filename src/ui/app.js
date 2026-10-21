@@ -496,14 +496,16 @@
           <h2>${esc(t(`scenes.${s.scene_id}.title`))}</h2>
           <div class="stat-row">
             <div class="stat"><b>${esc(game.state.vars.earnings.toLocaleString(settings.lang))} ₺</b><span>${esc(t('ui.stat_earnings'))}</span></div>
-            <div class="stat"><b>%${fc.completion}</b><span>${esc(t('ui.stat_explored'))}</span></div>
+            <div class="stat"><b>${fc.endingsFound}/${fc.endingsTotal}</b><span>${esc(t('ui.stat_endings'))}</span></div>
           </div>
+          <div class="explored">${esc(t('ui.explored', { p: fc.completion }))}</div>
           <h4>${esc(t('ui.choices_made'))}</h4>
           ${decisionsHtml()}
           <div class="flow-wrap">${fc.svg}</div>
         </div>
         <div class="screen-bottom"><button class="cta" id="btn-memorial">${esc(t('ui.continue'))}</button></div>`;
       $('#btn-memorial').onclick = () => { ui.screen = 'memorial'; render(); };
+      scrollFlowToCurrent(el);
       return;
     }
 
@@ -518,6 +520,17 @@
         <div class="screen-bottom"><button class="cta" id="btn-again">${esc(t('ui.play_again'))}</button></div>`;
       $('#btn-again').onclick = startGame;
     }
+  }
+
+  // Akış şeması dar ekranda yatay kayar: açılırken bulunulan düğümü (ya da sonu) görünür yap
+  function scrollFlowToCurrent(root) {
+    root.querySelectorAll('.flow-wrap').forEach((wrap) => {
+      const cur = wrap.querySelector('.node.current');
+      if (!cur) return;
+      const box = cur.getBoundingClientRect(), w = wrap.getBoundingClientRect();
+      wrap.scrollLeft += box.left - w.left - (w.width - box.width) / 2;
+      wrap.scrollTop += box.top - w.top - (w.height - box.height) / 2;
+    });
   }
 
   function toggleRow(id, label, on) {
@@ -566,13 +579,14 @@
     if (ui.pause === 'flow') {
       const fc = flowchart.render(story, flowOpts(false));
       body = `<div class="legend"><span class="lg now"></span>${esc(t('ui.flow_legend_now'))}<span class="lg past"></span>${esc(t('ui.flow_legend_past'))}<span class="lg unknown"></span>${esc(t('ui.flow_legend_unknown'))}</div>
-        <div class="flow-wrap">${fc.svg}</div><div class="explored">${esc(t('ui.explored', { p: fc.completion }))}</div>
+        <div class="flow-wrap">${fc.svg}</div><div class="explored">${esc(t('ui.explored', { p: fc.completion }))} · ${esc(t('ui.stat_endings'))} ${fc.endingsFound}/${fc.endingsTotal}</div>
         <button class="pill" id="btn-reset-disc">${esc(t('ui.reset_discovery'))}</button>`;
     }
 
     if (ui.pause === 'dev') body = devHtml();
 
     p.innerHTML = `<div class="pause-inner">${head}<div class="pause-body">${body}</div></div>`;
+    scrollFlowToCurrent(p);
     const on = (id, fn, ev = 'onclick') => { const el = document.getElementById(id); if (el) el[ev] = fn; };
     on('p-resume', () => { ui.pause = null; render(); });
     on('p-back', () => { ui.pause = 'menu'; render(); });

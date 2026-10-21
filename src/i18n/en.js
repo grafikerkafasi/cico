@@ -46,6 +46,8 @@
       play_again: 'Play again',
       explored: 'Explored: {p}%',
       unknown_node: '???',
+      unknown_ending: 'Ending ?',
+      stat_endings: 'Endings',
       reset_discovery: 'Clear discovery record',
       flow_legend_now: 'This run',
       flow_legend_past: 'Previous runs',
