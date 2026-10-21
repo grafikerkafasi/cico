@@ -58,14 +58,14 @@ function sceneSection(s) {
   const shot = SHOTS[s.code];
   if (!shot) throw new Error(`production/shots.js: ${s.code} eksik`);
   const loc = LOCATIONS[shot.location];
-  const before = [...prev.get(s.scene_id)].map((id) => `**${code(id)}** ${title(id)}`);
-  const next = sceneEdges(s).map((e) => e.to).filter((v, i, a) => a.indexOf(v) === i).map((id) => `**${code(id)}** ${title(id)}`);
+  const before = [...prev.get(s.scene_id)].map((id) => `**${code(id)}** ${title(id)} (\`${id}\`)`);
+  const next = sceneEdges(s).map((e) => e.to).filter((v, i, a) => a.indexOf(v) === i).map((id) => `**${code(id)}** ${title(id)} (\`${id}\`)`);
   const castLines = shot.cast.map((k) => `[${CHARACTERS[k].name}]`).join(' + ');
   const imagePrompt = [
     `[STYLE] ${STYLE.look} ${STYLE.frame}`,
     `[LOCATION: ${loc.name}] ${loc.prompt}`,
     ...shot.cast.map((k) => `[CHARACTER] ${CHARACTERS[k].prompt}`),
-    `[SCENE ${s.code}] ${shot.image}`,
+    `[SCENE ${s.code} · ${s.scene_id}] ${shot.image}`,
     shot.spots ? `[MUST BE CLEARLY VISIBLE] ${Object.entries(shot.spots).map(([id, obj]) => {
       const c = s.choices.find((x) => x.id === id);
       return `${obj} at about ${c.hotspot.x}% from the left and ${c.hotspot.y}% from the top`;
@@ -76,10 +76,11 @@ function sceneSection(s) {
 
   return `---
 
-## ${s.code} · ${title(s.scene_id)}
+## ${s.code} · ${title(s.scene_id)} · \`${s.scene_id}\`
 
 | | |
 |---|---|
+| Kod / scene_id | **${s.code}** · \`${s.scene_id}\` |
 | Tür | ${{ cinematic: 'Sinematik (seçimsiz)', choice: 'Karar', interaction: 'Aksiyon (süreli)', ending: 'Son' }[s.scene_type]}${s.timer ? ` · ⏱ ${s.timer.seconds} sn` : ''} |
 | Önceki sahne | ${before.length ? before.join(', ') : '— (oyunun başı)'} |
 | Sonraki sahne | ${next.length ? next.join(', ') : '— (bölüm sonu)'} |
@@ -120,7 +121,7 @@ function build() {
     const used = order.filter((s) => SHOTS[s.code] && SHOTS[s.code].location === k).map((s) => s.code).join(', ');
     return `### ${l.name}\n\n*Kullanıldığı sahneler:* ${used}${l.ref ? `\n\n*Referans:* ${l.ref}` : ''}\n\n\`\`\`text\n${l.prompt}\n\`\`\``;
   }).join('\n\n');
-  const index = order.map((s) => `| **${s.code}** | ${title(s.scene_id)} | ${[...prev.get(s.scene_id)].map(code).join(', ') || '—'} | ${LOCATIONS[SHOTS[s.code].location].name} |`).join('\n');
+  const index = order.map((s) => `| **${s.code}** | \`${s.scene_id}\` | ${title(s.scene_id)} | ${[...prev.get(s.scene_id)].map(code).join(', ') || '—'} | ${LOCATIONS[SHOTS[s.code].location].name} |`).join('\n');
 
   return `# CİCO · Bölüm 1 "Gece Vardiyası" — Görsel ve Video Üretim Rehberi
 
@@ -129,7 +130,7 @@ function build() {
 ## Nasıl kullanılır
 
 1. **ChatGPT'de yeni bir sohbet aç**, bu dosyayı yükle ve aşağıdaki talimatı ilk mesaj olarak yapıştır. Karakter ve scooter referans sayfalarını da ekle.
-2. Sonra yalnızca kodu yaz: **"O1"**, **"A3"**, **"SB2"**… ChatGPT o sahnenin görselini üretir.
+2. Sonra yalnızca kodu yaz: **"O1"**, **"A3"**, **"SB2"**… ChatGPT o sahnenin görselini üretir. Kısa kod ile oyundaki \`scene_id\` (ör. A3 = \`c1_a3_tower\`) aynı sahnedir; ikisini de kullanabilirsin.
 3. Görseli **kodla adlandırarak** indir (ör. \`A3.png\`).
 4. **Google Flow**'da "görselden videoya" (Frames to Video) seç, en-boy oranını **dikey 9:16** yap, görseli başlangıç karesi olarak yükle ve sahnenin **video promptunu** yapıştır. Döngü sahnelerinde, destekleniyorsa aynı görseli bitiş karesi olarak da ver.
 5. Videoyu da kodla adlandır (\`A3.mp4\`) ve görselle birlikte bana gönder; oyuna ben eklerim.
@@ -142,7 +143,7 @@ function build() {
 You are the production artist for "CİCO", a mobile interactive story game set in night-time Istanbul.
 The attached markdown file is the production bible. It contains a global style, character sheets, location sheets and one section per scene, each identified by a short code (O1, O2, A1…A6, B1…B5, SA1…SA5, SB1…SB4).
 
-When I send you a scene code:
+When I send you a scene code (or its scene_id, e.g. "A3" or "c1_a3_tower" — both name the same scene):
 1. Find that scene's section and generate exactly ONE image in a vertical 9:16 portrait frame, using its "Görsel promptu" block.
 2. Keep every character IDENTICAL to the character sheets and to the images you already created in this chat (face, outfit, colours, the "26" badge on Cico's LEFT shoulder, the half-open helmet, the green scooter with plate 34 AEA 8430 and no logos).
 3. Keep visual continuity with the scene listed as "Önceki sahne" if you created it in this chat: same lighting, weather, wardrobe state, props.
@@ -177,8 +178,8 @@ ${locs}
 
 ## Sahne dizini
 
-| Kod | Sahne | Önceki | Mekân |
-|---|---|---|---|
+| Kod | scene_id | Sahne | Önceki | Mekân |
+|---|---|---|---|---|
 ${index}
 
 ${order.map(sceneSection).join('\n')}
