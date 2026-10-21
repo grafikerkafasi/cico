@@ -11,6 +11,7 @@
     "test": "node --test tests/",
     "validate": "node tools/validate.js",
     "flow": "node tools/gen-flow.js",
-    "artifact": "node tools/build-artifact.js"
+    "artifact": "node tools/build-artifact.js",
+    "bible": "node tools/gen-bible.js"
   }
 }

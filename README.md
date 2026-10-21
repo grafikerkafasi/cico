@@ -100,6 +100,7 @@ Dallanma sistemine dokunmak gerekmez.
 - [docs/choice-design.md](docs/choice-design.md): Detroit referans araştırması, merak kuralları, her seçim düğümü, değişkenler
 - [docs/visual-continuity.md](docs/visual-continuity.md): Aslan ve scooter sabitleri, AI prompt bloğu
 - [docs/video-pipeline.md](docs/video-pipeline.md): video formatı ve entegrasyon
+- [docs/uretim-rehberi.md](docs/uretim-rehberi.md): ChatGPT (görsel) ve Google Flow (video) için sahne koduna göre üretim rehberi (`npm run bible`)
 - [docs/epilogue-voiceover.md](docs/epilogue-voiceover.md): oyun sonu metni, seslendirme senaryosu ve kayıt listesi
 
 ---

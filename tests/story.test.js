@@ -129,3 +129,16 @@ test('akış şemasında bütün sonlar aynı (son) sütunda; sayaç 9 son göst
   assert.equal(fc.endingsFound, 1);
   assert.ok(fc.svg.includes('ui.unknown_ending'));
 });
+
+test('üretim rehberi: her sahnenin çekim tanımı ve her seçim noktasının nesnesi var; dosya güncel', () => {
+  const { SHOTS, LOCATIONS, CHARACTERS } = require('../production/shots.js');
+  for (const s of story.scenes) {
+    const shot = SHOTS[s.code];
+    assert.ok(shot, `${s.code} çekim tanımı yok`);
+    assert.ok(LOCATIONS[shot.location], `${s.code}: bilinmeyen mekân`);
+    shot.cast.forEach((c) => assert.ok(CHARACTERS[c], `${s.code}: bilinmeyen karakter ${c}`));
+    for (const c of (s.choices || []).filter((x) => !x.hidden)) assert.ok(shot.spots && shot.spots[c.id], `${s.code}.${c.id}: seçim noktası nesnesi yok`);
+  }
+  const { build, FILE } = require('../tools/gen-bible.js');
+  assert.equal(require('fs').readFileSync(FILE, 'utf8'), build(), 'npm run bible');
+});
