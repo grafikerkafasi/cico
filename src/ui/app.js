@@ -538,6 +538,16 @@
       return;
     }
 
+    // Son düğme: ne kadarının açıldığını söyler, alternatif sonlara davet eder
+    function againButton() {
+      const fc = flowchart.render(story, flowOpts(false));
+      const all = fc.endingsFound >= fc.endingsTotal;
+      return `<button class="cta cta-again" id="btn-again">
+        <span class="cta-main">${esc(t(all ? 'ui.play_again_all' : 'ui.play_again_alt'))}</span>
+        <span class="cta-sub">${esc(t('ui.story_unlocked', { p: fc.completion }))} · ${esc(t('ui.stat_endings'))} ${fc.endingsFound}/${fc.endingsTotal}</span>
+      </button>`;
+    }
+
     if (ui.screen === 'memorial') {
       el.innerHTML = `
         <div class="memorial">
@@ -546,7 +556,7 @@
           <p class="road">${esc(t('ui.road'))}</p>
           <p class="support">${esc(t('ui.support'))}</p>
         </div>
-        <div class="screen-bottom"><button class="cta" id="btn-again">${esc(t('ui.play_again'))}</button></div>`;
+        <div class="screen-bottom">${againButton()}</div>`;
       $('#btn-again').onclick = startGame;
     }
   }
