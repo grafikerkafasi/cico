@@ -62,7 +62,12 @@ Motor DOM'dan bağımsız olduğu için ileride bir oyun motoruna (ör. Unity/Go
 - Seçenekler altta buton değil, görselin üzerindeki noktalardır: her seçenekte `hotspot: { x, y }` (görselin yüzdesi, 0–100). Şu an **geçici** değerler var.
 - Koordinat bulmak için: Duraklat → Geliştirici → **Koordinat seçici**. Açıkken görsele dokununca `hotspot: { x, y }` değeri ekranda görünür (ve konsola yazılır).
 
-## Telefonda oynanan link
+## Herkese açık oyun linki
+
+**https://grafikerkafasi.github.io/cico/** — giriş gerektirmez, telefonda doğrudan açılır (GitHub Pages, `grafikerkafasi/cico` deposu).
+Güncellerken `index.html` içindeki `?v=` sürüm ekini yenileyin; aksi hâlde tarayıcılar eski dosyaları önbellekten okuyabilir.
+
+## Claude üzerinden paylaşılan link
 
 `npm run artifact -- <klasör>` paylaşılabilir sayfayı üretir; claude.ai Artifact olarak yayınlanır. Dosya listesi `files.json` içindedir.
 

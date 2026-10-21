@@ -247,6 +247,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .8em; 
   display: flex; flex-direction: column; align-items: stretch; gap: 12px;
   pointer-events: none;
 }
+.bottom > * { width: min(100%, 520px); align-self: center; }
 .caption { min-height: 1px; text-align: center; padding: 0 4px; }
 .cap { animation: rise .4s var(--ease-out) both; text-shadow: 0 2px 14px rgba(0,0,0,.9), 0 0 2px rgba(0,0,0,.95); }
 .cap-text { font: 500 clamp(19px, 5.4vw, 23px)/1.36 var(--sys-display); letter-spacing: -.01em; text-wrap: balance; }
