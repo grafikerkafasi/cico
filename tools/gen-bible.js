@@ -90,6 +90,10 @@ function sceneSection(s) {
 | Dosya adı | \`${s.code}.png\` (görsel) · \`${s.code}.mp4\` (video)${shot.loop ? ' · döngü' : ''} |
 | Mevcut | ${s.ambient_video ? 'görsel ✓ · video ✓' : s.image_asset ? 'görsel ✓' : 'henüz yok'} |
 
+**Sahnenin işlevi:** ${(s.notes && s.notes.dev) || '—'}
+
+**Yönetmen notu (görsel / video):** ${(s.notes && s.notes.video) || '—'}
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 ${screenText(s)}

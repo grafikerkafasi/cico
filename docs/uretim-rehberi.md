@@ -261,6 +261,10 @@ Inside the old print shop: abandoned printing presses pushed aside, a row of glo
 | Dosya adı | `O1.png` (görsel) · `O1.mp4` (video) · döngü |
 | Mevcut | görsel ✓ · video ✓ |
 
+**Sahnenin işlevi:** Soğuk açılış: Nevizade Sokağı. Kira açığı (1.400 ₺) ve Kabile grubu burada ekilir.
+
+**Yönetmen notu (görsel / video):** Nevizade Sokağı, gece, sis, meyhane ışıkları, kahkaha ve müzik. Cico scooter'ına yaslanmış, kollar kavuşturulmuş. Yüze yakın plan, gözler kısılır. Telefon titrer. Ekranda yazı YOK.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Nevizade Sokağı. Gece yarısına az var.
@@ -311,6 +315,10 @@ Slow push-in towards Cico's face. Neon flickers, fog drifts, distant silhouettes
 | Zaman / ışık | O1 ile aynı an |
 | Dosya adı | `O2.png` (görsel) · `O2.mp4` (video) · döngü |
 | Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** İLK KRİTİK SEÇİM — hikâye burada iki katmana ayrılır ve birleşmez. Zaman aşımı → ROTA paketi atar (Katman A).
+
+**Yönetmen notu (görsel / video):** Telefona bakan Cico, omuz üstü; ekran içeriği görünmez. Bekleme döngüsü: ekrana bakış, nefes.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -365,6 +373,10 @@ Locked-off shot, almost still: phone glow pulses on Cico's face, his thumb hover
 | Dosya adı | `A1.png` (görsel) · `A1.mp4` (video) · döngü |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** Merak vs. güvenlik. Açmak bilgi verir (teklifte üçüncü seçeneği açar) ama iz bırakır (şüphe +1).
+
+**Yönetmen notu (görsel / video):** Tarlabaşı, tabelası sökülmüş matbaa kapısı, eldivenli el, bantlı paket yakın plan. Bandın kalkmış köşesi.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Tarlabaşı. Tabelası sökülmüş eski bir matbaa.
@@ -418,6 +430,10 @@ Slight handheld feel: the door slams shut, Cico looks down at the package, his t
 | Dosya adı | `A2.png` (görsel) · `A2.mp4` (video) |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** Seçimsiz, nefes alan sahne. Öğretmenliğe tek ince dokunuş.
+
+**Yönetmen notu (görsel / video):** AĞIR ÇEKİM. Scooter "fıtı fıtı" yavaşlar. Okul parmaklıkları, ters sandalyeler. Kısa, sessiz bir an; müzik sade.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Cico gazı bırakıyor. Scooter fıtı fıtı ilerliyor.
@@ -467,6 +483,10 @@ SLOW MOTION tracking shot alongside Cico as the scooter rolls past the railings 
 | Zaman / ışık | Gece yarısı |
 | Dosya adı | `A3.png` (görsel) · `A3.mp4` (video) · döngü |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** Ana gizem ve teklif: adam ROTA'nın içinden biri ("Kurye 2608"). Paket açıldıysa üçüncü seçenek açılır, adam bandı fark eder.
+
+**Yönetmen notu (görsel / video):** Galata Kulesi'nin dibi, boş meydan, gece. Kulenin gölgesinde uzun paltolu adam. Bekleme döngüsü: uzanan el, arkada farlar.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -528,6 +548,10 @@ Slow dolly-in on the outstretched gloved hand; the black car's headlights flick 
 | Dosya adı | `A4.png` (görsel) · `A4.mp4` (video) · döngü |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** Suç ortaklığından sonra vicdan: Kabile'yi uyarmak mı, susmak mı.
+
+**Yönetmen notu (görsel / video):** Galata'da bir çatı, şehir ışıkları, Cico'nun silueti. Telefon ışığı yüzünde.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı (koşullu):* Para hesaba düşüyor. Adam karanlığa karışıyor.
@@ -584,6 +608,10 @@ Very slow orbit around Cico; city lights twinkle, courier headlights crawl along
 | Dosya adı | `A5.png` (görsel) · `A5.mp4` (video) · döngü |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** Basamaklar: şüphe ≥ 2 ise düşer. Pasaj: güvenli ama plaka görülür. Başarısızlık ayrı bir sona (Düşüş) gider.
+
+**Yönetmen notu (görsel / video):** Galata yokuşları, scooter kalkışı, siyah araba. İki kısa sonuç çekimi: Yüksek Kaldırım basamakları, pasaj.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Motor ilk denemede çalışıyor. Demir kafesin kapıları açılıyor.
@@ -637,6 +665,10 @@ Fast handheld energy: scooter engine revs, headlights sweep across the walls, ca
 | Zaman / ışık | A3 ile aynı an |
 | Dosya adı | `A6.png` (görsel) · `A6.mp4` (video) |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** Katman A'nın en ağır ikilemi: sokaktan kurtuluş (maaş, sigorta) karşılığında kayıtları gömmek.
+
+**Yönetmen notu (görsel / video):** Kulenin dibinde iki kişilik yakın plan. Şehir sesi kesilir.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -692,6 +724,10 @@ Slow push-in between the two faces; all background motion slows down and sound f
 | Dosya adı | `B1.png` (görsel) · `B1.mp4` (video) |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** Karakter sahnesi. Paket talebi Kabile Şefi'ye düşer; Katman B'nin olayı onun başına gelecek.
+
+**Yönetmen notu (görsel / video):** Nöbetçi eczane ışığı; Dolapdere'de dökük merdivenler; kapıda mendilci çocuk.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Paket talebi Kabile Şefi'ne düştü.
@@ -741,6 +777,10 @@ Gentle handheld: the door creaks open, the kid's face lights up ("Hocam?"), Cico
 | Zaman / ışık | B1 ile aynı an |
 | Dosya adı | `B2.png` (görsel) · `B2.mp4` (video) · döngü |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** Kanıt vs. bir çocuğu korumak. Fotoğraf hastanede "gazeteci" seçeneğini açar; ama mendilci çocuk'u riske atar.
+
+**Yönetmen notu (görsel / video):** Kapı eşiği, alçak sesle konuşma. Fotoğraf UI kartında, videoda okunmaz.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -795,6 +835,10 @@ Quiet close shot, the kid glances down the stairwell nervously, phone glow on bo
 | Zaman / ışık | Gece yarısından sonra |
 | Dosya adı | `B3.png` (görsel) · `B3.mp4` (video) · döngü |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** Katman B'nin kırılma noktası: bir dostu yerde bırakmamak mı, onu yere sereni kovalamak mı.
+
+**Yönetmen notu (görsel / video):** Tarlabaşı Bulvarı, gece. Yerde yeşil teslimat çantası, devrik scooter. Kabile Şefi oturur hâlde, kask çatlak (kan yok). Uzaklaşan siyah araba.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -854,6 +898,10 @@ Handheld, tense: the tail lights disappear into the side street, distant ambulan
 | Dosya adı | `B4.png` (görsel) · `B4.mp4` (video) |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** Dayanışma mı, kanıt mı. Gazeteci seçeneği yalnızca mendilci çocuk'un fotoğrafı alındıysa açılır.
+
+**Yönetmen notu (görsel / video):** Taksim İlk Yardım koridoru, sabaha karşı. Koridorda birikmiş kuryeler, kasklar kucakta.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı (koşullu):* Cico donup kaldı. Ambulans geldiğinde araba çoktan gitmişti.
@@ -910,6 +958,10 @@ Slow lateral dolly along the corridor past tired couriers; fluorescent light fli
 | Dosya adı | `B5.png` (görsel) · `B5.mp4` (video) · döngü |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** Katman A'nın başladığı matbaa, burada ROTA'nın gizli merkezi olarak geri döner (mekân tekrar kullanımı + iki katmanın aynası).
+
+**Yönetmen notu (görsel / video):** c1_a1_printhouse ile aynı matbaa, bu kez camın ardından içerisi: ekranlarda yeşil noktalar (yazısız harita).
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Araba, tabelası sökülmüş eski bir matbaanın önünde duruyor.
@@ -963,6 +1015,10 @@ Slow creeping push-in towards the ajar door; monitor glow flickers in the baseme
 | Dosya adı | `SA1.png` (görsel) · `SA1.mp4` (video) |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** A son: Sessizlik.
+
+**Yönetmen notu (görsel / video):** Sabah kahvehane, televizyon (ekran içeriği okunmaz). c1_end_a_tribe ile aynı mekân.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Sabah. Kahvehanede televizyon açık.
@@ -1015,6 +1071,10 @@ Static shot, steam rises from the tea, the TV glow changes, Cico does not move. 
 | Zaman / ışık | Sabah |
 | Dosya adı | `SA2.png` (görsel) · `SA2.mp4` (video) |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** A son: Kabile.
+
+**Yönetmen notu (görsel / video):** Kahvehane (c1_end_a_silence ile ortak mekân), titreyen telefonlar.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -1070,6 +1130,10 @@ Phones buzz and light up one after another across the tables; Cico looks around.
 | Zaman / ışık | Şafak |
 | Dosya adı | `SA3.png` (görsel) · `SA3.mp4` (video) |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** A son: Paket Bende.
+
+**Yönetmen notu (görsel / video):** Şafak, Karaköy, kapalı balıkçı tentesi, paket kucakta.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -1127,6 +1191,10 @@ Slow push-in, seagulls cross the frame, he looks down at the package. Ambient: w
 | Zaman / ışık | Gece |
 | Dosya adı | `SA4.png` (görsel) · `SA4.mp4` (video) |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** A son: Düşüş. Başarısızlık en büyük ipucunu verir: ROTA'nın risk listesi (ilk seçimde ROTA'nın neden onu seçtiğini açıklar).
+
+**Yönetmen notu (görsel / video):** Islak basamaklar, kayma (şiddet gösterilmez, kesme ile). Yerde kâğıt; içerik UI kartında.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -1186,6 +1254,10 @@ Quiet after the fall: rain on stones, the man's footsteps fade, Cico reaches for
 | Dosya adı | `SA5.png` (görsel) · `SA5.mp4` (video) |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** A son: Masa. Karanlık son; ROTA kancası yok, kanca duran yeşil nokta.
+
+**Yönetmen notu (görsel / video):** Ofis, gece, ekranda yeşil noktalar (harita; yazı yok).
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı (koşullu):* Cico bir şey demedi. Sessizlik "evet" sayıldı.
@@ -1234,6 +1306,10 @@ Very slow push-in on the screen; all dots move except one that stops. Cico's ref
 | Dosya adı | `SB1.png` (görsel) · `SB1.mp4` (video) |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** B son: Kontak Kapatma. Dayanışma kirayı da çözer.
+
+**Yönetmen notu (görsel / video):** Ertesi gece Nevizade (açılış mekânı), kurye olmayan kalabalık; park edilmiş, kontağı kapalı scooter sırası.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Ertesi gece. Nevizade yine kalabalık.
@@ -1281,6 +1357,10 @@ Slow crane-up revealing the row of silent scooters; people look at them. Ambient
 | Zaman / ışık | Sabah |
 | Dosya adı | `SB2.png` (görsel) · `SB2.mp4` (video) |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** B son: Manşet.
+
+**Yönetmen notu (görsel / video):** Sabah, hastane önü, telefonlarına bakan kuryeler (ekran içeriği okunmaz).
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -1336,6 +1416,10 @@ Gentle handheld, morning light, the kid nudges Cico and grins. Ambient: city mor
 | Dosya adı | `SB3.png` (görsel) · `SB3.mp4` (video) |
 | Mevcut | henüz yok |
 
+**Sahnenin işlevi:** B son: Kara Kutu. ROTA kancası yok; kanca adamın kendisi.
+
+**Yönetmen notu (görsel / video):** Matbaanın içi: ekranlar, masa, liste (içerik UI kartında). Arkada paltolu adam.
+
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı (koşullu):* Cico camın önünde donup kalıyor. Kapı arkasından açılıyor.
@@ -1385,6 +1469,10 @@ Slow push-in on Cico's shocked face, then rack focus to the man behind him. Ambi
 | Zaman / ışık | Şafak |
 | Dosya adı | `SB4.png` (görsel) · `SB4.mp4` (video) |
 | Mevcut | henüz yok |
+
+**Sahnenin işlevi:** B son: Kanıt.
+
+**Yönetmen notu (görsel / video):** Şafak, Tarlabaşı, scooter'da telefona bakan Cico (ekran içeriği okunmaz).
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
