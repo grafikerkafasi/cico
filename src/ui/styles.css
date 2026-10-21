@@ -65,6 +65,24 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .8em; 
 .stage-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; animation: fadein .6s ease both; }
 .stage-ambient { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity .9s ease; }
 .stage-ambient.ready { opacity: 1; }
+/* Vuruş görseli: hayal (flashback) tüm kareyi yumuşakça kaplar; polaroid ortada eğik bir fotoğraf */
+.beat-overlay { position: absolute; inset: 0; z-index: 2; pointer-events: none; animation: ov-in .7s ease both; }
+.beat-overlay.out { animation: ov-out .45s ease both; }
+.beat-overlay img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.beat-overlay.flashback img { filter: saturate(.85) brightness(1.06) sepia(.18);
+  -webkit-mask-image: radial-gradient(85% 70% at 50% 45%, #000 55%, transparent 100%); mask-image: radial-gradient(85% 70% at 50% 45%, #000 55%, transparent 100%); }
+.beat-overlay.flashback::after { content: ''; position: absolute; inset: 0; background: radial-gradient(90% 70% at 50% 45%, transparent 50%, rgba(255,240,215,.35) 100%); }
+.beat-overlay.polaroid { inset: auto; left: 50%; top: 40%; width: 62%; padding: 3.5% 3.5% 14%; background: #f4f1ea; border-radius: 3px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.55); transform: translate(-50%, -50%) rotate(-5deg); animation: pol-in .8s var(--spring) both; }
+.beat-overlay.polaroid img { aspect-ratio: 1; height: auto; animation: develop 2.4s ease both; }
+.beat-overlay.polaroid.out { animation: ov-out .45s ease both; }
+@keyframes ov-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ov-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes pol-in { from { opacity: 0; transform: translate(-50%, -40%) rotate(4deg) scale(.9); } to { opacity: 1; transform: translate(-50%, -50%) rotate(-5deg); } }
+@keyframes develop { from { filter: brightness(2.2) saturate(0) blur(2px); } to { filter: none; } }
+/* Son sahneler: görsel kararır, metin öne çıkar */
+.app.is-ending .stage-img { filter: brightness(.5) saturate(.85); transition: filter .8s ease; }
+.app.is-ending .backdrop { filter: blur(28px) brightness(.25); }
 .stage-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
 /* Video yokken yalnızca CSS atmosferi (sahte görsel değil) */
 .stage::before {
@@ -210,7 +228,10 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .8em; 
 .notif-layer {
   position: absolute; z-index: 4; left: var(--gut); right: var(--gut); top: calc(var(--safe-t) + 92px);
   display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease;
 }
+/* Seçim anında bildirimler çekilir; seçim noktalarını örtmez */
+.app.choosing .notif-layer { opacity: 0; transform: translateY(-12px); }
 .notif {
   display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 22px;
   background: rgba(38, 42, 48, .58); border: 1px solid rgba(255,255,255,.1);

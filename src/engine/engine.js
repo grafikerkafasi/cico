@@ -71,6 +71,8 @@
         kind: b.kind || 'line',
         from: b.from || null,
         who: b.who || null,
+        overlay: b.overlay || null,
+        overlay_style: b.overlay_style || null,
       });
     }
     return out;

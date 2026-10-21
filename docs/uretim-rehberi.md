@@ -126,7 +126,7 @@ Nevizade Street, Beyoğlu at night: narrow wet cobblestone street, rows of glowi
 
 ### Tarlabaşı · eski matbaa
 
-*Kullanıldığı sahneler:* A1, B5, SB4
+*Kullanıldığı sahneler:* A1, A1a, A1b, B5, SB4
 
 ```text
 Back street in Tarlabaşı: a narrow old print shop with its sign torn off (only screw holes and a pale rectangle remain), half-raised rusty roller shutter, a heavy green wooden door with peeling paint, a low basement window glowing faintly blue, cracked plaster walls, a single sodium street lamp, wet asphalt.
@@ -158,7 +158,7 @@ A Galata rooftop at night: low parapet, satellite dishes and water tanks, the ci
 
 ### Yüksek Kaldırım
 
-*Kullanıldığı sahneler:* A5, SA4
+*Kullanıldığı sahneler:* A5, A5b, A5c, SA4
 
 ```text
 Yüksek Kaldırım: very steep wide stone steps descending between old buildings, wet and glistening, handrails, shuttered shops, a dark arched side passage opening on the right.
@@ -190,7 +190,7 @@ A dark modern control room at night: a warm desk lamp, a large wall screen with 
 
 ### Nöbetçi eczane / Dolapdere
 
-*Kullanıldığı sahneler:* B1, B2
+*Kullanıldığı sahneler:* B0, B1, B2
 
 ```text
 A night pharmacy with a glowing green cross, then a crumbling Dolapdere apartment entrance with chipped stairs, a dim yellow stairwell bulb and a half-open wooden door.
@@ -198,7 +198,7 @@ A night pharmacy with a glowing green cross, then a crumbling Dolapdere apartmen
 
 ### Tarlabaşı Bulvarı
 
-*Kullanıldığı sahneler:* B3
+*Kullanıldığı sahneler:* B2a, B3, B3a
 
 ```text
 Tarlabaşı Boulevard at night: wide multi-lane road, orange sodium lights, wet asphalt, a kerb and pavement, side streets disappearing into darkness, distant ambulance lights.
@@ -210,6 +210,30 @@ Tarlabaşı Boulevard at night: wide multi-lane road, orange sodium lights, wet 
 
 ```text
 A hospital emergency corridor before dawn: cold fluorescent light, plastic chairs, couriers in jackets sitting and standing with helmets in their laps, a tired night shift atmosphere.
+```
+
+### Beyoğlu · ıslak cadde
+
+*Kullanıldığı sahneler:* O3
+
+```text
+A narrow wet street in Beyoğlu at night: shuttered shops, warm street lamps streaking with motion blur, reflections on wet asphalt, old facades with balconies. No Galata Tower.
+```
+
+### Kuleye çıkan yokuş
+
+*Kullanıldığı sahneler:* A3a
+
+```text
+A steep narrow cobbled street climbing towards Galata Tower at night, wet stones, warm lamps on old facades; the tower appears only as a distant lit silhouette at the top of the slope.
+```
+
+### Sınıf (hayal)
+
+*Kullanıldığı sahneler:* 
+
+```text
+A bright primary school classroom in the morning: green chalkboard with a simple chalk world map and arrows (no letters), wooden desks, sunlight through tall windows, dreamy overexposed warm glow.
 ```
 
 ### Matbaanın içi (ROTA'nın gizli merkezi)
@@ -226,21 +250,30 @@ Inside the old print shop: abandoned printing presses pushed aside, a row of glo
 |---|---|---|---|---|
 | **O1** | `c1_s01_nevizade` | Nevizade Sokağı | — | Nevizade Sokağı |
 | **O2** | `c1_s02_orders` | İki Talep | O1 | Nevizade Sokağı |
-| **A1** | `c1_a1_printhouse` | Matbaa | O2 | Tarlabaşı · eski matbaa |
-| **A2** | `c1_a2_school` | Galata Feneri İlkokulu | A1 | Galata Feneri İlkokulu (kurgusal) |
-| **A3** | `c1_a3_tower` | Galata Kulesi | A2 | Galata Kulesi meydanı |
+| **O3** | `c1_s03_ride` | Yolda | O2 | Beyoğlu · ıslak cadde |
+| **A1** | `c1_a1_printhouse` | Matbaa | O3 | Tarlabaşı · eski matbaa |
+| **A1a** | `c1_a1a_inside` | Kepenk | A1 | Tarlabaşı · eski matbaa |
+| **A1b** | `c1_a1b_mount` | Yola Çıkış | A1, A1a | Tarlabaşı · eski matbaa |
+| **A2** | `c1_a2_school` | Galata Feneri İlkokulu | A1b | Galata Feneri İlkokulu (kurgusal) |
+| **A3a** | `c1_a3a_cutoff` | Yokuş | A2 | Kuleye çıkan yokuş |
+| **A3** | `c1_a3_tower` | Galata Kulesi | A3a | Galata Kulesi meydanı |
 | **A4** | `c1_a4_rooftop` | Çatı | A3 | Galata'da bir çatı |
 | **A5** | `c1_a5_chase` | Yüksek Kaldırım | A3, A6 | Yüksek Kaldırım |
+| **A5b** | `c1_a5b_fall` | Basamaklar | A5 | Yüksek Kaldırım |
+| **A5c** | `c1_a5c_paper` | Zarf | A5b | Yüksek Kaldırım |
 | **A6** | `c1_a6_second_offer` | İkinci Teklif | A3 | Galata Kulesi meydanı |
-| **B1** | `c1_b1_pharmacy` | Nöbetçi Eczane | O2 | Nöbetçi eczane / Dolapdere |
+| **B0** | `c1_b0_pharmacy` | Nöbetçi Eczane | O3 | Nöbetçi eczane / Dolapdere |
+| **B1** | `c1_b1_pharmacy` | Dolapdere | B0 | Nöbetçi eczane / Dolapdere |
 | **B2** | `c1_b2_kid` | Mendilci Çocuk | B1 | Nöbetçi eczane / Dolapdere |
-| **B3** | `c1_b3_boulevard` | Tarlabaşı Bulvarı | B2 | Tarlabaşı Bulvarı |
+| **B2a** | `c1_b2a_chief` | Kabile Şefi | B2 | Tarlabaşı Bulvarı |
+| **B3** | `c1_b3_boulevard` | Tarlabaşı Bulvarı | B2a | Tarlabaşı Bulvarı |
+| **B3a** | `c1_b3a_tail` | Takip | B3 | Tarlabaşı Bulvarı |
 | **B4** | `c1_b4_hospital` | Taksim İlk Yardım | B3 | Taksim İlk Yardım |
-| **B5** | `c1_b5_printhouse` | Matbaa | B3 | Tarlabaşı · eski matbaa |
+| **B5** | `c1_b5_printhouse` | Matbaa | B3a | Tarlabaşı · eski matbaa |
 | **SA1** | `c1_end_a_silence` | Sessizlik | A4 | Kahvehane · sabah |
 | **SA2** | `c1_end_a_tribe` | Kabile | A4 | Kahvehane · sabah |
 | **SA3** | `c1_end_a_escape` | Paket Bende | A5 | Karaköy · şafak |
-| **SA4** | `c1_end_a_fall` | Düşüş | A5 | Yüksek Kaldırım |
+| **SA4** | `c1_end_a_fall` | Düşüş | A5c | Yüksek Kaldırım |
 | **SA5** | `c1_end_a_desk` | Masa | A6 | ROTA ofisi |
 | **SB1** | `c1_end_b_strike` | Kontak Kapatma | B4 | Nevizade Sokağı |
 | **SB2** | `c1_end_b_headline` | Manşet | B4 | Taksim İlk Yardım |
@@ -311,7 +344,7 @@ Slow push-in towards Cico's face. Neon flickers, fog drifts, distant silhouettes
 | Kod / scene_id | **O2** · `c1_s02_orders` |
 | Tür | Karar · ⏱ 15 sn |
 | Önceki sahne | **O1** Nevizade Sokağı (`c1_s01_nevizade`) |
-| Sonraki sahne | **A1** Matbaa (`c1_a1_printhouse`), **B1** Nöbetçi Eczane (`c1_b1_pharmacy`) |
+| Sonraki sahne | **O3** Yolda (`c1_s03_ride`) |
 | Mekân | Nevizade Sokağı |
 | Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] |
 | Zaman / ışık | O1 ile aynı an |
@@ -361,14 +394,65 @@ Locked-off shot, almost still: phone glow pulses on Cico's face, his thumb hover
 
 ---
 
+## O3 · Yolda · `c1_s03_ride`
+
+| | |
+|---|---|
+| Kod / scene_id | **O3** · `c1_s03_ride` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **O2** İki Talep (`c1_s02_orders`) |
+| Sonraki sahne | **A1** Matbaa (`c1_a1_printhouse`), **B0** Nöbetçi Eczane (`c1_b0_pharmacy`) |
+| Mekân | Beyoğlu · ıslak cadde |
+| Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] |
+| Zaman / ışık | Gece yarısı |
+| Dosya adı | `O3.png` (görsel) · `O3.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Kısa yol sahnesi; iki katmanın ortak son karesi. Buradan sonra yollar ayrılır.
+
+**Yönetmen notu (görsel / video):** Beyoğlu, ıslak dar cadde, gece. Cico scooter'la hızla geçer; arkada akan sokak lambaları. Galata Kulesi yok.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı:* Beyoğlu'nun ıslak sokakları. Cico gaza yükleniyor.
+- *Anlatı:* Ekranda ROTA'nın çizgisi kıvrılıyor. Saat işliyor.
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Beyoğlu · ıslak cadde] A narrow wet street in Beyoğlu at night: shuttered shops, warm street lamps streaking with motion blur, reflections on wet asphalt, old facades with balconies. No Galata Tower.
+[CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
+[CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
+[SCENE O3 · c1_s03_ride] Dynamic low 3/4 front-side angle: Cico speeds through a wet Beyoğlu street on his green scooter towards the image-left, serious and focused; street lamps streak with motion blur behind him. No front plate.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+Tracking shot alongside the scooter; lights streak past, water sprays from the tyres. Ambient: engine, rain hiss. 6 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] İki katmanın ortak son karesi: paket ya da ilaç görünmez, yalnızca sırttaki çanta.
+- [ ] Galata Kulesi YOK.
+
+---
+
 ## A1 · Matbaa · `c1_a1_printhouse`
 
 | | |
 |---|---|
 | Kod / scene_id | **A1** · `c1_a1_printhouse` |
 | Tür | Karar |
-| Önceki sahne | **O2** İki Talep (`c1_s02_orders`) |
-| Sonraki sahne | **A2** Galata Feneri İlkokulu (`c1_a2_school`) |
+| Önceki sahne | **O3** Yolda (`c1_s03_ride`) |
+| Sonraki sahne | **A1a** Kepenk (`c1_a1a_inside`), **A1b** Yola Çıkış (`c1_a1b_mount`) |
 | Mekân | Tarlabaşı · eski matbaa |
 | Kadro | [Cico (Aslan)] |
 | Zaman / ışık | Gece yarısına 5 kala |
@@ -418,14 +502,117 @@ Slight handheld feel: the door slams shut, Cico looks down at the package, his t
 
 ---
 
+## A1a · Kepenk · `c1_a1a_inside`
+
+| | |
+|---|---|
+| Kod / scene_id | **A1a** · `c1_a1a_inside` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **A1** Matbaa (`c1_a1_printhouse`) |
+| Sonraki sahne | **A1b** Yola Çıkış (`c1_a1b_mount`) |
+| Mekân | Tarlabaşı · eski matbaa |
+| Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] |
+| Zaman / ışık | A1'den birkaç dakika sonra |
+| Dosya adı | `A1a.png` (görsel) · `A1a.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Paket, gönderici gittikten sonra açılır: kepenk inik, sokak boş. Şok yüzden okunur.
+
+**Yönetmen notu (görsel / video):** Aynı matbaa, kepenk inik. Lamba altında Cico kutuyu açar: siyah sabit disk. Yüz yakın: gözler büyür.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı:* Kepenk indi. Sokak bomboş.
+- *Anlatı:* Cico bandı kaldırıyor. İçinde bir sabit disk.
+- *Anlatı:* "Kaza Kayıtları." Kimlerin kazası?
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Tarlabaşı · eski matbaa] Back street in Tarlabaşı: a narrow old print shop with its sign torn off (only screw holes and a pale rectangle remain), half-raised rusty roller shutter, a heavy green wooden door with peeling paint, a low basement window glowing faintly blue, cracked plaster walls, a single sodium street lamp, wet asphalt.
+[CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
+[CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
+[SCENE A1a · c1_a1a_inside] The same print shop, now with the roller shutter fully down and the street empty. Under the street lamp Cico has opened the package: a black hard drive inside (label unreadable). Close-medium shot, his face clearly shocked — wide eyes, raised brows, mouth slightly open. He faces image-left so the 26 badge on his left shoulder shows.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+Slow push-in on his face as he lifts the flap; the lamp flickers once. Ambient: rain, distant traffic. 6 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] A1 ile aynı sokak; kepenk artık İNİK, gönderici yok.
+- [ ] Paket bandı kırmızı-beyaz.
+
+---
+
+## A1b · Yola Çıkış · `c1_a1b_mount`
+
+| | |
+|---|---|
+| Kod / scene_id | **A1b** · `c1_a1b_mount` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **A1** Matbaa (`c1_a1_printhouse`), **A1a** Kepenk (`c1_a1a_inside`) |
+| Sonraki sahne | **A2** Galata Feneri İlkokulu (`c1_a2_school`) |
+| Mekân | Tarlabaşı · eski matbaa |
+| Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] |
+| Zaman / ışık | A1a'nın hemen ardından |
+| Dosya adı | `A1b.png` (görsel) · `A1b.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Geçiş: paket arka kutuda, Cico motora biner. Kendiliğinden A2'ye akar.
+
+**Yönetmen notu (görsel / video):** 3/4 arkadan: bacak scooter'ın üstünden geçer, el gidonda; arka plaka görünür. Boş sokak.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı (koşullu):* Bandı yerine bastırıyor. Kimse fark etmesin.
+- *Anlatı (koşullu):* Paket arka kutuda. Kimse bakmadı, kimse sormadı.
+- *Anlatı:* Teslimat adresi: Galata.
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Tarlabaşı · eski matbaa] Back street in Tarlabaşı: a narrow old print shop with its sign torn off (only screw holes and a pale rectangle remain), half-raised rusty roller shutter, a heavy green wooden door with peeling paint, a low basement window glowing faintly blue, cracked plaster walls, a single sodium street lamp, wet asphalt.
+[CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
+[CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
+[SCENE A1b · c1_a1b_mount] 3/4 rear-side view: the package is back in the rear delivery box, Cico swings a leg over his scooter, hand on the handlebar, glancing down the empty street. Rear plate 34 AEA 8430 visible.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+He mounts, the tail light glows, the scooter pulls away down the wet street. Ambient: engine starting. 5 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] A1a ile aynı sokak ve lamba.
+
+---
+
 ## A2 · Galata Feneri İlkokulu · `c1_a2_school`
 
 | | |
 |---|---|
 | Kod / scene_id | **A2** · `c1_a2_school` |
 | Tür | Sinematik (seçimsiz) |
-| Önceki sahne | **A1** Matbaa (`c1_a1_printhouse`) |
-| Sonraki sahne | **A3** Galata Kulesi (`c1_a3_tower`) |
+| Önceki sahne | **A1b** Yola Çıkış (`c1_a1b_mount`) |
+| Sonraki sahne | **A3a** Yokuş (`c1_a3a_cutoff`) |
 | Mekân | Galata Feneri İlkokulu (kurgusal) |
 | Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] |
 | Zaman / ışık | Gece, ağır çekim |
@@ -442,7 +629,7 @@ Slight handheld feel: the door slams shut, Cico looks down at the package, his t
 - *Anlatı:* Galata Feneri İlkokulu. Karanlık sınıflar, ters sandalyeler.
 - *Anlatı:* Bir zamanlar bir tahtanın önünde durmayı hayal etmişti.
 - *Anlatı (koşullu):* Çantadaki paket sırtında bir taş gibi.
-- *Anlatı (koşullu):* "Kaza Kayıtları." Kimlerin kazası?
+- *Anlatı (koşullu):* Çantadaki disk sırtında bir taş gibi. Aklı o iki kelimede.
 
 
 
@@ -469,6 +656,61 @@ SLOW MOTION tracking shot alongside Cico as the scooter rolls past the railings 
 - [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
 - [ ] A1'deki paket artık teslimat kutusunun içinde.
 - [ ] Renk paleti diğer sahnelerden daha soluk (anma anı).
+- [ ] Hayal karesi A2f (assets/scenes/A2f_c1_a2f_flashback.jpg): "Bir zamanlar tahtanın önünde..." vuruşunda görselin üstüne yumuşakça gelir. Cico gündüz bir sınıfta öğretmen: gömlek ve hırka, kask ve rozet yok, tahtada yalnızca tebeşir harita (yazı yok), öğrencilerin kalkan elleri, sıcak aşırı pozlanmış ışık.
+
+---
+
+## A3a · Yokuş · `c1_a3a_cutoff`
+
+| | |
+|---|---|
+| Kod / scene_id | **A3a** · `c1_a3a_cutoff` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **A2** Galata Feneri İlkokulu (`c1_a2_school`) |
+| Sonraki sahne | **A3** Galata Kulesi (`c1_a3_tower`) |
+| Mekân | Kuleye çıkan yokuş |
+| Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] + [Paltolu adam] + [Siyah araba ("demir kafes")] |
+| Zaman / ışık | Gece yarısı |
+| Dosya adı | `A3a.png` (görsel) · `A3a.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Paltolu adam Cico'yu yolda durdurur: teslimat noktasına varmadan araba önünü keser.
+
+**Yönetmen notu (görsel / video):** Kuleye çıkan yokuş, gece. Siyah araba scooter'ın önüne kırar; Cico sert fren. Arka kapı açılır, paltolu adam iner.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı:* Kuleye çıkan yokuş. Bir demir kafes önünü kesiyor.
+- *Anlatı:* Cico freni sıkıyor. Arka kapı açılıyor, uzun paltolu bir adam iniyor.
+- *Tanıtım slaytı — Paltolu adam:* Kimse adını bilmiyor. O herkesinkini biliyor.
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Kuleye çıkan yokuş] A steep narrow cobbled street climbing towards Galata Tower at night, wet stones, warm lamps on old facades; the tower appears only as a distant lit silhouette at the top of the slope.
+[CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
+[CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
+[CHARACTER] Man in the coat: tall man in his mid-40s, long charcoal wool coat, black leather gloves, clean-shaven, slicked-back dark hair with grey temples, calm unreadable half smile, perfectly dry even in rain. Stands very still. Holds a closed black umbrella.
+[CHARACTER] Black car: black sedan with fully tinted windows, no logos, plate unreadable, headlights often the only visible part, reads as a dark "iron cage".
+[SCENE A3a · c1_a3a_cutoff] On the hill up to the tower, the long black sedan has swung across the road, headlights glaring. Cico brakes hard, one foot down. The rear door opens and the Man in the coat steps out, calm and threatening. Camera behind Cico's right side: no badge visible.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+The car swerves in, brakes squeal, the door opens slowly; the man's shoe touches the wet cobbles. Ambient: idling engine, rain. 6 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] Paltolu adam bu sahnede ilk kez görünüyor — karakter kartına sadık kal.
+- [ ] Kule yalnızca uzakta silüet.
 
 ---
 
@@ -478,7 +720,7 @@ SLOW MOTION tracking shot alongside Cico as the scooter rolls past the railings 
 |---|---|
 | Kod / scene_id | **A3** · `c1_a3_tower` |
 | Tür | Karar · ⏱ 12 sn |
-| Önceki sahne | **A2** Galata Feneri İlkokulu (`c1_a2_school`) |
+| Önceki sahne | **A3a** Yokuş (`c1_a3a_cutoff`) |
 | Sonraki sahne | **A4** Çatı (`c1_a4_rooftop`), **A5** Yüksek Kaldırım (`c1_a5_chase`), **A6** İkinci Teklif (`c1_a6_second_offer`) |
 | Mekân | Galata Kulesi meydanı |
 | Kadro | [Cico (Aslan)] + [Paltolu adam] + [Siyah araba ("demir kafes")] |
@@ -488,13 +730,11 @@ SLOW MOTION tracking shot alongside Cico as the scooter rolls past the railings 
 
 **Sahnenin işlevi:** Ana gizem ve teklif: adam ROTA'nın içinden biri ("Kurye 2608"). Paket açıldıysa üçüncü seçenek açılır, adam bandı fark eder.
 
-**Yönetmen notu (görsel / video):** Galata Kulesi'nin dibi, boş meydan, gece. Kulenin gölgesinde uzun paltolu adam. Bekleme döngüsü: uzanan el, arkada farlar.
+**Yönetmen notu (görsel / video):** Galata Kulesi'nin dibi, gece. Siyah araba scooter'ın önünü kesmiş; paltolu adam elini uzatıp paketi istiyor. Bekleme döngüsü: uzanan el, farlar.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
-- *Anlatı:* Galata Kulesi'nin dibi. Turistler gitmiş, meydan boş.
-- *Anlatı:* Kulenin gölgesinde uzun paltolu bir adam bekliyor.
-- *Tanıtım slaytı — Paltolu adam:* Kimse adını bilmiyor. O herkesinkini biliyor.
+- *Anlatı:* Galata Kulesi'nin dibi. Araba yolu kapatmış, meydan boş.
 - *Konuşma — Paltolu adam:* İyi akşamlar, Kurye 2608. Yoksa Cico mu diyelim?
 - *Anlatı:* Kurye numarasını yalnızca ROTA bilir.
 - *Konuşma — Paltolu adam:* Paketi ver. 1.500 lira hesabında.
@@ -516,7 +756,7 @@ SLOW MOTION tracking shot alongside Cico as the scooter rolls past the railings 
 [CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
 [CHARACTER] Man in the coat: tall man in his mid-40s, long charcoal wool coat, black leather gloves, clean-shaven, slicked-back dark hair with grey temples, calm unreadable half smile, perfectly dry even in rain. Stands very still. Holds a closed black umbrella.
 [CHARACTER] Black car: black sedan with fully tinted windows, no logos, plate unreadable, headlights often the only visible part, reads as a dark "iron cage".
-[SCENE A3 · c1_a3_tower] At the foot of Galata Tower: the Man in the coat stands calmly in the centre-left holding out his gloved hand towards the viewer, face lit from below, eyes in the upper-centre of the frame. Cico stands in the foreground right next to his scooter, the package under his arm. Behind them at the bottom of the slope, the headlights of the black car glow.
+[SCENE A3 · c1_a3_tower] At the foot of Galata Tower: the Man in the coat stands calmly in the centre-left holding out his gloved hand towards the viewer, face lit from below, eyes in the upper-centre of the frame. Cico stands in the foreground right next to his scooter, the package under his arm. Right behind the man, the long black sedan blocks the road, rear door open, headlights on — he has just cut Cico off.
 [MUST BE CLEARLY VISIBLE] paltolu adamın uzanmış eldivenli eli (orta sol) at about 37% from the left and 51% from the top; sağdaki scooter gidonu ve aynası (kaçış) at about 88% from the left and 68% from the top; adamın yüzü (üst sol-orta) at about 43% from the left and 24% from the top.
 [RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
 [AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
@@ -603,16 +843,16 @@ Very slow orbit around Cico; city lights twinkle, courier headlights crawl along
 | Kod / scene_id | **A5** · `c1_a5_chase` |
 | Tür | Aksiyon (süreli) · ⏱ 8 sn |
 | Önceki sahne | **A3** Galata Kulesi (`c1_a3_tower`), **A6** İkinci Teklif (`c1_a6_second_offer`) |
-| Sonraki sahne | **SA4** Düşüş (`c1_end_a_fall`), **SA3** Paket Bende (`c1_end_a_escape`) |
+| Sonraki sahne | **A5b** Basamaklar (`c1_a5b_fall`), **SA3** Paket Bende (`c1_end_a_escape`) |
 | Mekân | Yüksek Kaldırım |
 | Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] + [Siyah araba ("demir kafes")] |
 | Zaman / ışık | Gece, kovalamaca |
 | Dosya adı | `A5.png` (görsel) · `A5.mp4` (video) · döngü |
 | Mevcut | görsel ✓ |
 
-**Sahnenin işlevi:** Basamaklar: şüphe ≥ 2 ise düşer. Pasaj: güvenli ama plaka görülür. Başarısızlık ayrı bir sona (Düşüş) gider.
+**Sahnenin işlevi:** Basamaklar: şüphe ≥ 2 ise düşer (A5b → A5c → Düşüş). Pasaj: güvenli; Cico sabaha kadar orada saklanır.
 
-**Yönetmen notu (görsel / video):** Galata yokuşları, scooter kalkışı, siyah araba. İki kısa sonuç çekimi: Yüksek Kaldırım basamakları, pasaj.
+**Yönetmen notu (görsel / video):** Galata yokuşları, scooter kalkışı, arkada siyah araba. Pasajın içi boş ve karanlık (araba yok).
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
@@ -634,7 +874,7 @@ Very slow orbit around Cico; city lights twinkle, courier headlights crawl along
 [CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
 [CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
 [CHARACTER] Black car: black sedan with fully tinted windows, no logos, plate unreadable, headlights often the only visible part, reads as a dark "iron cage".
-[SCENE A5 · c1_a5_chase] High-energy wide shot: Cico on his scooter at the top of Yüksek Kaldırım, package clutched under his arm. To the lower left the steep wet stone steps plunge down; to the right a dark arched passage opens. Behind him the black car's doors swing open, headlights glaring.
+[SCENE A5 · c1_a5_chase] High-energy wide shot: Cico on his scooter at the top of Yüksek Kaldırım, package clutched under his arm. To the lower left the steep wet stone steps plunge down; to the right a dark arched passage opens, empty inside. Behind him the black car's doors swing open, headlights glaring.
 [MUST BE CLEARLY VISIBLE] sol alttaki dik, ıslak basamaklar at about 19% from the left and 71% from the top; sağ üstteki kemerli pasaj at about 81% from the left and 20% from the top.
 [RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
 [AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
@@ -651,6 +891,109 @@ Fast handheld energy: scooter engine revs, headlights sweep across the walls, ca
 - [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
 - [ ] Paket hâlâ Cico'da.
 - [ ] Kask kafasında, çenede yarı açık.
+
+---
+
+## A5b · Basamaklar · `c1_a5b_fall`
+
+| | |
+|---|---|
+| Kod / scene_id | **A5b** · `c1_a5b_fall` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **A5** Yüksek Kaldırım (`c1_a5_chase`) |
+| Sonraki sahne | **A5c** Zarf (`c1_a5c_paper`) |
+| Mekân | Yüksek Kaldırım |
+| Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] + [Paltolu adam] |
+| Zaman / ışık | Gece |
+| Dosya adı | `A5b.png` (görsel) · `A5b.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Düşüş anı: paltolu adam paketi alıp uzaklaşır. Cico'nun yanında kâğıt yok.
+
+**Yönetmen notu (görsel / video):** Islak basamaklar, devrik scooter, yerde Cico (şiddet gösterilmez). Arkada paketle uzaklaşan paltolu adam.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı:* Freni limon sıkar gibi sıkmalıydı. Fazla sıktı. Teker kayıyor.
+- *Anlatı:* Kask onu korudu. Paltolu adam paketi alıp uzaklaşıyor.
+- *Anlatı:* Kulağında Kabile Şefi'nin sesi.
+- *Konuşma — Kabile Şefi:* Düştün babuş, olabilir. Neyse ki korumaların üstündeydi.
+- *Konuşma — Kabile Şefi:* Düşmeyi bilmek mi? Kel motosiklet eğitmenlerinin uydurduğu bir palavra.
+- *Anlatı:* Ayak sesleri uzaklaşıyor. Sonra sessizlik.
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Yüksek Kaldırım] Yüksek Kaldırım: very steep wide stone steps descending between old buildings, wet and glistening, handrails, shuttered shops, a dark arched side passage opening on the right.
+[CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
+[CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
+[CHARACTER] Man in the coat: tall man in his mid-40s, long charcoal wool coat, black leather gloves, clean-shaven, slicked-back dark hair with grey temples, calm unreadable half smile, perfectly dry even in rain. Stands very still. Holds a closed black umbrella.
+[SCENE A5b · c1_a5b_fall] Aftermath at the bottom of the wet steps: the green scooter on its side, Cico sitting up, helmet on, unhurt but shaken. Up the steps, the Man in the coat walks away with the package. No paper near Cico.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+Rain on stones, the man's footsteps fade up the steps. No impact shown. Ambient: rain. 6 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] A5 ile aynı basamaklar.
+- [ ] Kask kafasında — "kask onu korudu".
+
+---
+
+## A5c · Zarf · `c1_a5c_paper`
+
+| | |
+|---|---|
+| Kod / scene_id | **A5c** · `c1_a5c_paper` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **A5b** Basamaklar (`c1_a5b_fall`) |
+| Sonraki sahne | **SA4** Düşüş (`c1_end_a_fall`) |
+| Mekân | Yüksek Kaldırım |
+| Kadro |  |
+| Zaman / ışık | A5b'nin hemen ardından |
+| Dosya adı | `A5c.png` (görsel) · `A5c.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Adam gitmiş; yerde düşürdüğü zarf. Dokununca Düşüş sonuna (Cico okur) geçilir.
+
+**Yönetmen notu (görsel / video):** Islak taşta zarf, yakın plan; yağmur damlaları. Arkada flu basamaklar.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı:* Adam gitti. Islak taşın üstünde, düşürdüğü bir zarf.
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Yüksek Kaldırım] Yüksek Kaldırım: very steep wide stone steps descending between old buildings, wet and glistening, handrails, shuttered shops, a dark arched side passage opening on the right.
+[SCENE A5c · c1_a5c_paper] Close-up: a folded envelope lying on the wet stones (nothing readable), raindrops hitting around it; the steps blurred behind. The man is gone.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+Macro shot, a raindrop lands on the envelope; a shadow (Cico) falls over it. Ambient: rain. 5 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] A5b ile aynı taşlar ve ışık.
 
 ---
 
@@ -712,13 +1055,63 @@ Slow push-in between the two faces; all background motion slows down and sound f
 
 ---
 
-## B1 · Nöbetçi Eczane · `c1_b1_pharmacy`
+## B0 · Nöbetçi Eczane · `c1_b0_pharmacy`
+
+| | |
+|---|---|
+| Kod / scene_id | **B0** · `c1_b0_pharmacy` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **O3** Yolda (`c1_s03_ride`) |
+| Sonraki sahne | **B1** Dolapdere (`c1_b1_pharmacy`) |
+| Mekân | Nöbetçi eczane / Dolapdere |
+| Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] |
+| Zaman / ışık | Gece yarısı |
+| Dosya adı | `B0.png` (görsel) · `B0.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Nöbetçi eczane. Paket talebi Kabile Şefi'ne düşer; Katman B'nin olayı onun başına gelecek.
+
+**Yönetmen notu (görsel / video):** Gece, nöbetçi eczane önü; yazısız ışıklı tabela (yalnızca yeşil haç). Cico scooter'ının yanında, elinde poşet.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı:* Nöbetçi eczane. İlaç poşette, adres Dolapdere.
+- *Anlatı:* Paket talebi Kabile Şefi'ne düştü.
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Nöbetçi eczane / Dolapdere] A night pharmacy with a glowing green cross, then a crumbling Dolapdere apartment entrance with chipped stairs, a dim yellow stairwell bulb and a half-open wooden door.
+[CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
+[CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
+[SCENE B0 · c1_b0_pharmacy] Outside a night pharmacy: a glowing green cross sign with no letters, Cico beside his scooter holding a small white pharmacy bag, tired but kind. Wet pavement reflects the green light.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+He tucks the bag into the box and starts the engine. Ambient: night street, the sign buzzing. 5 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] Tabelada yazı YOK; yalnızca yeşil haç.
+
+---
+
+## B1 · Dolapdere · `c1_b1_pharmacy`
 
 | | |
 |---|---|
 | Kod / scene_id | **B1** · `c1_b1_pharmacy` |
 | Tür | Sinematik (seçimsiz) |
-| Önceki sahne | **O2** İki Talep (`c1_s02_orders`) |
+| Önceki sahne | **B0** Nöbetçi Eczane (`c1_b0_pharmacy`) |
 | Sonraki sahne | **B2** Mendilci Çocuk (`c1_b2_kid`) |
 | Mekân | Nöbetçi eczane / Dolapdere |
 | Kadro | [Cico (Aslan)] + [Mendilci çocuk] + [Babaanne (yalnızca B1'de arka planda)] |
@@ -726,14 +1119,14 @@ Slow push-in between the two faces; all background motion slows down and sound f
 | Dosya adı | `B1.png` (görsel) · `B1.mp4` (video) |
 | Mevcut | görsel ✓ |
 
-**Sahnenin işlevi:** Karakter sahnesi. Paket talebi Kabile Şefi'ye düşer; Katman B'nin olayı onun başına gelecek.
+**Sahnenin işlevi:** Karakter sahnesi: mendilci çocuk.
 
-**Yönetmen notu (görsel / video):** Nöbetçi eczane ışığı; Dolapdere'de dökük merdivenler; kapıda mendilci çocuk.
+**Yönetmen notu (görsel / video):** Dolapdere'de dökük merdivenler; kapıda mendilci çocuk.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
-- *Anlatı:* Paket talebi Kabile Şefi'ne düştü.
-- *Anlatı:* Dolapdere. Kapıyı bir çocuk açıyor.
+- *Anlatı:* Dolapdere. Dökük bir merdiven, üçüncü kat.
+- *Anlatı:* Kapıyı bir çocuk açıyor.
 - *Tanıtım slaytı — Mendilci çocuk:* İstiklal'de mendil satar. Haritayı Cico'dan öğrendi, şehri herkesten iyi bilir.
 - *Konuşma — Mendilci çocuk:* Hocam?
 
@@ -772,8 +1165,8 @@ Gentle handheld: the door creaks open, the kid's face lights up ("Hocam?"), Cico
 |---|---|
 | Kod / scene_id | **B2** · `c1_b2_kid` |
 | Tür | Karar |
-| Önceki sahne | **B1** Nöbetçi Eczane (`c1_b1_pharmacy`) |
-| Sonraki sahne | **B3** Tarlabaşı Bulvarı (`c1_b3_boulevard`) |
+| Önceki sahne | **B1** Dolapdere (`c1_b1_pharmacy`) |
+| Sonraki sahne | **B2a** Kabile Şefi (`c1_b2a_chief`) |
 | Mekân | Nöbetçi eczane / Dolapdere |
 | Kadro | [Cico (Aslan)] + [Mendilci çocuk] |
 | Zaman / ışık | B1 ile aynı an |
@@ -789,7 +1182,6 @@ Gentle handheld: the door creaks open, the kid's face lights up ("Hocam?"), Cico
 - *Konuşma — Mendilci çocuk:* Matbaanın orada adamlar vardı. Siyah arabaya kutu yüklediler.
 - *Konuşma — Mendilci çocuk:* Seni soruyorlardı Hocam. "Aslan diye bir kurye" diye.
 - *Anlatı:* Çocuğun telefonunda bulanık bir fotoğraf: plaka, kutu, bir yüz.
-- *Telefon mesajı — Kabile Şefi:* Cico, paket işi tuhaf. Arkamda bir araba var.
 
 **Seçim noktaları — bu nesneler görselde bu konumlarda net görünmeli:**
 
@@ -824,14 +1216,65 @@ Quiet close shot, the kid glances down the stairwell nervously, phone glow on bo
 
 ---
 
+## B2a · Kabile Şefi · `c1_b2a_chief`
+
+| | |
+|---|---|
+| Kod / scene_id | **B2a** · `c1_b2a_chief` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **B2** Mendilci Çocuk (`c1_b2_kid`) |
+| Sonraki sahne | **B3** Tarlabaşı Bulvarı (`c1_b3_boulevard`) |
+| Mekân | Tarlabaşı Bulvarı |
+| Kadro | [Kabile Şefi] + [Siyah araba ("demir kafes")] |
+| Zaman / ışık | B2 ile aynı saatler |
+| Dosya adı | `B2a.png` (görsel) · `B2a.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Aynı saatlerde Kabile Şefi paketi götürüyor; tek eliyle Cico'ya yazar. Arkasında siyah araba.
+
+**Yönetmen notu (görsel / video):** Tarlabaşı Bulvarı, gece. Şef motorunda, bir eli gidonda, diğeriyle telefon. Arkada yaklaşan siyah araba farları.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı:* Aynı saatlerde Kabile Şefi paketi götürüyor. Arkasında farlar.
+- *Telefon mesajı — Kabile Şefi:* Cico, paket işi tuhaf. Arkamda bir araba var.
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Tarlabaşı Bulvarı] Tarlabaşı Boulevard at night: wide multi-lane road, orange sodium lights, wet asphalt, a kerb and pavement, side streets disappearing into darkness, distant ambulance lights.
+[CHARACTER] Tribe Chief: courier in his early 50s, broad shoulders, grey stubble and thick grey moustache, deep laugh lines, warm but tough eyes. Black armoured riding jacket with visible elbow and shoulder protectors, knee guards over dark jeans, worn full-face helmet covered in faded stickers (no readable words). Rides an older dark-blue scooter with a black delivery box.
+[CHARACTER] Black car: black sedan with fully tinted windows, no logos, plate unreadable, headlights often the only visible part, reads as a dark "iron cage".
+[SCENE B2a · c1_b2a_chief] Tarlabaşı Boulevard at night: the Tribe Chief rides his dark-blue scooter, one hand on the handlebar, typing on his phone with the other (screen unreadable). Behind him, the black car's headlights close in.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+Tracking shot beside the chief; he glances back at the headlights. Ambient: traffic, engine. 6 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] Kabile Şefi ilk kez fiziksel olarak görünüyor — koruyucu ekipmanı üzerinde.
+- [ ] Paket arka kutuda.
+
+---
+
 ## B3 · Tarlabaşı Bulvarı · `c1_b3_boulevard`
 
 | | |
 |---|---|
 | Kod / scene_id | **B3** · `c1_b3_boulevard` |
 | Tür | Karar · ⏱ 12 sn |
-| Önceki sahne | **B2** Mendilci Çocuk (`c1_b2_kid`) |
-| Sonraki sahne | **B4** Taksim İlk Yardım (`c1_b4_hospital`), **B5** Matbaa (`c1_b5_printhouse`) |
+| Önceki sahne | **B2a** Kabile Şefi (`c1_b2a_chief`) |
+| Sonraki sahne | **B4** Taksim İlk Yardım (`c1_b4_hospital`), **B3a** Takip (`c1_b3a_tail`) |
 | Mekân | Tarlabaşı Bulvarı |
 | Kadro | [Cico (Aslan)] + [Kabile Şefi] + [Siyah araba ("demir kafes")] |
 | Zaman / ışık | Gece yarısından sonra |
@@ -886,6 +1329,57 @@ Handheld, tense: the tail lights disappear into the side street, distant ambulan
 
 ---
 
+## B3a · Takip · `c1_b3a_tail`
+
+| | |
+|---|---|
+| Kod / scene_id | **B3a** · `c1_b3a_tail` |
+| Tür | Sinematik (seçimsiz) |
+| Önceki sahne | **B3** Tarlabaşı Bulvarı (`c1_b3_boulevard`) |
+| Sonraki sahne | **B5** Matbaa (`c1_b5_printhouse`) |
+| Mekân | Tarlabaşı Bulvarı |
+| Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] + [Siyah araba ("demir kafes")] |
+| Zaman / ışık | B3'ün hemen ardından |
+| Dosya adı | `B3a.png` (görsel) · `B3a.mp4` (video) |
+| Mevcut | görsel ✓ |
+
+**Sahnenin işlevi:** Gizli takip: Cico farlarını kapatıp siyah arabayı ara sokaklarda izler.
+
+**Yönetmen notu (görsel / video):** Tarlabaşı ara sokağı, gece. Önde siyah arabanın stop lambaları; Cico mesafeli, köşeden izler.
+
+**Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
+
+- *Anlatı:* Cico farlarını kapatıyor. İki araba geriden izliyor.
+- *Anlatı:* Siyah araba ara sokaklarda yavaşlıyor. Bir köşede duruyor.
+
+
+
+**Görsel promptu (ChatGPT):**
+
+```text
+[STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
+[LOCATION: Tarlabaşı Bulvarı] Tarlabaşı Boulevard at night: wide multi-lane road, orange sodium lights, wet asphalt, a kerb and pavement, side streets disappearing into darkness, distant ambulance lights.
+[CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
+[CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
+[CHARACTER] Black car: black sedan with fully tinted windows, no logos, plate unreadable, headlights often the only visible part, reads as a dark "iron cage".
+[SCENE B3a · c1_b3a_tail] A Tarlabaşı back street: ahead, the black car's red tail lights; Cico follows at a distance with his headlight off, half hidden at a corner, eyes fixed on the car.
+[RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
+[AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
+```
+
+**Video promptu (Google Flow · görselden videoya · 9:16):**
+
+```text
+Slow creeping follow shot; the car slows and stops. Ambient: idling engines. 6 seconds.
+```
+
+**Devamlılık kontrolü:**
+
+- [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
+- [ ] B3 ile aynı gece; Cico'nun farı kapalı.
+
+---
+
 ## B4 · Taksim İlk Yardım · `c1_b4_hospital`
 
 | | |
@@ -916,7 +1410,7 @@ Handheld, tense: the tail lights disappear into the side street, distant ambulan
 
 | Seçenek (oyunda) | Görselde ne olmalı | Konum (görselin yüzdesi; sol üst = 0,0) |
 |---|---|---|
-| Kabile'ye yaz: "Yarın gece kimse çıkmasın." | soldaki kurye grubu (Kabile) | x 17% · y 54% |
+| Kabile'ye yaz: "Yarın gece toplu grev. Mesele ciddi." | soldaki kurye grubu (Kabile) | x 17% · y 54% |
 | Çocuğun fotoğrafını bir gazeteciye gönder 🔒 | ortada oturan Cico | x 52% · y 52% |
 
 **Görsel promptu (ChatGPT):**
@@ -952,7 +1446,7 @@ Slow lateral dolly along the corridor past tired couriers; fluorescent light fli
 |---|---|
 | Kod / scene_id | **B5** · `c1_b5_printhouse` |
 | Tür | Aksiyon (süreli) · ⏱ 10 sn |
-| Önceki sahne | **B3** Tarlabaşı Bulvarı (`c1_b3_boulevard`) |
+| Önceki sahne | **B3a** Takip (`c1_b3a_tail`) |
 | Sonraki sahne | **SB3** Kara Kutu (`c1_end_b_blackbox`), **SB4** Kanıt (`c1_end_b_evidence`) |
 | Mekân | Tarlabaşı · eski matbaa |
 | Kadro | [Cico (Aslan)] + [Siyah araba ("demir kafes")] |
@@ -1135,16 +1629,16 @@ Phones buzz and light up one after another across the tables; Cico looks around.
 
 **Sahnenin işlevi:** A son: Paket Bende.
 
-**Yönetmen notu (görsel / video):** Şafak, Karaköy, kapalı balıkçı tentesi, paket kucakta.
+**Yönetmen notu (görsel / video):** Şafak, Karaköy, kapalı balıkçı tentesi; açık paket kucakta, içinde diskler görünür.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı (koşullu):* Islak basamaklarda freni limon sıkar gibi sıktı. Ne fazla, ne az.
 - *Konuşma — Cico (koşullu):* Uçuyorum ulan!
 - *Anlatı:* Şafak. Karaköy. Paket kucağında.
-- *Anlatı (koşullu):* Bandı kaldırıyor. Bir disk: "ROTA — Kaza Kayıtları."
+- *Anlatı (koşullu):* Bandı kaldırıyor. İçinde diskler: "ROTA — Kaza Kayıtları."
 - *Anlatı (koşullu):* Kanıt artık onun elinde.
-- *Anlatı (koşullu):* Kaçarken bir flaş patladı. 34 AEA 8430 artık onların listesinde.
+- *Anlatı (koşullu):* Pasajın karanlığında sabaha kadar saklandı. Kimse onu bulamadı.
 - *Anlatı:* Kime verecek? Polise mi, bir gazeteciye mi, Kabile'ye mi?
 - *Tanıtım slaytı — Mendilci çocuk:* İstiklal'de mendil satar. Haritayı Cico'dan öğrendi, şehri herkesten iyi bilir.
 - *Telefon mesajı — Mendilci çocuk:* Hocam, dün gece ilaç gelmedi. Babaannemi komşular hastaneye götürdü. İyi şimdi.
@@ -1161,7 +1655,7 @@ Phones buzz and light up one after another across the tables; Cico looks around.
 [LOCATION: Karaköy · şafak] Karaköy waterfront at dawn: shuttered fish stalls with striped awnings, seagulls, the first blue-pink light over the Golden Horn, wet pavement.
 [CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
 [CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
-[SCENE SA3 · c1_end_a_escape] Dawn in Karaköy: Cico sits under the striped awning of a shuttered fish stall, the sealed package in his lap, scooter beside him, first light on the water.
+[SCENE SA3 · c1_end_a_escape] Dawn in Karaköy: Cico sits under the striped awning of a shuttered fish stall, the package OPEN in his lap with hard drives visible inside, scooter beside him, first light on the water.
 [RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
 [AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
 ```
@@ -1186,7 +1680,7 @@ Slow push-in, seagulls cross the frame, he looks down at the package. Ambient: w
 |---|---|
 | Kod / scene_id | **SA4** · `c1_end_a_fall` |
 | Tür | Son |
-| Önceki sahne | **A5** Yüksek Kaldırım (`c1_a5_chase`) |
+| Önceki sahne | **A5c** Zarf (`c1_a5c_paper`) |
 | Sonraki sahne | — (bölüm sonu) |
 | Mekân | Yüksek Kaldırım |
 | Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] + [Paltolu adam] |
@@ -1196,17 +1690,13 @@ Slow push-in, seagulls cross the frame, he looks down at the package. Ambient: w
 
 **Sahnenin işlevi:** A son: Düşüş. Başarısızlık en büyük ipucunu verir: ROTA'nın risk listesi (ilk seçimde ROTA'nın neden onu seçtiğini açıklar).
 
-**Yönetmen notu (görsel / video):** Islak basamaklar, kayma (şiddet gösterilmez, kesme ile). Yerde kâğıt; içerik UI kartında.
+**Yönetmen notu (görsel / video):** Basamaklarda oturan Cico elindeki kâğıdı okur; yüzünde aydınlanma. Kâğıdın içeriği okunmaz.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
-- *Anlatı:* Freni limon sıkar gibi sıkmalıydı. Fazla sıktı. Teker kayıyor.
-- *Anlatı:* Kask onu korudu. Paket gitti.
-- *Anlatı:* Kulağında Kabile Şefi'nin sesi.
-- *Konuşma — Kabile Şefi:* Düştün babuş, olabilir. Neyse ki korumaların üstündeydi.
-- *Konuşma — Kabile Şefi:* Düşmeyi bilmek mi? Kel motosiklet eğitmenlerinin uydurduğu bir palavra.
-- *Anlatı:* Yerde, adamın düşürdüğü bir kâğıt.
-- *Anlatı:* ROTA listesi: "Riskli işi reddetmeyenler." Dördüncü satırda: Aslan.
+- *Anlatı:* Cico zarfı açıyor. ROTA listesi: "Riskli işi reddetmeyenler."
+- *Anlatı:* Dördüncü satırda: Aslan.
+- *Anlatı:* Şimdi anlıyor: o paket ona tesadüfen düşmedi.
 - *Tanıtım slaytı — Mendilci çocuk:* İstiklal'de mendil satar. Haritayı Cico'dan öğrendi, şehri herkesten iyi bilir.
 - *Telefon mesajı — Mendilci çocuk:* Hocam, dün gece ilaç gelmedi. Babaannemi komşular hastaneye götürdü. İyi şimdi.
 - *Anlatı:* Dün gece reddettiği talep, o çocuğunmuş.
@@ -1223,7 +1713,7 @@ Slow push-in, seagulls cross the frame, he looks down at the package. Ambient: w
 [CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
 [CHARACTER] Cico's scooter: classic vespa-style scooter, dark green, round headlight, green delivery box on the rear rack, licence plate "34 AEA 8430", absolutely no logos or brand marks.
 [CHARACTER] Man in the coat: tall man in his mid-40s, long charcoal wool coat, black leather gloves, clean-shaven, slicked-back dark hair with grey temples, calm unreadable half smile, perfectly dry even in rain. Stands very still. Holds a closed black umbrella.
-[SCENE SA4 · c1_end_a_fall] Aftermath at the bottom of the wet steps: the green scooter lies on its side, a green paint streak on the stone. Cico sits up, helmet on, unhurt but shaken. The Man in the coat walks away up the steps with the package; a folded sheet of paper (unreadable) lies on the wet stones near Cico's hand.
+[SCENE SA4 · c1_end_a_fall] Cico sits on the wet steps reading the opened sheet from the envelope (unreadable). Close-medium shot on his face: realisation dawning — eyes widening, jaw tightening.
 [RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
 [AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
 ```
@@ -1231,7 +1721,7 @@ Slow push-in, seagulls cross the frame, he looks down at the package. Ambient: w
 **Video promptu (Google Flow · görselden videoya · 9:16):**
 
 ```text
-Quiet after the fall: rain on stones, the man's footsteps fade, Cico reaches for the paper. No impact shown. Ambient: rain. 8 seconds.
+Slow push-in on his face as he reads; the rain softens. Ambient: rain. 8 seconds.
 ```
 
 **Devamlılık kontrolü:**
@@ -1303,7 +1793,7 @@ Very slow push-in on the screen; all dots move except one that stops. Cico's ref
 | Önceki sahne | **B4** Taksim İlk Yardım (`c1_b4_hospital`) |
 | Sonraki sahne | — (bölüm sonu) |
 | Mekân | Nevizade Sokağı |
-| Kadro | [Cico (Aslan)] |
+| Kadro | [Cico (Aslan)] + [Kabile Şefi] |
 | Zaman / ışık | Ertesi gece |
 | Dosya adı | `SB1.png` (görsel) · `SB1.mp4` (video) |
 | Mevcut | görsel ✓ |
@@ -1328,7 +1818,8 @@ Very slow push-in on the screen; all dots move except one that stops. Cico's ref
 [STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
 [LOCATION: Nevizade Sokağı] Nevizade Street, Beyoğlu at night: narrow wet cobblestone street, rows of glowing tavern and shop neon signs (döner, barber pole, café), warm windows, light fog, distant silhouettes of people, a moody moonlit sky between old buildings, puddles reflecting neon. Cico leans on a weathered wall on the right.
 [CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
-[SCENE SB1 · c1_end_b_strike] The same Nevizade Street as O1, the next night: crowded with people, but a long row of parked courier scooters with engines off lines the street, helmets hung on the mirrors. Cico stands among them.
+[CHARACTER] Tribe Chief: courier in his early 50s, broad shoulders, grey stubble and thick grey moustache, deep laugh lines, warm but tough eyes. Black armoured riding jacket with visible elbow and shoulder protectors, knee guards over dark jeans, worn full-face helmet covered in faded stickers (no readable words). Rides an older dark-blue scooter with a black delivery box.
+[SCENE SB1 · c1_end_b_strike] The same Nevizade Street as O1, the next night: a real strike — couriers stand together beside a long row of parked scooters with engines off, holding blank placards and raised helmets (no text anywhere). Green flares, fists and helmets raised, tavern guests standing and filming. Cico stands at the front, determined; the Tribe Chief, arm in a sling, beside him.
 [RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
 [AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
 ```
@@ -1355,7 +1846,7 @@ Slow crane-up revealing the row of silent scooters; people look at them. Ambient
 | Önceki sahne | **B4** Taksim İlk Yardım (`c1_b4_hospital`) |
 | Sonraki sahne | — (bölüm sonu) |
 | Mekân | Taksim İlk Yardım |
-| Kadro | [Cico (Aslan)] + [Kabile Şefi] + [Mendilci çocuk] |
+| Kadro | [Cico (Aslan)] |
 | Zaman / ışık | Sabah |
 | Dosya adı | `SB2.png` (görsel) · `SB2.mp4` (video) |
 | Mevcut | görsel ✓ |
@@ -1383,9 +1874,7 @@ Slow crane-up revealing the row of silent scooters; people look at them. Ambient
 [STYLE] Pixar-style stylized 3D animated film still. Soft rounded shapes, expressive faces with large eyes, cinematic lighting with warm/cool contrast, rich but realistic textures (wet cobblestone, fog, neon reflections, worn plaster). Night Istanbul (Beyoğlu, Galata, Tarlabaşı). Shallow depth of field, gentle film grain. Vertical 9:16 portrait frame (e.g. 1080×1920). Main subject between 15% and 80% of the frame height.
 [LOCATION: Taksim İlk Yardım] A hospital emergency corridor before dawn: cold fluorescent light, plastic chairs, couriers in jackets sitting and standing with helmets in their laps, a tired night shift atmosphere.
 [CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
-[CHARACTER] Tribe Chief: courier in his early 50s, broad shoulders, grey stubble and thick grey moustache, deep laugh lines, warm but tough eyes. Black armoured riding jacket with visible elbow and shoulder protectors, knee guards over dark jeans, worn full-face helmet covered in faded stickers (no readable words). Rides an older dark-blue scooter with a black delivery box.
-[CHARACTER] Tissue seller kid: 11-year-old boy, thin, messy black hair, big curious bright eyes, faded oversized red hoodie with sleeves rolled up, worn white sneakers, carries a small clear plastic box of tissue packets. Clever, street-smart expression.
-[SCENE SB2 · c1_end_b_headline] Outside the hospital in the morning: couriers stare at their phones (screens unreadable); the kid stands next to Cico, proud, holding his phone. The Tribe Chief, arm in a sling, smiles in the doorway.
+[SCENE SB2 · c1_end_b_headline] First-person close-up: a hand holds a phone showing a news web page — the black car photo, skeleton grey bars instead of text, a small thumbnail of the kid in the corner. Behind, out of focus outside the hospital, happy couriers cheer.
 [RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
 [AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
 ```
@@ -1399,8 +1888,8 @@ Gentle handheld, morning light, the kid nudges Cico and grins. Ambient: city mor
 **Devamlılık kontrolü:**
 
 - [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
-- [ ] Çocuk B1/B2 kıyafetiyle.
-- [ ] Kabile Şefi kolu askıda.
+- [ ] Telefonda okunabilir yazı YOK (iskelet çubuklar).
+- [ ] Babaanne ve çocuk sahnede değil; çocuk yalnızca köşedeki küçük fotoğrafta.
 
 ---
 
@@ -1428,7 +1917,8 @@ Gentle handheld, morning light, the kid nudges Cico and grins. Ambient: city mor
 - *Anlatı:* İçeride ekranlar, bir masa, bir liste: "Riskli işi reddetmeyenler."
 - *Anlatı:* Dördüncü satırda: Aslan. Yanında: "Bu gece seçildi."
 - *Tanıtım slaytı — Paltolu adam:* Kimse adını bilmiyor. O herkesinkini biliyor.
-- *Konuşma — Paltolu adam:* Hoş geldin, Kurye 2608. Seni bekliyorduk.
+- *Konuşma — Paltolu adam:* Hoş geldin, Kurye 2608. Geleceğini biliyorduk.
+- *Konuşma — Paltolu adam:* İlk talepten beri her durağını izledik. Artık kontrol odasındasın. Hazırsın.
 
 
 
@@ -1480,7 +1970,8 @@ Slow push-in on Cico's shocked face, then rack focus to the man behind him. Ambi
 
 - *Anlatı:* Fotoğrafta ekranlar, noktalar ve kıpırdamayan bir nokta.
 - *Anlatı:* Kaçarken bir flaş patladı. 34 AEA 8430 artık onların listesinde.
-- *Anlatı:* Ama o duran noktayı artık herkes görebilir.
+- *Anlatı:* Kazalar kader değil. ROTA her şeyin farkında.
+- *Anlatı:* Ve Cico bunun peşini bırakacak gibi değil.
 - *Telefon mesajı — Annem (koşullu):* Kira yattı oğlum. Allah razı olsun.
 - *Anlatı (koşullu):* Kiraya yine yetmedi. Annesine ne yazacağını bilmiyor.
 - *Telefon mesajı — ROTA:* Yarınki rotanız hazır. 08:00 — Galata Feneri İlkokulu.
@@ -1510,4 +2001,5 @@ Slow pull-back as the first light hits the street; he pockets the phone and star
 
 - [ ] Karakterler karakter kartlarıyla birebir aynı mı? (Cico: yeşil kapüşon, SOL omuzda 26 rozeti, çenede yarı açık kask)
 - [ ] B5'teki sokak, şafak ışığında.
+- [ ] Polaroid SB4p (assets/scenes/SB4p_c1_end_b_evidence_polaroid.jpg): "Kaçarken bir flaş patladı" vuruşunda üstte belirir — Cico'nun scooter'ı hızla kaçarken arkadan, flaşla donmuş.
 

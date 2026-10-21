@@ -18,12 +18,14 @@ const visible = (g) => g.getChoices().map((c) => `${c.id}${c.locked ? '🔒' : '
 const keys = (g) => g.textKeys();
 const epi = (g) => g.epilogueKeys();
 
-const A = ['>', 'envelope'];               // → c1_a1_printhouse
-const A_OPEN = [...A, 'open', '>'];        // → c1_a3_tower
-const A_CLOSED = [...A, 'keep_closed', '>'];
-const B = ['>', 'medicine', '>'];          // → c1_b2_kid
-const B_PHOTO = [...B, 'take_photo'];      // → c1_b3_boulevard
-const B_NOPHOTO = [...B, 'delete_photo'];
+const A = ['>', 'envelope', '>'];                    // O3 → c1_a1_printhouse
+const A_OPEN = [...A, 'open', '>', '>', '>', '>'];   // A1a → A1b → A2 → A3a → c1_a3_tower
+const A_CLOSED = [...A, 'keep_closed', '>', '>', '>']; // A1b → A2 → A3a → c1_a3_tower
+const FALL = ['>', '>'];                              // A5b → A5c → c1_end_a_fall
+const B = ['>', 'medicine', '>', '>', '>'];          // O3 → B0 → B1 → c1_b2_kid
+const B_PHOTO = [...B, 'take_photo', '>'];           // B2a → c1_b3_boulevard
+const B_NOPHOTO = [...B, 'delete_photo', '>'];
+const CHASE = ['chase', '>'];                         // B3a → c1_b5_printhouse
 
 test('açılış Nevizade Sokağı, sonra ilk seçim', () => {
   const g = createEngine(story);
@@ -65,6 +67,8 @@ test('A: şüphe ≥ 2 iken basamaklar = Düşüş (başarısızlık yeni bir ip
   const g = play([...A_OPEN, 'run']);
   assert.equal(g.state.vars.suspicion, 2);
   g.choose('stairs');
+  assert.equal(g.state.sceneId, 'c1_a5b_fall');
+  FALL.forEach(() => g.advance());
   assert.equal(g.state.sceneId, 'c1_end_a_fall');
   assert.ok(g.state.clues.includes('risk_list'));
 });
@@ -74,13 +78,13 @@ test('A: şüphe düşükken basamaklar = kaçış ("limon", "Uçuyorum ulan")',
   assert.equal(g.state.sceneId, 'c1_end_a_escape');
   assert.ok(keys(g).includes('scenes.c1_end_a_escape.stairs'));
   assert.ok(keys(g).includes('scenes.c1_end_a_escape.stairs_say'));
-  assert.ok(!keys(g).includes('scenes.c1_end_a_escape.plate'));
+  assert.ok(!keys(g).includes('scenes.c1_end_a_escape.hid'));
 });
 
-test('A: pasaj her zaman kaçırır ama plakayı ele verir', () => {
+test('A: pasaj her zaman kaçırır; Cico sabaha kadar saklanır', () => {
   const g = play([...A_OPEN, 'run', 'passage']);
   assert.equal(g.state.sceneId, 'c1_end_a_escape');
-  assert.ok(keys(g).includes('scenes.c1_end_a_escape.plate'));
+  assert.ok(keys(g).includes('scenes.c1_end_a_escape.hid'));
 });
 
 test('A: ikinci teklifi reddetmek kovalamacaya bağlanır', () => {
@@ -91,10 +95,12 @@ test('A: ikinci teklifi reddetmek kovalamacaya bağlanır', () => {
 
 test('A zaman aşımı (ilk seçim): ROTA paketi seçer ve sonda hatırlanır', () => {
   const g = play(['>', '⏱']);
-  assert.equal(g.state.sceneId, 'c1_a1_printhouse');
+  assert.equal(g.state.sceneId, 'c1_s03_ride');
   assert.equal(g.state.vars.system_chose, true);
-  assert.deepEqual(g.state.history.at(-1), { scene: 'c1_s02_orders', choice: 'timeout', timeout: true, to: 'c1_a1_printhouse' });
-  ['keep_closed', '>', 'hand_over', 'stay_silent'].forEach((s) => (s === '>' ? g.advance() : g.choose(s)));
+  assert.deepEqual(g.state.history.at(-1), { scene: 'c1_s02_orders', choice: 'timeout', timeout: true, to: 'c1_s03_ride' });
+  g.advance();
+  assert.equal(g.state.sceneId, 'c1_a1_printhouse');
+  ['keep_closed', '>', '>', '>', 'hand_over', 'stay_silent'].forEach((s) => (s === '>' ? g.advance() : g.choose(s)));
   assert.equal(g.state.sceneId, 'c1_end_a_silence');
   for (const k of ['common.system_chose', 'common.no_medicine', 'common.rent_paid']) assert.ok(keys(g).includes(k), k);
   assert.ok(epi(g).includes('epilogue.rota') && !epi(g).includes('epilogue.money'));
@@ -114,7 +120,7 @@ test('A zaman aşımı (ikinci teklif = sessizlik "evet"; kovalamaca = düşüş
   const a = play([...A_OPEN, 'confront', '⏱']);
   assert.equal(a.state.sceneId, 'c1_end_a_desk');
   assert.ok(keys(a).includes('scenes.c1_end_a_desk.silence'));
-  const b = play([...A_CLOSED, 'run', '⏱']);
+  const b = play([...A_CLOSED, 'run', '⏱', ...FALL]);
   assert.equal(b.state.sceneId, 'c1_end_a_fall');
 });
 
@@ -139,7 +145,7 @@ test('B: fotoğrafı sildirirsen gazeteci seçeneği kilitli; Kabile kontak kapa
 });
 
 test('B: arabanın peşine düş → matbaa → içeri gir = Kara Kutu / fotoğraf = Kanıt', () => {
-  const g = play([...B_PHOTO, 'chase']);
+  const g = play([...B_PHOTO, ...CHASE]);
   assert.equal(g.state.sceneId, 'c1_b5_printhouse');
   assert.equal(g.state.vars.chief, 'chased');
   const snap = g.snapshot();
@@ -155,7 +161,7 @@ test('B zaman aşımı: kaza yerinde donakalmak hastaneye; matbaada donakalmak K
   const a = play([...B_NOPHOTO, '⏱']);
   assert.equal(a.state.sceneId, 'c1_b4_hospital');
   assert.ok(keys(a).includes('scenes.c1_b4_hospital.froze'));
-  const b = play([...B_NOPHOTO, 'chase', '⏱']);
+  const b = play([...B_NOPHOTO, ...CHASE, '⏱']);
   assert.equal(b.state.sceneId, 'c1_end_b_blackbox');
   assert.ok(keys(b).includes('scenes.c1_end_b_blackbox.froze'));
 });
@@ -191,7 +197,7 @@ test('gizli/kilitli/var olmayan seçenekler seçilemez; seçim sahnesinde advanc
 });
 
 test('yeniden başlatma tüm durumu temizler', () => {
-  const g = play([...A_OPEN, 'run', 'stairs']);
+  const g = play([...A_OPEN, 'run', 'stairs', ...FALL]);
   assert.equal(g.state.ended, true);
   g.restart();
   assert.deepEqual(g.state, createEngine(story).state);
@@ -200,6 +206,7 @@ test('yeniden başlatma tüm durumu temizler', () => {
 
 test('geliştirici günlüğü her etkiyi kaydeder', () => {
   const g = play([...A, 'open']);
+  assert.equal(g.state.sceneId, 'c1_a1a_inside');
   const entry = g.state.log.find((l) => l.source === 'choice:open');
   assert.deepEqual(entry.changes, [
     { var: 'seal_broken', from: false, to: true },

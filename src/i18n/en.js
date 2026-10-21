@@ -121,6 +121,12 @@
         },
       },
 
+      c1_s03_ride: {
+        title: 'On the Road',
+        l1: 'The wet streets of Beyoğlu. Cico opens the throttle.',
+        l2: 'ROTA\'s line curls across the screen. The clock is running.',
+      },
+
       c1_a1_printhouse: {
         title: 'The Print Shop',
         l1: 'Tarlabaşı. An old print shop, its sign long gone.',
@@ -132,18 +138,34 @@
           keep_closed: 'Leave it, deliver it',
         },
       },
+      c1_a1a_inside: {
+        title: 'The Shutter',
+        l1: 'The shutter is down. The street is empty.',
+        l2: 'Cico lifts the tape. Inside, a hard drive.',
+        l3: '"Accident Records." Whose accidents?',
+      },
+      c1_a1b_mount: {
+        title: 'Moving Off',
+        opened: 'He presses the tape back down. No one must notice.',
+        closed: 'The package is in the box. No one looked, no one asked.',
+        l1: 'Delivery address: Galata.',
+      },
       c1_a2_school: {
         title: 'Galata Feneri Primary School',
         l1: 'Cico eases off the throttle. The scooter goes fıtı fıtı.',
         l2: 'Galata Feneri Primary School. Dark classrooms, upturned chairs.',
         l3: 'Once, he dreamed of standing in front of a blackboard.',
         closed: 'The package in his bag sits on his back like a stone.',
-        open: '"Accident Records." Whose accidents?',
+        open: 'The drive in his bag sits on his back like a stone. Those two words stay with him.',
+      },
+      c1_a3a_cutoff: {
+        title: 'The Hill',
+        l1: 'The hill up to the tower. An iron cage cuts across his path.',
+        l2: 'Cico slams the brake. A rear door opens and a man in a long coat steps out.',
       },
       c1_a3_tower: {
         title: 'Galata Tower',
-        l1: 'The foot of Galata Tower. The tourists are gone, the square is empty.',
-        l2: 'In the tower\'s shadow, a man in a long coat is waiting.',
+        l1: 'The foot of Galata Tower. The car blocks the road, the square is empty.',
         man1: 'Good evening, Courier 2608. Or should we say Cico?',
         l3: 'Only ROTA knows courier numbers.',
         man2: 'Hand it over. Fifteen hundred in your account.',
@@ -181,6 +203,19 @@
           passage_sub: 'Slow but out of sight',
         },
       },
+      c1_a5b_fall: {
+        title: 'The Steps',
+        l1: 'He should have squeezed the brake like a lemon. He grips too hard. The wheel slides.',
+        l2: 'The helmet saved him. The man in the coat takes the package and walks away.',
+        voice: 'The Tribe Chief\'s voice in his ear.',
+        fall_1: 'So you fell, babuş. It happens. Lucky your gear was on.',
+        fall_2: 'Knowing how to fall? A lie made up by bald riding instructors.',
+        l3: 'Footsteps fade away. Then silence.',
+      },
+      c1_a5c_paper: {
+        title: 'The Envelope',
+        l1: 'The man is gone. On the wet stone, an envelope he dropped.',
+      },
       c1_a6_second_offer: {
         title: 'The Second Offer',
         cico: 'I know what\'s inside.',
@@ -194,10 +229,15 @@
         },
       },
 
-      c1_b1_pharmacy: {
+      c1_b0_pharmacy: {
         title: 'Night Pharmacy',
-        l1: 'The package went to the Tribe Chief.',
-        l2: 'Dolapdere. A kid opens the door.',
+        l1: 'The night pharmacy. Medicine in the bag, address: Dolapdere.',
+        l2: 'The package went to the Tribe Chief.',
+      },
+      c1_b1_pharmacy: {
+        title: 'Dolapdere',
+        l1: 'Dolapdere. A crumbling staircase, third floor.',
+        l2: 'A kid opens the door.',
         kid: 'Hocam?',
       },
       c1_b2_kid: {
@@ -205,13 +245,17 @@
         y1: 'There were men by the print shop. They loaded boxes into a black car.',
         y2: 'They were asking about you, Hocam. "A courier called Aslan."',
         photo: 'A blurry photo on the kid\'s phone: a plate, a box, a face.',
-        chief: 'Cico, this package thing is weird. There\'s a car behind me.',
         choices: {
           take_photo: '"Send me that photo."',
           take_photo_toast: 'The kid is part of this now.',
           delete_photo: '"Delete it. Lock your door."',
           delete_photo_toast: 'The kid is safe. The evidence isn\'t.',
         },
+      },
+      c1_b2a_chief: {
+        title: 'The Tribe Chief',
+        l1: 'Meanwhile, the Tribe Chief is delivering the package. Headlights behind him.',
+        chief: 'Cico, this package thing is weird. There\'s a car behind me.',
       },
       c1_b3_boulevard: {
         title: 'Tarlabaşı Boulevard',
@@ -228,6 +272,11 @@
           chase_toast: 'You left the chief on the ground.',
         },
       },
+      c1_b3a_tail: {
+        title: 'The Tail',
+        l1: 'Cico kills his headlight. He follows two cars back.',
+        l2: 'The black car slows in the back streets. It stops at a corner.',
+      },
       c1_b4_hospital: {
         title: 'Taksim Emergency',
         froze: 'Cico froze. By the time the ambulance came, the car was long gone.',
@@ -236,7 +285,7 @@
         chief: 'Twenty years. Ended with one message.',
         l2: 'Everyone in the Tribe group is writing the same thing: "What do we do?"',
         choices: {
-          strike: 'Message the Tribe: "Nobody rides tomorrow night."',
+          strike: 'Message the Tribe: "Strike tomorrow night. This is serious."',
           strike_toast: 'ROTA will hear this.',
           press: 'Send the kid\'s photo to a journalist',
           press_hint: 'If only you had proof...',
@@ -271,20 +320,16 @@
         stairs: 'On the wet steps he squeezed the brake like squeezing a lemon. Not too much, not too little.',
         stairs_say: 'I\'m flying, man!',
         main: 'Dawn. Karaköy. The package in his lap.',
-        not_opened: 'He lifts the tape. A drive: "ROTA — Accident Records."',
+        not_opened: 'He lifts the tape. Drives inside: "ROTA — Accident Records."',
         opened: 'Now the proof is in his hands.',
-        plate: 'A flash went off as he fled. 34 AEA 8430 is on their list now.',
+        hid: 'He hid in the dark of the passage until morning. No one found him.',
         dilemma: 'Who gets it? The police, a journalist, or the Tribe?',
       },
       c1_end_a_fall: {
         title: 'The Fall',
-        l1: 'He should have squeezed the brake like a lemon. He grips too hard. The wheel slides.',
-        l2: 'The helmet saved him. The package is gone.',
-        voice: 'The Tribe Chief\'s voice in his ear.',
-        fall_1: 'So you fell, babuş. It happens. Lucky your gear was on.',
-        fall_2: 'Knowing how to fall? A lie made up by bald riding instructors.',
-        l3: 'On the ground, a sheet the man dropped.',
-        l4: 'A ROTA list: "Won\'t refuse risky jobs." Fourth line: Aslan.',
+        l1: 'Cico opens the envelope. A ROTA list: "Won\'t refuse risky jobs."',
+        l2: 'Fourth line: Aslan.',
+        l3: 'Now he understands: that package didn\'t land on him by chance.',
       },
       c1_end_a_desk: {
         title: 'The Desk',
@@ -313,13 +358,15 @@
         froze: 'Cico freezes at the glass. A door opens behind him.',
         l1: 'Inside: screens, a desk, a list. "Won\'t refuse risky jobs."',
         l2: 'Fourth line: Aslan. Next to it: "Selected tonight."',
-        man: 'Welcome, Courier 2608. We\'ve been expecting you.',
+        man: 'Welcome, Courier 2608. We knew you\'d come.',
+        man2: 'We\'ve watched every stop since your first order. This is the control room now. You\'re ready.',
       },
       c1_end_b_evidence: {
         title: 'Evidence',
         l1: 'In the photo: screens, dots, and one dot that doesn\'t move.',
         l2: 'A flash went off as he fled. 34 AEA 8430 is on their list now.',
-        l3: 'But now everyone can see the dot that stopped.',
+        l3: 'Accidents aren\'t fate. ROTA knows everything.',
+        l4: 'And Cico isn\'t about to let it go.',
       },
     },
 

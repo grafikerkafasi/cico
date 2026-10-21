@@ -55,6 +55,8 @@
   const msg = (key, from, cond) => ({ key, kind: 'msg', from, ...(cond ? { if: cond } : {}) });
   const line = (key, cond) => ({ key, ...(cond ? { if: cond } : {}) });
   const intro = (who) => ({ key: `@characters.${who}.line`, kind: 'intro', who });
+  // Vuruşa özel üst görsel (hayal, polaroid…): o vuruş ekrandayken sahne görselinin üstünde belirir.
+  const overlay = (block, src, style) => ({ ...(typeof block === 'string' ? { key: block } : block), overlay: src, overlay_style: style });
 
   const ENVELOPE = { var: 'route', eq: 'envelope' };
   const MEDICINE = { var: 'route', eq: 'medicine' };
@@ -129,9 +131,9 @@
         text: [intro('rota'), 'l1', 'l2'],
         timer: { seconds: 15, on_timeout: 'timeout' },
         choices: [
-          { id: 'envelope', hotspot: { x: 52, y: 46, side: 'left' }, effects: [{ set: { route: 'envelope' } }], next: 'c1_a1_printhouse' },
-          { id: 'medicine', hotspot: { x: 80, y: 48, side: 'below' }, effects: [{ set: { route: 'medicine' }, add: { earnings: 85 } }], next: 'c1_b1_pharmacy' },
-          { id: 'timeout', hidden: true, effects: [{ set: { route: 'envelope', system_chose: true } }], next: 'c1_a1_printhouse' },
+          { id: 'envelope', hotspot: { x: 52, y: 46, side: 'left' }, effects: [{ set: { route: 'envelope' } }], next: 'c1_s03_ride' },
+          { id: 'medicine', hotspot: { x: 80, y: 48, side: 'below' }, effects: [{ set: { route: 'medicine' }, add: { earnings: 85 } }], next: 'c1_s03_ride' },
+          { id: 'timeout', hidden: true, effects: [{ set: { route: 'envelope', system_chose: true } }], next: 'c1_s03_ride' },
         ],
         image_asset: 'assets/scenes/O2_c1_s02_orders.jpg',
         video_asset: null,
@@ -143,6 +145,23 @@
         },
       },
 
+      {
+        scene_id: 'c1_s03_ride',
+        code: 'O3',
+        image_asset: 'assets/scenes/O3_c1_s03_ride.jpg',
+        scene_type: 'cinematic',
+        text: ['l1', 'l2'],
+        next: [
+          { if: ENVELOPE, goto: 'c1_a1_printhouse' },
+          { goto: 'c1_b0_pharmacy' },
+        ],
+        video_asset: null,
+        notes: {
+          dev: 'Kısa yol sahnesi; iki katmanın ortak son karesi. Buradan sonra yollar ayrılır.',
+          video: 'Beyoğlu, ıslak dar cadde, gece. Cico scooter\'la hızla geçer; arkada akan sokak lambaları. Galata Kulesi yok.',
+        },
+      },
+
       // ══ KATMAN A — PAKET ════════════════════════════════════════════
       {
         scene_id: 'c1_a1_printhouse',
@@ -151,8 +170,8 @@
         scene_type: 'choice',
         text: ['l1', 'l2', 'l3'],
         choices: [
-          { id: 'open', hotspot: { x: 47, y: 47 }, effects: [{ set: { seal_broken: true }, add: { suspicion: 1 }, clue: 'drive' }], next: 'c1_a2_school' },
-          { id: 'keep_closed', hotspot: { x: 82, y: 65 }, next: 'c1_a2_school' },
+          { id: 'open', hotspot: { x: 47, y: 47 }, effects: [{ set: { seal_broken: true }, add: { suspicion: 1 }, clue: 'drive' }], next: 'c1_a1a_inside' },
+          { id: 'keep_closed', hotspot: { x: 82, y: 65 }, next: 'c1_a1b_mount' },
         ],
         video_asset: null,
         notes: {
@@ -161,16 +180,43 @@
         },
       },
       {
+        scene_id: 'c1_a1a_inside',
+        code: 'A1a',
+        image_asset: 'assets/scenes/A1a_c1_a1a_inside.jpg',
+        scene_type: 'cinematic',
+        text: ['l1', 'l2', 'l3'],
+        next: 'c1_a1b_mount',
+        video_asset: null,
+        notes: {
+          dev: 'Paket, gönderici gittikten sonra açılır: kepenk inik, sokak boş. Şok yüzden okunur.',
+          video: 'Aynı matbaa, kepenk inik. Lamba altında Cico kutuyu açar: siyah sabit disk. Yüz yakın: gözler büyür.',
+        },
+      },
+      {
+        scene_id: 'c1_a1b_mount',
+        code: 'A1b',
+        image_asset: 'assets/scenes/A1b_c1_a1b_mount.jpg',
+        scene_type: 'cinematic',
+        text: [line('opened', { flag: 'seal_broken' }), line('closed', { not: { flag: 'seal_broken' } }), 'l1'],
+        next: 'c1_a2_school',
+        video_asset: null,
+        notes: {
+          dev: 'Geçiş: paket arka kutuda, Cico motora biner. Kendiliğinden A2\'ye akar.',
+          video: '3/4 arkadan: bacak scooter\'ın üstünden geçer, el gidonda; arka plaka görünür. Boş sokak.',
+        },
+      },
+      {
         scene_id: 'c1_a2_school',
         code: 'A2',
         image_asset: 'assets/scenes/A2_c1_a2_school.jpg',
         scene_type: 'cinematic',
         text: [
-          'l1', 'l2', 'l3',
+          'l1', 'l2',
+          overlay('l3', 'assets/scenes/A2f_c1_a2f_flashback.jpg', 'flashback'),
           line('closed', { not: { flag: 'seal_broken' } }),
           line('open', { flag: 'seal_broken' }),
         ],
-        next: 'c1_a3_tower',
+        next: 'c1_a3a_cutoff',
         video_asset: null,
         notes: {
           dev: 'Seçimsiz, nefes alan sahne. Öğretmenliğe tek ince dokunuş.',
@@ -178,11 +224,24 @@
         },
       },
       {
+        scene_id: 'c1_a3a_cutoff',
+        code: 'A3a',
+        image_asset: 'assets/scenes/A3a_c1_a3a_cutoff.jpg',
+        scene_type: 'cinematic',
+        text: ['l1', 'l2', intro('man')],
+        next: 'c1_a3_tower',
+        video_asset: null,
+        notes: {
+          dev: 'Paltolu adam Cico\'yu yolda durdurur: teslimat noktasına varmadan araba önünü keser.',
+          video: 'Kuleye çıkan yokuş, gece. Siyah araba scooter\'ın önüne kırar; Cico sert fren. Arka kapı açılır, paltolu adam iner.',
+        },
+      },
+      {
         scene_id: 'c1_a3_tower',
         code: 'A3',
         image_asset: 'assets/scenes/A3_c1_a3_tower.jpg',
         scene_type: 'choice',
-        text: ['l1', 'l2', intro('man'), say('man1', 'man'), 'l3', say('man2', 'man'), line('seal_noticed', { flag: 'seal_broken' })],
+        text: ['l1', say('man1', 'man'), 'l3', say('man2', 'man'), line('seal_noticed', { flag: 'seal_broken' })],
         on_enter: [{ clue: 'knows_name' }],
         timer: { seconds: 12, on_timeout: 'freeze' },
         choices: [
@@ -196,7 +255,7 @@
         loop_asset: null,
         notes: {
           dev: 'Ana gizem ve teklif: adam ROTA\'nın içinden biri ("Kurye 2608"). Paket açıldıysa üçüncü seçenek açılır, adam bandı fark eder.',
-          video: 'Galata Kulesi\'nin dibi, boş meydan, gece. Kulenin gölgesinde uzun paltolu adam. Bekleme döngüsü: uzanan el, arkada farlar.',
+          video: 'Galata Kulesi\'nin dibi, gece. Siyah araba scooter\'ın önünü kesmiş; paltolu adam elini uzatıp paketi istiyor. Bekleme döngüsü: uzanan el, farlar.',
         },
       },
       {
@@ -235,19 +294,45 @@
             id: 'stairs', hotspot: { x: 19, y: 71 },
             effects: [{ set: { escape_route: 'stairs' } }],
             next: [
-              { if: { var: 'suspicion', gte: 2 }, goto: 'c1_end_a_fall' },
+              { if: { var: 'suspicion', gte: 2 }, goto: 'c1_a5b_fall' },
               { goto: 'c1_end_a_escape' },
             ],
           },
           { id: 'passage', hotspot: { x: 81, y: 20 }, effects: [{ set: { escape_route: 'passage' } }], next: 'c1_end_a_escape' },
-          { id: 'stall', hidden: true, next: 'c1_end_a_fall' },
+          { id: 'stall', hidden: true, next: 'c1_a5b_fall' },
         ],
         video_asset: null,
         choice_display: 'over_video',
         loop_asset: null,
         notes: {
-          dev: 'Basamaklar: şüphe ≥ 2 ise düşer. Pasaj: güvenli ama plaka görülür. Başarısızlık ayrı bir sona (Düşüş) gider.',
-          video: 'Galata yokuşları, scooter kalkışı, siyah araba. İki kısa sonuç çekimi: Yüksek Kaldırım basamakları, pasaj.',
+          dev: 'Basamaklar: şüphe ≥ 2 ise düşer (A5b → A5c → Düşüş). Pasaj: güvenli; Cico sabaha kadar orada saklanır.',
+          video: 'Galata yokuşları, scooter kalkışı, arkada siyah araba. Pasajın içi boş ve karanlık (araba yok).',
+        },
+      },
+      {
+        scene_id: 'c1_a5b_fall',
+        code: 'A5b',
+        image_asset: 'assets/scenes/A5b_c1_a5b_fall.jpg',
+        scene_type: 'cinematic',
+        text: ['l1', 'l2', 'voice', say('fall_1', 'chief'), say('fall_2', 'chief'), 'l3'],
+        next: 'c1_a5c_paper',
+        video_asset: null,
+        notes: {
+          dev: 'Düşüş anı: paltolu adam paketi alıp uzaklaşır. Cico\'nun yanında kâğıt yok.',
+          video: 'Islak basamaklar, devrik scooter, yerde Cico (şiddet gösterilmez). Arkada paketle uzaklaşan paltolu adam.',
+        },
+      },
+      {
+        scene_id: 'c1_a5c_paper',
+        code: 'A5c',
+        image_asset: 'assets/scenes/A5c_c1_a5c_paper.jpg',
+        scene_type: 'cinematic',
+        text: ['l1'],
+        next: 'c1_end_a_fall',
+        video_asset: null,
+        notes: {
+          dev: 'Adam gitmiş; yerde düşürdüğü zarf. Dokununca Düşüş sonuna (Cico okur) geçilir.',
+          video: 'Islak taşta zarf, yakın plan; yağmur damlaları. Arkada flu basamaklar.',
         },
       },
       {
@@ -272,6 +357,19 @@
 
       // ══ KATMAN B — İLAÇ ════════════════════════════════════════════
       {
+        scene_id: 'c1_b0_pharmacy',
+        code: 'B0',
+        image_asset: 'assets/scenes/B0_c1_b0_pharmacy.jpg',
+        scene_type: 'cinematic',
+        text: ['l1', 'l2'],
+        next: 'c1_b1_pharmacy',
+        video_asset: null,
+        notes: {
+          dev: 'Nöbetçi eczane. Paket talebi Kabile Şefi\'ne düşer; Katman B\'nin olayı onun başına gelecek.',
+          video: 'Gece, nöbetçi eczane önü; yazısız ışıklı tabela (yalnızca yeşil haç). Cico scooter\'ının yanında, elinde poşet.',
+        },
+      },
+      {
         scene_id: 'c1_b1_pharmacy',
         code: 'B1',
         image_asset: 'assets/scenes/B1_c1_b1_pharmacy.jpg',
@@ -280,8 +378,8 @@
         next: 'c1_b2_kid',
         video_asset: null,
         notes: {
-          dev: 'Karakter sahnesi. Paket talebi Kabile Şefi\'ye düşer; Katman B\'nin olayı onun başına gelecek.',
-          video: 'Nöbetçi eczane ışığı; Dolapdere\'de dökük merdivenler; kapıda mendilci çocuk.',
+          dev: 'Karakter sahnesi: mendilci çocuk.',
+          video: 'Dolapdere\'de dökük merdivenler; kapıda mendilci çocuk.',
         },
       },
       {
@@ -289,15 +387,28 @@
         code: 'B2',
         image_asset: 'assets/scenes/B2_c1_b2_kid.jpg',
         scene_type: 'choice',
-        text: [say('y1', 'kid'), say('y2', 'kid'), 'photo', msg('chief', 'chief')],
+        text: [say('y1', 'kid'), say('y2', 'kid'), 'photo'],
         choices: [
-          { id: 'take_photo', hotspot: { x: 49, y: 42 }, effects: [{ set: { kid_involved: true }, clue: 'matbaa_photo' }], next: 'c1_b3_boulevard' },
-          { id: 'delete_photo', hotspot: { x: 17, y: 66 }, next: 'c1_b3_boulevard' },
+          { id: 'take_photo', hotspot: { x: 49, y: 42 }, effects: [{ set: { kid_involved: true }, clue: 'matbaa_photo' }], next: 'c1_b2a_chief' },
+          { id: 'delete_photo', hotspot: { x: 17, y: 66 }, next: 'c1_b2a_chief' },
         ],
         video_asset: null,
         notes: {
           dev: 'Kanıt vs. bir çocuğu korumak. Fotoğraf hastanede "gazeteci" seçeneğini açar; ama mendilci çocuk\'u riske atar.',
           video: 'Kapı eşiği, alçak sesle konuşma. Fotoğraf UI kartında, videoda okunmaz.',
+        },
+      },
+      {
+        scene_id: 'c1_b2a_chief',
+        code: 'B2a',
+        image_asset: 'assets/scenes/B2a_c1_b2a_chief.jpg',
+        scene_type: 'cinematic',
+        text: ['l1', msg('chief', 'chief')],
+        next: 'c1_b3_boulevard',
+        video_asset: null,
+        notes: {
+          dev: 'Aynı saatlerde Kabile Şefi paketi götürüyor; tek eliyle Cico\'ya yazar. Arkasında siyah araba.',
+          video: 'Tarlabaşı Bulvarı, gece. Şef motorunda, bir eli gidonda, diğeriyle telefon. Arkada yaklaşan siyah araba farları.',
         },
       },
       {
@@ -310,7 +421,7 @@
         timer: { seconds: 12, on_timeout: 'freeze' },
         choices: [
           { id: 'stay', hotspot: { x: 44, y: 52 }, effects: [{ set: { chief: 'stayed' } }], next: 'c1_b4_hospital' },
-          { id: 'chase', hotspot: { x: 79, y: 18 }, effects: [{ set: { chief: 'chased' } }], next: 'c1_b5_printhouse' },
+          { id: 'chase', hotspot: { x: 79, y: 18 }, effects: [{ set: { chief: 'chased' } }], next: 'c1_b3a_tail' },
           { id: 'freeze', hidden: true, effects: [{ set: { chief: 'stayed', hesitated: true } }], next: 'c1_b4_hospital' },
         ],
         video_asset: null,
@@ -319,6 +430,19 @@
         notes: {
           dev: 'Katman B\'nin kırılma noktası: bir dostu yerde bırakmamak mı, onu yere sereni kovalamak mı.',
           video: 'Tarlabaşı Bulvarı, gece. Yerde yeşil teslimat çantası, devrik scooter. Kabile Şefi oturur hâlde, kask çatlak (kan yok). Uzaklaşan siyah araba.',
+        },
+      },
+      {
+        scene_id: 'c1_b3a_tail',
+        code: 'B3a',
+        image_asset: 'assets/scenes/B3a_c1_b3a_tail.jpg',
+        scene_type: 'cinematic',
+        text: ['l1', 'l2'],
+        next: 'c1_b5_printhouse',
+        video_asset: null,
+        notes: {
+          dev: 'Gizli takip: Cico farlarını kapatıp siyah arabayı ara sokaklarda izler.',
+          video: 'Tarlabaşı ara sokağı, gece. Önde siyah arabanın stop lambaları; Cico mesafeli, köşeden izler.',
         },
       },
       {
@@ -394,25 +518,25 @@
           'main',
           line('not_opened', { not: { clue: 'drive' } }),
           line('opened', { clue: 'drive' }),
-          line('plate', { var: 'escape_route', eq: 'passage' }),
+          line('hid', { var: 'escape_route', eq: 'passage' }),
           'dilemma',
           ...NO_MEDICINE,
           ...ROTA_HOOK,
         ],
         video_asset: null,
-        notes: { dev: 'A son: Paket Bende.', video: 'Şafak, Karaköy, kapalı balıkçı tentesi, paket kucakta.' },
+        notes: { dev: 'A son: Paket Bende.', video: 'Şafak, Karaköy, kapalı balıkçı tentesi; açık paket kucakta, içinde diskler görünür.' },
       },
       {
         scene_id: 'c1_end_a_fall',
         code: 'SA4',
         image_asset: 'assets/scenes/SA4_c1_end_a_fall.jpg',
         scene_type: 'ending',
-        text: ['l1', 'l2', 'voice', say('fall_1', 'chief'), say('fall_2', 'chief'), 'l3', 'l4', ...NO_MEDICINE, ...ROTA_HOOK],
+        text: ['l1', 'l2', 'l3', ...NO_MEDICINE, ...ROTA_HOOK],
         on_enter: [{ clue: 'risk_list' }],
         video_asset: null,
         notes: {
           dev: 'A son: Düşüş. Başarısızlık en büyük ipucunu verir: ROTA\'nın risk listesi (ilk seçimde ROTA\'nın neden onu seçtiğini açıklar).',
-          video: 'Islak basamaklar, kayma (şiddet gösterilmez, kesme ile). Yerde kâğıt; içerik UI kartında.',
+          video: 'Basamaklarda oturan Cico elindeki kâğıdı okur; yüzünde aydınlanma. Kâğıdın içeriği okunmaz.',
         },
       },
       {
@@ -449,7 +573,7 @@
         code: 'SB3',
         image_asset: 'assets/scenes/SB3_c1_end_b_blackbox.jpg',
         scene_type: 'ending',
-        text: [line('froze', HESITATED), 'l1', 'l2', intro('man'), say('man', 'man')],
+        text: [line('froze', HESITATED), 'l1', 'l2', intro('man'), say('man', 'man'), say('man2', 'man')],
         on_enter: [{ clue: 'risk_list' }],
         video_asset: null,
         notes: { dev: 'B son: Kara Kutu. ROTA kancası yok; kanca adamın kendisi.', video: 'Matbaanın içi: ekranlar, masa, liste (içerik UI kartında). Arkada paltolu adam.' },
@@ -459,7 +583,7 @@
         code: 'SB4',
         image_asset: 'assets/scenes/SB4_c1_end_b_evidence.jpg',
         scene_type: 'ending',
-        text: ['l1', 'l2', 'l3', ...RENT, ...ROTA_HOOK],
+        text: ['l1', overlay('l2', 'assets/scenes/SB4p_c1_end_b_evidence_polaroid.jpg', 'polaroid'), 'l3', 'l4', ...RENT, ...ROTA_HOOK],
         video_asset: null,
         notes: { dev: 'B son: Kanıt.', video: 'Şafak, Tarlabaşı, scooter\'da telefona bakan Cico (ekran içeriği okunmaz).' },
       },

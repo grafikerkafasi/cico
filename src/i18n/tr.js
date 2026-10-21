@@ -124,6 +124,12 @@
         },
       },
 
+      c1_s03_ride: {
+        title: 'Yolda',
+        l1: 'Beyoğlu\'nun ıslak sokakları. Cico gaza yükleniyor.',
+        l2: 'Ekranda ROTA\'nın çizgisi kıvrılıyor. Saat işliyor.',
+      },
+
       // ── Katman A: Paket
       c1_a1_printhouse: {
         title: 'Matbaa',
@@ -136,18 +142,34 @@
           keep_closed: 'Dokunma, teslim et',
         },
       },
+      c1_a1a_inside: {
+        title: 'Kepenk',
+        l1: 'Kepenk indi. Sokak bomboş.',
+        l2: 'Cico bandı kaldırıyor. İçinde bir sabit disk.',
+        l3: '"Kaza Kayıtları." Kimlerin kazası?',
+      },
+      c1_a1b_mount: {
+        title: 'Yola Çıkış',
+        opened: 'Bandı yerine bastırıyor. Kimse fark etmesin.',
+        closed: 'Paket arka kutuda. Kimse bakmadı, kimse sormadı.',
+        l1: 'Teslimat adresi: Galata.',
+      },
       c1_a2_school: {
         title: 'Galata Feneri İlkokulu',
         l1: 'Cico gazı bırakıyor. Scooter fıtı fıtı ilerliyor.',
         l2: 'Galata Feneri İlkokulu. Karanlık sınıflar, ters sandalyeler.',
         l3: 'Bir zamanlar bir tahtanın önünde durmayı hayal etmişti.',
         closed: 'Çantadaki paket sırtında bir taş gibi.',
-        open: '"Kaza Kayıtları." Kimlerin kazası?',
+        open: 'Çantadaki disk sırtında bir taş gibi. Aklı o iki kelimede.',
+      },
+      c1_a3a_cutoff: {
+        title: 'Yokuş',
+        l1: 'Kuleye çıkan yokuş. Bir demir kafes önünü kesiyor.',
+        l2: 'Cico freni sıkıyor. Arka kapı açılıyor, uzun paltolu bir adam iniyor.',
       },
       c1_a3_tower: {
         title: 'Galata Kulesi',
-        l1: 'Galata Kulesi\'nin dibi. Turistler gitmiş, meydan boş.',
-        l2: 'Kulenin gölgesinde uzun paltolu bir adam bekliyor.',
+        l1: 'Galata Kulesi\'nin dibi. Araba yolu kapatmış, meydan boş.',
         man1: 'İyi akşamlar, Kurye 2608. Yoksa Cico mu diyelim?',
         l3: 'Kurye numarasını yalnızca ROTA bilir.',
         man2: 'Paketi ver. 1.500 lira hesabında.',
@@ -185,6 +207,19 @@
           passage_sub: 'Yavaş ama gözden uzak',
         },
       },
+      c1_a5b_fall: {
+        title: 'Basamaklar',
+        l1: 'Freni limon sıkar gibi sıkmalıydı. Fazla sıktı. Teker kayıyor.',
+        l2: 'Kask onu korudu. Paltolu adam paketi alıp uzaklaşıyor.',
+        voice: 'Kulağında Kabile Şefi\'nin sesi.',
+        fall_1: 'Düştün babuş, olabilir. Neyse ki korumaların üstündeydi.',
+        fall_2: 'Düşmeyi bilmek mi? Kel motosiklet eğitmenlerinin uydurduğu bir palavra.',
+        l3: 'Ayak sesleri uzaklaşıyor. Sonra sessizlik.',
+      },
+      c1_a5c_paper: {
+        title: 'Zarf',
+        l1: 'Adam gitti. Islak taşın üstünde, düşürdüğü bir zarf.',
+      },
       c1_a6_second_offer: {
         title: 'İkinci Teklif',
         cico: 'İçinde ne olduğunu biliyorum.',
@@ -199,10 +234,15 @@
       },
 
       // ── Katman B: İlaç
-      c1_b1_pharmacy: {
+      c1_b0_pharmacy: {
         title: 'Nöbetçi Eczane',
-        l1: 'Paket talebi Kabile Şefi\'ne düştü.',
-        l2: 'Dolapdere. Kapıyı bir çocuk açıyor.',
+        l1: 'Nöbetçi eczane. İlaç poşette, adres Dolapdere.',
+        l2: 'Paket talebi Kabile Şefi\'ne düştü.',
+      },
+      c1_b1_pharmacy: {
+        title: 'Dolapdere',
+        l1: 'Dolapdere. Dökük bir merdiven, üçüncü kat.',
+        l2: 'Kapıyı bir çocuk açıyor.',
         kid: 'Hocam?',
       },
       c1_b2_kid: {
@@ -210,13 +250,17 @@
         y1: 'Matbaanın orada adamlar vardı. Siyah arabaya kutu yüklediler.',
         y2: 'Seni soruyorlardı Hocam. "Aslan diye bir kurye" diye.',
         photo: 'Çocuğun telefonunda bulanık bir fotoğraf: plaka, kutu, bir yüz.',
-        chief: 'Cico, paket işi tuhaf. Arkamda bir araba var.',
         choices: {
           take_photo: '"Fotoğrafı bana at."',
           take_photo_toast: 'Çocuk artık bu işin içinde.',
           delete_photo: '"Sil onu. Kapını kilitle."',
           delete_photo_toast: 'Çocuk güvende. Kanıt değil.',
         },
+      },
+      c1_b2a_chief: {
+        title: 'Kabile Şefi',
+        l1: 'Aynı saatlerde Kabile Şefi paketi götürüyor. Arkasında farlar.',
+        chief: 'Cico, paket işi tuhaf. Arkamda bir araba var.',
       },
       c1_b3_boulevard: {
         title: 'Tarlabaşı Bulvarı',
@@ -233,6 +277,11 @@
           chase_toast: 'Şefi yerde bıraktın.',
         },
       },
+      c1_b3a_tail: {
+        title: 'Takip',
+        l1: 'Cico farlarını kapatıyor. İki araba geriden izliyor.',
+        l2: 'Siyah araba ara sokaklarda yavaşlıyor. Bir köşede duruyor.',
+      },
       c1_b4_hospital: {
         title: 'Taksim İlk Yardım',
         froze: 'Cico donup kaldı. Ambulans geldiğinde araba çoktan gitmişti.',
@@ -241,7 +290,7 @@
         chief: 'Yirmi yıl. Bir mesajla bitti.',
         l2: 'Kabile grubunda herkes aynı şeyi yazıyor: "Ne yapacağız?"',
         choices: {
-          strike: 'Kabile\'ye yaz: "Yarın gece kimse çıkmasın."',
+          strike: 'Kabile\'ye yaz: "Yarın gece toplu grev. Mesele ciddi."',
           strike_toast: 'ROTA bunu duyacak.',
           press: 'Çocuğun fotoğrafını bir gazeteciye gönder',
           press_hint: 'Elinde bir kanıt olsaydı...',
@@ -277,20 +326,16 @@
         stairs: 'Islak basamaklarda freni limon sıkar gibi sıktı. Ne fazla, ne az.',
         stairs_say: 'Uçuyorum ulan!',
         main: 'Şafak. Karaköy. Paket kucağında.',
-        not_opened: 'Bandı kaldırıyor. Bir disk: "ROTA — Kaza Kayıtları."',
+        not_opened: 'Bandı kaldırıyor. İçinde diskler: "ROTA — Kaza Kayıtları."',
         opened: 'Kanıt artık onun elinde.',
-        plate: 'Kaçarken bir flaş patladı. 34 AEA 8430 artık onların listesinde.',
+        hid: 'Pasajın karanlığında sabaha kadar saklandı. Kimse onu bulamadı.',
         dilemma: 'Kime verecek? Polise mi, bir gazeteciye mi, Kabile\'ye mi?',
       },
       c1_end_a_fall: {
         title: 'Düşüş',
-        l1: 'Freni limon sıkar gibi sıkmalıydı. Fazla sıktı. Teker kayıyor.',
-        l2: 'Kask onu korudu. Paket gitti.',
-        voice: 'Kulağında Kabile Şefi\'nin sesi.',
-        fall_1: 'Düştün babuş, olabilir. Neyse ki korumaların üstündeydi.',
-        fall_2: 'Düşmeyi bilmek mi? Kel motosiklet eğitmenlerinin uydurduğu bir palavra.',
-        l3: 'Yerde, adamın düşürdüğü bir kâğıt.',
-        l4: 'ROTA listesi: "Riskli işi reddetmeyenler." Dördüncü satırda: Aslan.',
+        l1: 'Cico zarfı açıyor. ROTA listesi: "Riskli işi reddetmeyenler."',
+        l2: 'Dördüncü satırda: Aslan.',
+        l3: 'Şimdi anlıyor: o paket ona tesadüfen düşmedi.',
       },
       c1_end_a_desk: {
         title: 'Masa',
@@ -320,13 +365,15 @@
         froze: 'Cico camın önünde donup kalıyor. Kapı arkasından açılıyor.',
         l1: 'İçeride ekranlar, bir masa, bir liste: "Riskli işi reddetmeyenler."',
         l2: 'Dördüncü satırda: Aslan. Yanında: "Bu gece seçildi."',
-        man: 'Hoş geldin, Kurye 2608. Seni bekliyorduk.',
+        man: 'Hoş geldin, Kurye 2608. Geleceğini biliyorduk.',
+        man2: 'İlk talepten beri her durağını izledik. Artık kontrol odasındasın. Hazırsın.',
       },
       c1_end_b_evidence: {
         title: 'Kanıt',
         l1: 'Fotoğrafta ekranlar, noktalar ve kıpırdamayan bir nokta.',
         l2: 'Kaçarken bir flaş patladı. 34 AEA 8430 artık onların listesinde.',
-        l3: 'Ama o duran noktayı artık herkes görebilir.',
+        l3: 'Kazalar kader değil. ROTA her şeyin farkında.',
+        l4: 'Ve Cico bunun peşini bırakacak gibi değil.',
       },
     },
 

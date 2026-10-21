@@ -177,6 +177,24 @@
     if (p && p.catch) p.catch(() => { /* otomatik oynatma engellenirse görsel kalır */ });
   }
 
+  // Vuruş görseli (hayal, polaroid…): yalnızca o vuruş ekrandayken sahne görselinin üstünde
+  function showOverlay(src, style) {
+    const holder = $('#stage-media');
+    const current = holder.querySelector('.beat-overlay');
+    if (current && current.dataset.src === (src || '')) return;
+    if (current) { current.classList.add('out'); setTimeout(() => current.remove(), 450); }
+    if (!src) return;
+    const wrap = document.createElement('div');
+    wrap.className = `beat-overlay ${style || ''}`;
+    wrap.dataset.src = src;
+    const img = new Image();
+    img.alt = '';
+    img.onerror = () => wrap.remove();
+    img.src = src;
+    wrap.appendChild(img);
+    holder.appendChild(wrap);
+  }
+
   // Mekân etiketi: film gibi, sahne başında birkaç saniye
   function showStamp() {
     const el = $('#stamp');
@@ -330,6 +348,8 @@
       $('#app').classList.toggle('has-image', !!(first && first.image_asset));
     }
     $('#app').classList.toggle('video-on', inGame && ui.mode === 'video' && !!ui.videoHandle);
+    // Son sahnelerde görsel kararır: gecenin özeti daha rahat okunur
+    $('#app').classList.toggle('is-ending', inGame && scene().scene_type === 'ending');
     if (!inGame) $('#stamp').classList.remove('show');
   }
 
@@ -364,6 +384,9 @@
       </div>`).join('');
 
     const cur = ui.mode === 'text' ? all[ui.beat] : null;
+    showOverlay(cur && cur.overlay, cur && cur.overlay_style);
+    // Seçim anında bildirim kartları çekilir: hiçbir seçim noktasının üstünü örtmesinler
+    $('#app').classList.toggle('choosing', choicesVisible());
     caption.innerHTML = cur && cur.kind !== 'msg' && cur.kind !== 'intro'
       ? `<div class="cap ${cur.kind}" data-k="${esc(cur.key)}">${cur.kind === 'say' ? `<span class="speaker">${esc(t(`speakers.${cur.from}`))}</span>` : ''}<span class="cap-text">${esc(t(cur.key))}</span></div>`
       : '';

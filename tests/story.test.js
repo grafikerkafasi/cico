@@ -44,9 +44,9 @@ test('dokuz sonun her biri en az bir yoldan ulaşılabilir (A: 5, B: 4)', () => 
   assert.equal(result.report.endings.filter((id) => id.startsWith('c1_end_b_')).length, 4);
 });
 
-test('kapsam: iki katman için ≤ 24 sahne, ≤ 10 gerçek seçim düğümü', () => {
+test('kapsam: iki katman için ≤ 34 sahne, ≤ 10 gerçek seçim düğümü', () => {
   const choiceNodes = story.scenes.filter((s) => (s.choices || []).some((c) => !c.hidden));
-  assert.ok(story.scenes.length <= 24, `${story.scenes.length} sahne`);
+  assert.ok(story.scenes.length <= 34, `${story.scenes.length} sahne`);
   assert.ok(choiceNodes.length >= 4 && choiceNodes.length <= 10, `${choiceNodes.length} seçim düğümü`);
 });
 
@@ -141,4 +141,12 @@ test('üretim rehberi: her sahnenin çekim tanımı ve her seçim noktasının n
   }
   const { build, FILE } = require('../tools/gen-bible.js');
   assert.equal(require('fs').readFileSync(FILE, 'utf8'), build(), 'npm run bible');
+});
+
+test('her sahne görseli ve vuruş görseli (hayal, polaroid) diskte var', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const files = story.scenes.flatMap((s) => [s.image_asset, ...(s.text || []).map((b) => b && b.overlay)]).filter(Boolean);
+  for (const f of files) assert.ok(fs.existsSync(path.join(__dirname, '..', f)), `eksik: ${f}`);
+  assert.ok(files.some((f) => f.includes('flashback')) && files.some((f) => f.includes('polaroid')));
 });

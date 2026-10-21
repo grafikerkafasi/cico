@@ -136,6 +136,18 @@
       name: 'Taksim İlk Yardım',
       prompt: 'A hospital emergency corridor before dawn: cold fluorescent light, plastic chairs, couriers in jackets sitting and standing with helmets in their laps, a tired night shift atmosphere.',
     },
+    beyoglu: {
+      name: 'Beyoğlu · ıslak cadde',
+      prompt: 'A narrow wet street in Beyoğlu at night: shuttered shops, warm street lamps streaking with motion blur, reflections on wet asphalt, old facades with balconies. No Galata Tower.',
+    },
+    tower_hill: {
+      name: 'Kuleye çıkan yokuş',
+      prompt: 'A steep narrow cobbled street climbing towards Galata Tower at night, wet stones, warm lamps on old facades; the tower appears only as a distant lit silhouette at the top of the slope.',
+    },
+    classroom: {
+      name: 'Sınıf (hayal)',
+      prompt: 'A bright primary school classroom in the morning: green chalkboard with a simple chalk world map and arrows (no letters), wooden desks, sunlight through tall windows, dreamy overexposed warm glow.',
+    },
     printhouse_inside: {
       name: 'Matbaanın içi (ROTA\'nın gizli merkezi)',
       prompt: 'Inside the old print shop: abandoned printing presses pushed aside, a row of glowing monitors on makeshift tables showing maps of tiny green dots (no text), cables everywhere, a desk with a printed list (unreadable).',
@@ -162,6 +174,12 @@
       loop: true,
       continuity: ['Kanonik görsel O1 ile aynı (oyunda O2 de bu görseli kullanıyor). İstersen yalnızca telefona daha yakın bir varyasyon üret.'],
     },
+    O3: {
+      location: 'beyoglu', cast: ['cico', 'scooter'], time: 'Gece yarısı',
+      image: 'Dynamic low 3/4 front-side angle: Cico speeds through a wet Beyoğlu street on his green scooter towards the image-left, serious and focused; street lamps streak with motion blur behind him. No front plate.',
+      video: 'Tracking shot alongside the scooter; lights streak past, water sprays from the tyres. Ambient: engine, rain hiss. 6 seconds.',
+      continuity: ['İki katmanın ortak son karesi: paket ya da ilaç görünmez, yalnızca sırttaki çanta.', 'Galata Kulesi YOK.'],
+    },
     A1: {
       location: 'printhouse', cast: ['cico'], time: 'Gece yarısına 5 kala',
       image: 'Close-medium shot at the green door of the old print shop: a gloved hand withdraws into the dark doorway as Cico holds a heavy sealed package with red-and-white security tape in both hands at the centre of the frame. ' +
@@ -172,18 +190,40 @@
       loop: true,
       continuity: ['Cico\'nun kıyafeti ve kask durumu O1 ile aynı (kask çenede yarı açık).', 'Zemin hâlâ ıslak; ışık sarı sokak lambası.'],
     },
+    A1a: {
+      location: 'printhouse', cast: ['cico', 'scooter'], time: 'A1\'den birkaç dakika sonra',
+      image: 'The same print shop, now with the roller shutter fully down and the street empty. Under the street lamp Cico has opened the package: a black hard drive inside (label unreadable). ' +
+        'Close-medium shot, his face clearly shocked — wide eyes, raised brows, mouth slightly open. He faces image-left so the 26 badge on his left shoulder shows.',
+      video: 'Slow push-in on his face as he lifts the flap; the lamp flickers once. Ambient: rain, distant traffic. 6 seconds.',
+      continuity: ['A1 ile aynı sokak; kepenk artık İNİK, gönderici yok.', 'Paket bandı kırmızı-beyaz.'],
+    },
+    A1b: {
+      location: 'printhouse', cast: ['cico', 'scooter'], time: 'A1a\'nın hemen ardından',
+      image: '3/4 rear-side view: the package is back in the rear delivery box, Cico swings a leg over his scooter, hand on the handlebar, glancing down the empty street. Rear plate 34 AEA 8430 visible.',
+      video: 'He mounts, the tail light glows, the scooter pulls away down the wet street. Ambient: engine starting. 5 seconds.',
+      continuity: ['A1a ile aynı sokak ve lamba.'],
+    },
     A2: {
       location: 'school', cast: ['cico', 'scooter'], time: 'Gece, ağır çekim',
       image: 'Side view: Cico rides slowly past the iron railings of the dark primary school, his head turned towards the children\'s drawings. ' +
         'The package is in his rear delivery box. Desaturated palette except a faint warm lamp. Melancholic and quiet.',
       video: 'SLOW MOTION tracking shot alongside Cico as the scooter rolls past the railings ("fıtı fıtı", slow and peaceful). Drawings flutter slightly. ' +
         'A brief soft memory flash: chalk on a blackboard, a child\'s raised hand (faces not visible). Sparse soft piano is allowed here only. 8 seconds.',
-      continuity: ['A1\'deki paket artık teslimat kutusunun içinde.', 'Renk paleti diğer sahnelerden daha soluk (anma anı).'],
+      continuity: ['A1\'deki paket artık teslimat kutusunun içinde.', 'Renk paleti diğer sahnelerden daha soluk (anma anı).',
+        'Hayal karesi A2f (assets/scenes/A2f_c1_a2f_flashback.jpg): "Bir zamanlar tahtanın önünde..." vuruşunda görselin üstüne yumuşakça gelir. ' +
+        'Cico gündüz bir sınıfta öğretmen: gömlek ve hırka, kask ve rozet yok, tahtada yalnızca tebeşir harita (yazı yok), öğrencilerin kalkan elleri, sıcak aşırı pozlanmış ışık.'],
+    },
+    A3a: {
+      location: 'tower_hill', cast: ['cico', 'scooter', 'man', 'car'], time: 'Gece yarısı',
+      image: 'On the hill up to the tower, the long black sedan has swung across the road, headlights glaring. Cico brakes hard, one foot down. The rear door opens and the Man in the coat steps out, calm and threatening. ' +
+        'Camera behind Cico\'s right side: no badge visible.',
+      video: 'The car swerves in, brakes squeal, the door opens slowly; the man\'s shoe touches the wet cobbles. Ambient: idling engine, rain. 6 seconds.',
+      continuity: ['Paltolu adam bu sahnede ilk kez görünüyor — karakter kartına sadık kal.', 'Kule yalnızca uzakta silüet.'],
     },
     A3: {
       location: 'tower', cast: ['cico', 'man', 'car'], time: 'Gece yarısı',
       image: 'At the foot of Galata Tower: the Man in the coat stands calmly in the centre-left holding out his gloved hand towards the viewer, face lit from below, eyes in the upper-centre of the frame. ' +
-        'Cico stands in the foreground right next to his scooter, the package under his arm. Behind them at the bottom of the slope, the headlights of the black car glow.',
+        'Cico stands in the foreground right next to his scooter, the package under his arm. Right behind the man, the long black sedan blocks the road, rear door open, headlights on — he has just cut Cico off.',
       spots: { hand_over: 'paltolu adamın uzanmış eldivenli eli (orta sol)', run: 'sağdaki scooter gidonu ve aynası (kaçış)', confront: 'adamın yüzü (üst sol-orta)' },
       video: 'Slow dolly-in on the outstretched gloved hand; the black car\'s headlights flick on behind. The man does not blink. Seamless tense loop. ' +
         'Ambient: wind, distant seagulls, a low engine idling. No speech. 8 seconds.',
@@ -203,12 +243,24 @@
     A5: {
       location: 'stairs', cast: ['cico', 'scooter', 'car'], time: 'Gece, kovalamaca',
       image: 'High-energy wide shot: Cico on his scooter at the top of Yüksek Kaldırım, package clutched under his arm. To the lower left the steep wet stone steps plunge down; ' +
-        'to the right a dark arched passage opens. Behind him the black car\'s doors swing open, headlights glaring.',
+        'to the right a dark arched passage opens, empty inside. Behind him the black car\'s doors swing open, headlights glaring.',
       spots: { stairs: 'sol alttaki dik, ıslak basamaklar', passage: 'sağ üstteki kemerli pasaj' },
       video: 'Fast handheld energy: scooter engine revs, headlights sweep across the walls, car doors open behind. Hold on the moment of decision. Seamless loop of the revving moment. ' +
         'Ambient: engine, footsteps, rain. 8 seconds. Extra outcome clips: (1) scooter descending the steps, (2) scooter vanishing into the passage.',
       loop: true,
       continuity: ['Paket hâlâ Cico\'da.', 'Kask kafasında, çenede yarı açık.'],
+    },
+    A5b: {
+      location: 'stairs', cast: ['cico', 'scooter', 'man'], time: 'Gece',
+      image: 'Aftermath at the bottom of the wet steps: the green scooter on its side, Cico sitting up, helmet on, unhurt but shaken. Up the steps, the Man in the coat walks away with the package. No paper near Cico.',
+      video: 'Rain on stones, the man\'s footsteps fade up the steps. No impact shown. Ambient: rain. 6 seconds.',
+      continuity: ['A5 ile aynı basamaklar.', 'Kask kafasında — "kask onu korudu".'],
+    },
+    A5c: {
+      location: 'stairs', cast: [], time: 'A5b\'nin hemen ardından',
+      image: 'Close-up: a folded envelope lying on the wet stones (nothing readable), raindrops hitting around it; the steps blurred behind. The man is gone.',
+      video: 'Macro shot, a raindrop lands on the envelope; a shadow (Cico) falls over it. Ambient: rain. 5 seconds.',
+      continuity: ['A5b ile aynı taşlar ve ışık.'],
     },
     A6: {
       location: 'tower', cast: ['cico', 'man'], time: 'A3 ile aynı an',
@@ -218,6 +270,12 @@
       video: 'Slow push-in between the two faces; all background motion slows down and sound fades to near silence. Seamless loop. 8 seconds.',
       loop: false,
       continuity: ['A3 ile aynı mekân, aynı ışık; kamera daha yakın.'],
+    },
+    B0: {
+      location: 'pharmacy', cast: ['cico', 'scooter'], time: 'Gece yarısı',
+      image: 'Outside a night pharmacy: a glowing green cross sign with no letters, Cico beside his scooter holding a small white pharmacy bag, tired but kind. Wet pavement reflects the green light.',
+      video: 'He tucks the bag into the box and starts the engine. Ambient: night street, the sign buzzing. 5 seconds.',
+      continuity: ['Tabelada yazı YOK; yalnızca yeşil haç.'],
     },
     B1: {
       location: 'pharmacy', cast: ['cico', 'kid', 'grandma'], time: 'Gece yarısı',
@@ -236,6 +294,12 @@
       loop: true,
       continuity: ['B1 ile aynı kapı ve ışık.'],
     },
+    B2a: {
+      location: 'boulevard', cast: ['chief', 'car'], time: 'B2 ile aynı saatler',
+      image: 'Tarlabaşı Boulevard at night: the Tribe Chief rides his dark-blue scooter, one hand on the handlebar, typing on his phone with the other (screen unreadable). Behind him, the black car\'s headlights close in.',
+      video: 'Tracking shot beside the chief; he glances back at the headlights. Ambient: traffic, engine. 6 seconds.',
+      continuity: ['Kabile Şefi ilk kez fiziksel olarak görünüyor — koruyucu ekipmanı üzerinde.', 'Paket arka kutuda.'],
+    },
     B3: {
       location: 'boulevard', cast: ['cico', 'chief', 'car'], time: 'Gece yarısından sonra',
       image: 'On Tarlabaşı Boulevard: the Tribe Chief sits on the kerb at the centre-left beside his tipped-over dark-blue scooter, helmet cracked but conscious, raising a hand to wave Cico on. ' +
@@ -245,6 +309,12 @@
         'Ambient: traffic, distant siren, the chief\'s heavy breathing. No blood. 8 seconds.',
       loop: true,
       continuity: ['Kabile Şefi bu sahnede ilk kez fiziksel olarak görünüyor — koruyucu ekipmanı üzerinde.', 'Çanta kapağı açık, paket yok.'],
+    },
+    B3a: {
+      location: 'boulevard', cast: ['cico', 'scooter', 'car'], time: 'B3\'ün hemen ardından',
+      image: 'A Tarlabaşı back street: ahead, the black car\'s red tail lights; Cico follows at a distance with his headlight off, half hidden at a corner, eyes fixed on the car.',
+      video: 'Slow creeping follow shot; the car slows and stops. Ambient: idling engines. 6 seconds.',
+      continuity: ['B3 ile aynı gece; Cico\'nun farı kapalı.'],
     },
     B4: {
       location: 'hospital', cast: ['cico', 'chief'], time: 'Sabaha karşı',
@@ -278,15 +348,14 @@
     },
     SA3: {
       location: 'karakoy', cast: ['cico', 'scooter'], time: 'Şafak',
-      image: 'Dawn in Karaköy: Cico sits under the striped awning of a shuttered fish stall, the sealed package in his lap, scooter beside him, first light on the water.',
+      image: 'Dawn in Karaköy: Cico sits under the striped awning of a shuttered fish stall, the package OPEN in his lap with hard drives visible inside, scooter beside him, first light on the water.',
       video: 'Slow push-in, seagulls cross the frame, he looks down at the package. Ambient: water, gulls, a ferry horn. 8 seconds.',
       continuity: ['Paket A1\'deki paket.', 'Gece kıyafeti, şafak ışığı.'],
     },
     SA4: {
       location: 'stairs', cast: ['cico', 'scooter', 'man'], time: 'Gece',
-      image: 'Aftermath at the bottom of the wet steps: the green scooter lies on its side, a green paint streak on the stone. Cico sits up, helmet on, unhurt but shaken. ' +
-        'The Man in the coat walks away up the steps with the package; a folded sheet of paper (unreadable) lies on the wet stones near Cico\'s hand.',
-      video: 'Quiet after the fall: rain on stones, the man\'s footsteps fade, Cico reaches for the paper. No impact shown. Ambient: rain. 8 seconds.',
+      image: 'Cico sits on the wet steps reading the opened sheet from the envelope (unreadable). Close-medium shot on his face: realisation dawning — eyes widening, jaw tightening.',
+      video: 'Slow push-in on his face as he reads; the rain softens. Ambient: rain. 8 seconds.',
       continuity: ['A5 ile aynı basamaklar.', 'Kask kafasında — "kask onu korudu".'],
     },
     SA5: {
@@ -296,17 +365,18 @@
       continuity: ['Kapüşon YOK — artık masada (bilinçli değişim).'],
     },
     SB1: {
-      location: 'nevizade', cast: ['cico'], time: 'Ertesi gece',
-      image: 'The same Nevizade Street as O1, the next night: crowded with people, but a long row of parked courier scooters with engines off lines the street, helmets hung on the mirrors. ' +
-        'Cico stands among them.',
+      location: 'nevizade', cast: ['cico', 'chief'], time: 'Ertesi gece',
+      image: 'The same Nevizade Street as O1, the next night: a real strike — couriers stand together beside a long row of parked scooters with engines off, holding blank placards and raised helmets (no text anywhere). ' +
+        'Green flares, fists and helmets raised, tavern guests standing and filming. Cico stands at the front, determined; the Tribe Chief, arm in a sling, beside him.',
       video: 'Slow crane-up revealing the row of silent scooters; people look at them. Ambient: crowd, no engines. 8 seconds.',
       continuity: ['O1 ile aynı sokak — açılışın aynası.'],
     },
     SB2: {
-      location: 'hospital', cast: ['cico', 'chief', 'kid'], time: 'Sabah',
-      image: 'Outside the hospital in the morning: couriers stare at their phones (screens unreadable); the kid stands next to Cico, proud, holding his phone. The Tribe Chief, arm in a sling, smiles in the doorway.',
+      location: 'hospital', cast: ['cico'], time: 'Sabah',
+      image: 'First-person close-up: a hand holds a phone showing a news web page — the black car photo, skeleton grey bars instead of text, a small thumbnail of the kid in the corner. ' +
+        'Behind, out of focus outside the hospital, happy couriers cheer.',
       video: 'Gentle handheld, morning light, the kid nudges Cico and grins. Ambient: city morning, birds. 8 seconds.',
-      continuity: ['Çocuk B1/B2 kıyafetiyle.', 'Kabile Şefi kolu askıda.'],
+      continuity: ['Telefonda okunabilir yazı YOK (iskelet çubuklar).', 'Babaanne ve çocuk sahnede değil; çocuk yalnızca köşedeki küçük fotoğrafta.'],
     },
     SB3: {
       location: 'printhouse_inside', cast: ['cico', 'man'], time: 'Gece',
@@ -318,7 +388,8 @@
       location: 'printhouse', cast: ['cico', 'scooter'], time: 'Şafak',
       image: 'Dawn in a Tarlabaşı back street: Cico sits on his scooter looking at his phone (screen unreadable), relieved but tense; behind him far away, the print shop\'s green door.',
       video: 'Slow pull-back as the first light hits the street; he pockets the phone and starts the engine. Ambient: dawn birds, scooter engine. 8 seconds.',
-      continuity: ['B5\'teki sokak, şafak ışığında.'],
+      continuity: ['B5\'teki sokak, şafak ışığında.',
+        'Polaroid SB4p (assets/scenes/SB4p_c1_end_b_evidence_polaroid.jpg): "Kaçarken bir flaş patladı" vuruşunda üstte belirir — Cico\'nun scooter\'ı hızla kaçarken arkadan, flaşla donmuş.'],
     },
   };
 
