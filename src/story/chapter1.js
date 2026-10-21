@@ -293,10 +293,7 @@
           {
             id: 'stairs', hotspot: { x: 19, y: 71 },
             effects: [{ set: { escape_route: 'stairs' } }],
-            next: [
-              { if: { var: 'suspicion', gte: 2 }, goto: 'c1_a5b_fall' },
-              { goto: 'c1_end_a_escape' },
-            ],
+            next: 'c1_a5b_fall', // macera her zaman düşüşle biter; asıl ipucu (risk listesi) orada
           },
           { id: 'passage', hotspot: { x: 81, y: 20 }, effects: [{ set: { escape_route: 'passage' } }], next: 'c1_end_a_escape' },
           { id: 'stall', hidden: true, next: 'c1_a5b_fall' },
@@ -305,7 +302,7 @@
         choice_display: 'over_video',
         loop_asset: null,
         notes: {
-          dev: 'Basamaklar: şüphe ≥ 2 ise düşer (A5b → A5c → Düşüş). Pasaj: güvenli; Cico sabaha kadar orada saklanır.',
+          dev: 'Basamaklar: macera — her zaman düşüş (A5b → A5c → Düşüş, risk listesi). Pasaj: sabaha kadar saklanır → Paket Bende.',
           video: 'Galata yokuşları, scooter kalkışı, arkada siyah araba. Pasajın içi boş ve karanlık (araba yok).',
         },
       },
@@ -314,7 +311,7 @@
         code: 'A5b',
         image_asset: 'assets/scenes/A5b_c1_a5b_fall.jpg',
         scene_type: 'cinematic',
-        text: ['l1', 'l2', 'voice', say('fall_1', 'chief'), say('fall_2', 'chief'), 'l3'],
+        text: [say('fly', 'cico'), 'l1', 'l2', 'voice', say('fall_1', 'chief'), say('fall_2', 'chief'), 'l3'],
         next: 'c1_a5c_paper',
         video_asset: null,
         notes: {
@@ -513,12 +510,10 @@
         image_asset: 'assets/scenes/SA3_c1_end_a_escape.jpg',
         scene_type: 'ending',
         text: [
-          line('stairs', { var: 'escape_route', eq: 'stairs' }),
-          say('stairs_say', 'cico', { var: 'escape_route', eq: 'stairs' }),
+          'hid',
           'main',
           line('not_opened', { not: { clue: 'drive' } }),
           line('opened', { clue: 'drive' }),
-          line('hid', { var: 'escape_route', eq: 'passage' }),
           'dilemma',
           ...NO_MEDICINE,
           ...ROTA_HOOK,

@@ -850,7 +850,7 @@ Very slow orbit around Cico; city lights twinkle, courier headlights crawl along
 | Dosya adı | `A5.png` (görsel) · `A5.mp4` (video) · döngü |
 | Mevcut | görsel ✓ |
 
-**Sahnenin işlevi:** Basamaklar: şüphe ≥ 2 ise düşer (A5b → A5c → Düşüş). Pasaj: güvenli; Cico sabaha kadar orada saklanır.
+**Sahnenin işlevi:** Basamaklar: macera — her zaman düşüş (A5b → A5c → Düşüş, risk listesi). Pasaj: sabaha kadar saklanır → Paket Bende.
 
 **Yönetmen notu (görsel / video):** Galata yokuşları, scooter kalkışı, arkada siyah araba. Pasajın içi boş ve karanlık (araba yok).
 
@@ -864,7 +864,7 @@ Very slow orbit around Cico; city lights twinkle, courier headlights crawl along
 | Seçenek (oyunda) | Görselde ne olmalı | Konum (görselin yüzdesi; sol üst = 0,0) |
 |---|---|---|
 | Basamaklar | sol alttaki dik, ıslak basamaklar | x 19% · y 71% |
-| Pasaj | sağ üstteki kemerli pasaj | x 81% · y 20% |
+| Pasajda saklan, sabahı bekle | sağ üstteki kemerli pasaj | x 81% · y 20% |
 
 **Görsel promptu (ChatGPT):**
 
@@ -914,6 +914,7 @@ Fast handheld energy: scooter engine revs, headlights sweep across the walls, ca
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
+- *Konuşma — Cico:* Uçuyorum ulan!
 - *Anlatı:* Freni limon sıkar gibi sıkmalıydı. Fazla sıktı. Teker kayıyor.
 - *Anlatı:* Kask onu korudu. Paltolu adam paketi alıp uzaklaşıyor.
 - *Anlatı:* Kulağında Kabile Şefi'nin sesi.
@@ -1633,12 +1634,10 @@ Phones buzz and light up one after another across the tables; Cico looks around.
 
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
-- *Anlatı (koşullu):* Islak basamaklarda freni limon sıkar gibi sıktı. Ne fazla, ne az.
-- *Konuşma — Cico (koşullu):* Uçuyorum ulan!
+- *Anlatı:* Pasajın karanlığında sabaha kadar saklandı. Kimse onu bulamadı.
 - *Anlatı:* Şafak. Karaköy. Paket kucağında.
 - *Anlatı (koşullu):* Bandı kaldırıyor. İçinde diskler: "ROTA — Kaza Kayıtları."
 - *Anlatı (koşullu):* Kanıt artık onun elinde.
-- *Anlatı (koşullu):* Pasajın karanlığında sabaha kadar saklandı. Kimse onu bulamadı.
 - *Anlatı:* Kime verecek? Polise mi, bir gazeteciye mi, Kabile'ye mi?
 - *Tanıtım slaytı — Mendilci çocuk:* İstiklal'de mendil satar. Haritayı Cico'dan öğrendi, şehri herkesten iyi bilir.
 - *Telefon mesajı — Mendilci çocuk:* Hocam, dün gece ilaç gelmedi. Babaannemi komşular hastaneye götürdü. İyi şimdi.
@@ -1805,7 +1804,7 @@ Very slow push-in on the screen; all dots move except one that stops. Cico's ref
 **Ekranda çıkan yazılar** (görsele YAZILMAZ; oyun bunları kart olarak üstüne koyar — sahnenin duygusunu anlamak için):
 
 - *Anlatı:* Ertesi gece. Nevizade yine kalabalık.
-- *Anlatı:* Ama hiçbir kapıya kurye gelmiyor. Şehir ilk kez onları fark ediyor.
+- *Anlatı:* Kuryeler grevde. Hiçbir kapıya kurye gelmiyor. Şehir ilk kez onları fark ediyor.
 - *Telefon mesajı — Kabile · Kabile Şefi:* Kiran için topladık babuş. Hastaneden selam var.
 - *Telefon mesajı — ROTA:* Yarınki rotanız hazır. 08:00 — Galata Feneri İlkokulu.
 - *Anlatı:* Alıcı adı boş.

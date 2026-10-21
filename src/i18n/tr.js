@@ -206,12 +206,13 @@
         choices: {
           stairs: 'Basamaklar',
           stairs_sub: 'Hızlı ama tehlikeli',
-          passage: 'Pasaj',
-          passage_sub: 'Yavaş ama gözden uzak',
+          passage: 'Pasajda saklan, sabahı bekle',
+          passage_sub: 'Güvenli ama yavaş',
         },
       },
       c1_a5b_fall: {
         title: 'Basamaklar',
+        fly: 'Uçuyorum ulan!',
         l1: 'Freni limon sıkar gibi sıkmalıydı. Fazla sıktı. Teker kayıyor.',
         l2: 'Kask onu korudu. Paltolu adam paketi alıp uzaklaşıyor.',
         voice: 'Kulağında Kabile Şefi\'nin sesi.',
@@ -326,12 +327,10 @@
       },
       c1_end_a_escape: {
         title: 'Paket Bende',
-        stairs: 'Islak basamaklarda freni limon sıkar gibi sıktı. Ne fazla, ne az.',
-        stairs_say: 'Uçuyorum ulan!',
+        hid: 'Pasajın karanlığında sabaha kadar saklandı. Kimse onu bulamadı.',
         main: 'Şafak. Karaköy. Paket kucağında.',
         not_opened: 'Bandı kaldırıyor. İçinde diskler: "ROTA — Kaza Kayıtları."',
         opened: 'Kanıt artık onun elinde.',
-        hid: 'Pasajın karanlığında sabaha kadar saklandı. Kimse onu bulamadı.',
         dilemma: 'Kime verecek? Polise mi, bir gazeteciye mi, Kabile\'ye mi?',
       },
       c1_end_a_fall: {
@@ -353,7 +352,7 @@
       c1_end_b_strike: {
         title: 'Kontak Kapatma',
         l1: 'Ertesi gece. Nevizade yine kalabalık.',
-        l2: 'Ama hiçbir kapıya kurye gelmiyor. Şehir ilk kez onları fark ediyor.',
+        l2: 'Kuryeler grevde. Hiçbir kapıya kurye gelmiyor. Şehir ilk kez onları fark ediyor.',
         kabile: 'Kiran için topladık babuş. Hastaneden selam var.',
       },
       c1_end_b_headline: {

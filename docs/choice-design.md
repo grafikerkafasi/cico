@@ -72,7 +72,8 @@ Sonda kısa bir destek satırı (`ui.support`) vardır. Bu, WHO'nun intihar habe
 - **Sus** → *Sessizlik*
 
 **K5 — `c1_a5_chase` · Yüksek Kaldırım (8 sn, aksiyon)**
-- **Basamaklar** → şüphe ≥ 2 ise *Düşüş*, değilse *Paket Bende* ("limon", "Uçuyorum ulan!")
+- **Basamaklar** → her zaman *Düşüş* ("Uçuyorum ulan!", "limon"); macera seçeni asıl ipucunu (risk listesi) bulur
+- **Pasaj** → sabaha kadar saklanır, *Paket Bende*
 - **Pasaj** → *Paket Bende* (plaka görülür)
 - **Zaman aşımı** → *Düşüş*
 
@@ -112,7 +113,7 @@ Sonda kısa bir destek satırı (`ui.support`) vardır. Bu, WHO'nun intihar habe
 | `system_chose` | ortak | K1 zaman aşımı | A sonları; epilog |
 | `seal_broken` | A | K2 | Okul, kule metinleri; çatıda şüphe +1; epilog |
 | `suspicion` | A | K2, K3, çatı girişi, K4, K6 | K5 basamak sonucu; Kabile sonu tehdidi |
-| `escape_route` | A | K5 | Paket Bende metni (limon/uçuyorum ya da plaka) |
+| `escape_route` | A | K5 | Bilgi amaçlı (basamaklar → Düşüş, pasaj → Paket Bende) |
 | `kid_involved` | B | K7 | Epilog |
 | `chief` | B | K8 | Epilog |
 | `earnings` | ortak | K1 (+85), K3 (+1500 / +750) | Sonlarda kira; özet ekranı |
@@ -139,7 +140,7 @@ Kaynakları oyunda hiçbir yerde açıklanmaz; anlayan anlar. `tests/media-i18n.
 | "babuş", "Gidecek hep daha fazla yol var." | Kabile Şefi yerdeyken (B); Kabile'nin son mesajı (B); anma ekranı |
 | "freni limon sıkar gibi" | Basamaklardan kaçış ve düşüş (A) |
 | "Düştün babuş, olabilir. Neyse ki korumaların üstündeydi." / "Düşmeyi bilmek mi? Kel motosiklet eğitmenlerinin uydurduğu bir palavra." | Düşüş sonu (A): kask onu korur, kulağında Kabile Şefi'nin sesi |
-| "Uçuyorum ulan!" | Basamaklardan kurtulunca (A) |
+| "Uçuyorum ulan!" | Basamaklara dalarken, düşüşten hemen önce (A) |
 
 ## 6. Anma
 

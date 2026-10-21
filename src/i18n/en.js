@@ -202,12 +202,13 @@
         choices: {
           stairs: 'The steps',
           stairs_sub: 'Fast but dangerous',
-          passage: 'The passage',
-          passage_sub: 'Slow but out of sight',
+          passage: 'Hide in the passage till dawn',
+          passage_sub: 'Safe but slow',
         },
       },
       c1_a5b_fall: {
         title: 'The Steps',
+        fly: 'I\'m flying, man!',
         l1: 'He should have squeezed the brake like a lemon. He grips too hard. The wheel slides.',
         l2: 'The helmet saved him. The man in the coat takes the package and walks away.',
         voice: 'The Tribe Chief\'s voice in his ear.',
@@ -320,12 +321,10 @@
       },
       c1_end_a_escape: {
         title: 'The Package Is Mine',
-        stairs: 'On the wet steps he squeezed the brake like squeezing a lemon. Not too much, not too little.',
-        stairs_say: 'I\'m flying, man!',
+        hid: 'He hid in the dark of the passage until morning. No one found him.',
         main: 'Dawn. Karaköy. The package in his lap.',
         not_opened: 'He lifts the tape. Drives inside: "ROTA — Accident Records."',
         opened: 'Now the proof is in his hands.',
-        hid: 'He hid in the dark of the passage until morning. No one found him.',
         dilemma: 'Who gets it? The police, a journalist, or the Tribe?',
       },
       c1_end_a_fall: {
@@ -346,7 +345,7 @@
       c1_end_b_strike: {
         title: 'Engines Off',
         l1: 'The next night. Nevizade is crowded again.',
-        l2: 'But no courier comes to any door. For the first time, the city notices them.',
+        l2: 'The couriers are on strike. No courier comes to any door. For the first time, the city notices them.',
         kabile: 'We collected for your rent, babuş. Greetings from the hospital.',
       },
       c1_end_b_headline: {

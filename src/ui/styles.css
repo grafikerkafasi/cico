@@ -83,6 +83,10 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .8em; 
 /* Son sahneler: görsel kararır, metin öne çıkar */
 .app.is-ending .stage-img { filter: brightness(.5) saturate(.85); transition: filter .8s ease; }
 .app.is-ending .backdrop { filter: blur(28px) brightness(.25); }
+/* Gecenin özeti, özet ekranı ve anma: son görsel arkada iyice kararır, yazı öne çıkar */
+.app[data-screen="epilogue"] .stage-img, .app[data-screen="summary"] .stage-img, .app[data-screen="memorial"] .stage-img { filter: brightness(.28) saturate(.7); transition: filter 1s ease; }
+.app[data-screen="epilogue"] .backdrop, .app[data-screen="summary"] .backdrop, .app[data-screen="memorial"] .backdrop { filter: blur(28px) brightness(.18); }
+.app[data-screen="epilogue"] .stage-ambient, .app[data-screen="summary"] .stage-ambient, .app[data-screen="memorial"] .stage-ambient { opacity: .25; }
 .stage-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
 /* Video yokken yalnızca CSS atmosferi (sahte görsel değil) */
 .stage::before {

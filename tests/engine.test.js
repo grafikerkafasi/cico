@@ -63,7 +63,7 @@ test('A gecikmeli: açılan bant teklifte fark edilir, çatıda şüphe artar, K
   assert.ok(keys(g).includes('scenes.c1_end_a_tribe.danger'));
 });
 
-test('A: şüphe ≥ 2 iken basamaklar = Düşüş (başarısızlık yeni bir ipucu verir)', () => {
+test('A: basamaklar her zaman Düşüş (macera; başarısızlık yeni bir ipucu verir)', () => {
   const g = play([...A_OPEN, 'run']);
   assert.equal(g.state.vars.suspicion, 2);
   g.choose('stairs');
@@ -73,12 +73,11 @@ test('A: şüphe ≥ 2 iken basamaklar = Düşüş (başarısızlık yeni bir ip
   assert.ok(g.state.clues.includes('risk_list'));
 });
 
-test('A: şüphe düşükken basamaklar = kaçış ("limon", "Uçuyorum ulan")', () => {
+test('A: şüphe düşükken de basamaklar düşüşe gider ("Uçuyorum ulan", "limon")', () => {
   const g = play([...A_CLOSED, 'run', 'stairs']);
-  assert.equal(g.state.sceneId, 'c1_end_a_escape');
-  assert.ok(keys(g).includes('scenes.c1_end_a_escape.stairs'));
-  assert.ok(keys(g).includes('scenes.c1_end_a_escape.stairs_say'));
-  assert.ok(!keys(g).includes('scenes.c1_end_a_escape.hid'));
+  assert.equal(g.state.vars.suspicion, 1);
+  assert.equal(g.state.sceneId, 'c1_a5b_fall');
+  assert.ok(keys(g).includes('scenes.c1_a5b_fall.fly') && keys(g).includes('scenes.c1_a5b_fall.l1'));
 });
 
 test('A: pasaj her zaman kaçırır; Cico sabaha kadar saklanır', () => {

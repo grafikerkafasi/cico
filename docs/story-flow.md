@@ -114,9 +114,8 @@ flowchart TD
   c1_a3_tower -.->|"⏱ zaman aşımı"| c1_a4_rooftop
   c1_a4_rooftop -->|"Kabile'ye yaz: #quot;ROTA bir şey sakl…"| c1_end_a_tribe
   c1_a4_rooftop -->|"Telefonu kapat ve sus"| c1_end_a_silence
-  c1_a5_chase -->|"Basamaklar [suspicion≥2]"| c1_a5b_fall
-  c1_a5_chase -->|"Basamaklar [aksi hâlde]"| c1_end_a_escape
-  c1_a5_chase -->|"Pasaj"| c1_end_a_escape
+  c1_a5_chase -->|"Basamaklar"| c1_a5b_fall
+  c1_a5_chase -->|"Pasajda saklan, sabahı bekle"| c1_end_a_escape
   c1_a5_chase -.->|"⏱ zaman aşımı"| c1_a5b_fall
   c1_a5b_fall --> c1_a5c_paper
   c1_a5c_paper --> c1_end_a_fall
@@ -155,7 +154,7 @@ flowchart TD
 | **A3a** | `c1_a3a_cutoff` | cinematic | Yokuş | Paltolu adam Cico'yu yolda durdurur: teslimat noktasına varmadan araba önünü keser. | — |
 | **A3** | `c1_a3_tower` | choice | Galata Kulesi | Ana gizem ve teklif: adam ROTA'nın içinden biri ("Kurye 2608"). Paket açıldıysa üçüncü seçenek açılır, adam bandı fark eder. | — |
 | **A4** | `c1_a4_rooftop` | choice | Çatı | Suç ortaklığından sonra vicdan: Kabile'yi uyarmak mı, susmak mı. | — |
-| **A5** | `c1_a5_chase` | interaction | Yüksek Kaldırım | Basamaklar: şüphe ≥ 2 ise düşer (A5b → A5c → Düşüş). Pasaj: güvenli; Cico sabaha kadar orada saklanır. | — |
+| **A5** | `c1_a5_chase` | interaction | Yüksek Kaldırım | Basamaklar: macera — her zaman düşüş (A5b → A5c → Düşüş, risk listesi). Pasaj: sabaha kadar saklanır → Paket Bende. | — |
 | **A5b** | `c1_a5b_fall` | cinematic | Basamaklar | Düşüş anı: paltolu adam paketi alıp uzaklaşır. Cico'nun yanında kâğıt yok. | — |
 | **A5c** | `c1_a5c_paper` | cinematic | Zarf | Adam gitmiş; yerde düşürdüğü zarf. Dokununca Düşüş sonuna (Cico okur) geçilir. | — |
 | **A6** | `c1_a6_second_offer` | choice | İkinci Teklif | Katman A'nın en ağır ikilemi: sokaktan kurtuluş (maaş, sigorta) karşılığında kayıtları gömmek. | — |
