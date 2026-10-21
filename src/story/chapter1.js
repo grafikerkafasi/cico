@@ -32,6 +32,8 @@
  * GÖRSEL ve SEÇİM NOKTALARI
  *   image_asset : sahnenin tam ekran görseli (video yokken). Görsel ekrana "sığdırılır" (tamamı görünür),
  *                 boşluklar bulanık kopyasıyla dolar. Oran: media_aspect (varsayılan 9:16).
+ *   ambient_video: sahnenin arkasında sessiz döngüde oynayan video (anlatı videosu değil; vuruşlar
+ *                 metin olarak sürer). Yüklenene kadar image_asset altta görünür.
  *   hotspot     : { x, y } — seçeneğin görsel ÜZERİNDEKİ yeri, görselin yüzdesi (0–100) cinsinden.
  *                 Şimdilik GEÇİCİ değerler; gerçek koordinatlar her sahne görseli gelince girilecek.
  *                 Geliştirici menüsündeki "Koordinat seçici" görsele dokununca x/y yüzdesini gösterir.
@@ -107,6 +109,7 @@
         text: ['l1', 'l2', intro('cico'), 'l3', msg('kabile', 'kabile'), intro('chief'), msg('mom', 'mom')],
         next: 'c1_s02_orders',
         image_asset: 'assets/scenes/c1_s01_nevizade.jpg',
+        ambient_video: 'assets/video/c1_s01_nevizade.mp4', // sessiz döngü; yüklenene kadar görsel altta
         video_asset: null,
         notes: {
           dev: 'Soğuk açılış: Nevizade Sokağı. Kira açığı (1.400 ₺) ve Kabile grubu burada ekilir.',

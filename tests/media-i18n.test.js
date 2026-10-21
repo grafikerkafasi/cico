@@ -11,6 +11,7 @@ const en = require('../src/i18n/en.js');
 test('video_asset yoksa metin modu', () => {
   assert.deepEqual(resolveMedia({ scene_id: 'x', video_asset: null }), { mode: 'text' });
   assert.deepEqual(resolveMedia({ video_asset: null, image_asset: 'a.jpg' }), { mode: 'text', image: 'a.jpg' });
+  assert.deepEqual(resolveMedia({ video_asset: null, image_asset: 'a.jpg', ambient_video: 'a.mp4' }), { mode: 'text', image: 'a.jpg', ambient: 'a.mp4' });
 });
 
 test('video_asset varsa video modu; seçim gösterimi sahne bazında', () => {

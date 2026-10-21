@@ -104,6 +104,7 @@
     ui.videoReady = false;
     ui.pendingVideo = null;
     showImage(plan.image);
+    showAmbient(plan.ambient);
     ui.introQueue = plan.mode === 'video' ? blocks().filter((b) => b.kind === 'intro') : [];
     render();
 
@@ -152,6 +153,28 @@
     img.onerror = () => { img.remove(); $('#backdrop').style.backgroundImage = ''; $('#app').classList.remove('has-image'); };
     img.src = src;
     holder.prepend(img);
+  }
+
+  // Ortam videosu: sessiz döngü, görselin üstünde. Oynamaya başlayınca yumuşakça belirir;
+  // o zamana kadar (ya da yüklenemezse) altta görsel görünür.
+  function showAmbient(src) {
+    const holder = $('#stage-media');
+    const current = holder.querySelector('video.stage-ambient');
+    if (current && current.dataset.src === src) return;
+    if (current) { current.pause(); current.removeAttribute('src'); current.load(); current.remove(); }
+    if (!src) return;
+    const v = document.createElement('video');
+    v.className = 'stage-ambient';
+    v.dataset.src = src;
+    v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+    v.preload = 'auto';
+    v.addEventListener('playing', () => v.classList.add('ready'), { once: true });
+    v.addEventListener('error', () => v.remove(), { once: true });
+    v.src = src;
+    holder.appendChild(v);
+    const p = v.play();
+    if (p && p.catch) p.catch(() => { /* otomatik oynatma engellenirse görsel kalır */ });
   }
 
   // Mekân etiketi: film gibi, sahne başında birkaç saniye

@@ -11,12 +11,18 @@
  *   poster         : video yüklenirken gösterilecek kare
  *   subtitles      : { tr: 'media/subs/tr/c1_s01_opening.vtt', en: ... }
  *   image_asset    : video yokken gösterilen tam ekran görsel (video varsa poster olarak kullanılır)
+ *   ambient_video  : metin modunda arkada sessiz döngüde oynayan video (görselin üstüne yüklenince gelir)
  */
 (function (root) {
   'use strict';
 
   function resolveMedia(scene, lang) {
-    if (!scene.video_asset) return scene.image_asset ? { mode: 'text', image: scene.image_asset } : { mode: 'text' };
+    if (!scene.video_asset) {
+      const plan = { mode: 'text' };
+      if (scene.image_asset) plan.image = scene.image_asset;
+      if (scene.ambient_video) plan.ambient = scene.ambient_video;
+      return plan;
+    }
     return {
       mode: 'video',
       src: scene.video_asset,

@@ -23,7 +23,7 @@ fs.writeFileSync(path.join(out, 'index.html'), page);
 const files = [...html.matchAll(/<script src="([^"]+)"/g)].map((m) => m[1]);
 files.push('src/ui/styles.css', 'assets/logo.png');
 const story = require(path.join(ROOT, 'src/story/chapter1.js'));
-story.scenes.forEach((s) => s.image_asset && files.push(s.image_asset));
+story.scenes.forEach((s) => [s.image_asset, s.ambient_video, s.video_asset].forEach((f) => f && files.push(f)));
 const list = [...new Set(files)];
 list.forEach((f) => { if (!fs.existsSync(path.join(ROOT, f))) throw new Error('Eksik dosya: ' + f); });
 fs.writeFileSync(path.join(out, 'files.json'), JSON.stringify(Object.fromEntries(list.map((f) => [f, f])), null, 2));
