@@ -65,28 +65,28 @@ Kesik ok = zaman aşımı. 🔒 = koşullu seçenek (kilitliyken de görünür).
 
 ```mermaid
 flowchart TD
-  c1_s01_nevizade["Nevizade Sokağı<br/><small>c1_s01_nevizade</small>"]
-  c1_s02_orders{{"İki Talep<br/><small>c1_s02_orders</small>"}}
-  c1_a1_printhouse{{"Matbaa<br/><small>c1_a1_printhouse</small>"}}
-  c1_a2_school["Galata Feneri İlkokulu<br/><small>c1_a2_school</small>"]
-  c1_a3_tower{{"Galata Kulesi<br/><small>c1_a3_tower</small>"}}
-  c1_a4_rooftop{{"Çatı<br/><small>c1_a4_rooftop</small>"}}
-  c1_a5_chase[/"Yüksek Kaldırım<br/><small>c1_a5_chase</small>"/]
-  c1_a6_second_offer{{"İkinci Teklif<br/><small>c1_a6_second_offer</small>"}}
-  c1_b1_pharmacy["Nöbetçi Eczane<br/><small>c1_b1_pharmacy</small>"]
-  c1_b2_kid{{"Mendilci Çocuk<br/><small>c1_b2_kid</small>"}}
-  c1_b3_boulevard{{"Tarlabaşı Bulvarı<br/><small>c1_b3_boulevard</small>"}}
-  c1_b4_hospital{{"Taksim İlk Yardım<br/><small>c1_b4_hospital</small>"}}
-  c1_b5_printhouse[/"Matbaa<br/><small>c1_b5_printhouse</small>"/]
-  c1_end_a_silence(["Sessizlik<br/><small>c1_end_a_silence</small>"])
-  c1_end_a_tribe(["Kabile<br/><small>c1_end_a_tribe</small>"])
-  c1_end_a_escape(["Paket Bende<br/><small>c1_end_a_escape</small>"])
-  c1_end_a_fall(["Düşüş<br/><small>c1_end_a_fall</small>"])
-  c1_end_a_desk(["Masa<br/><small>c1_end_a_desk</small>"])
-  c1_end_b_strike(["Kontak Kapatma<br/><small>c1_end_b_strike</small>"])
-  c1_end_b_headline(["Manşet<br/><small>c1_end_b_headline</small>"])
-  c1_end_b_blackbox(["Kara Kutu<br/><small>c1_end_b_blackbox</small>"])
-  c1_end_b_evidence(["Kanıt<br/><small>c1_end_b_evidence</small>"])
+  c1_s01_nevizade["O1 · Nevizade Sokağı<br/><small>c1_s01_nevizade</small>"]
+  c1_s02_orders{{"O2 · İki Talep<br/><small>c1_s02_orders</small>"}}
+  c1_a1_printhouse{{"A1 · Matbaa<br/><small>c1_a1_printhouse</small>"}}
+  c1_a2_school["A2 · Galata Feneri İlkokulu<br/><small>c1_a2_school</small>"]
+  c1_a3_tower{{"A3 · Galata Kulesi<br/><small>c1_a3_tower</small>"}}
+  c1_a4_rooftop{{"A4 · Çatı<br/><small>c1_a4_rooftop</small>"}}
+  c1_a5_chase[/"A5 · Yüksek Kaldırım<br/><small>c1_a5_chase</small>"/]
+  c1_a6_second_offer{{"A6 · İkinci Teklif<br/><small>c1_a6_second_offer</small>"}}
+  c1_b1_pharmacy["B1 · Nöbetçi Eczane<br/><small>c1_b1_pharmacy</small>"]
+  c1_b2_kid{{"B2 · Mendilci Çocuk<br/><small>c1_b2_kid</small>"}}
+  c1_b3_boulevard{{"B3 · Tarlabaşı Bulvarı<br/><small>c1_b3_boulevard</small>"}}
+  c1_b4_hospital{{"B4 · Taksim İlk Yardım<br/><small>c1_b4_hospital</small>"}}
+  c1_b5_printhouse[/"B5 · Matbaa<br/><small>c1_b5_printhouse</small>"/]
+  c1_end_a_silence(["SA1 · Sessizlik<br/><small>c1_end_a_silence</small>"])
+  c1_end_a_tribe(["SA2 · Kabile<br/><small>c1_end_a_tribe</small>"])
+  c1_end_a_escape(["SA3 · Paket Bende<br/><small>c1_end_a_escape</small>"])
+  c1_end_a_fall(["SA4 · Düşüş<br/><small>c1_end_a_fall</small>"])
+  c1_end_a_desk(["SA5 · Masa<br/><small>c1_end_a_desk</small>"])
+  c1_end_b_strike(["SB1 · Kontak Kapatma<br/><small>c1_end_b_strike</small>"])
+  c1_end_b_headline(["SB2 · Manşet<br/><small>c1_end_b_headline</small>"])
+  c1_end_b_blackbox(["SB3 · Kara Kutu<br/><small>c1_end_b_blackbox</small>"])
+  c1_end_b_evidence(["SB4 · Kanıt<br/><small>c1_end_b_evidence</small>"])
   c1_s01_nevizade --> c1_s02_orders
   c1_s02_orders -->|"Kapalı paket · Galata"| c1_a1_printhouse
   c1_s02_orders -->|"İlaç · Dolapdere"| c1_b1_pharmacy
@@ -124,30 +124,30 @@ flowchart TD
   class c1_s02_orders,c1_a1_printhouse,c1_a3_tower,c1_a4_rooftop,c1_a5_chase,c1_a6_second_offer,c1_b2_kid,c1_b3_boulevard,c1_b4_hospital,c1_b5_printhouse choice;
 ```
 
-| scene_id | tür | başlık | işlev | video_asset |
-|---|---|---|---|---|
-| `c1_s01_nevizade` | cinematic | Nevizade Sokağı | Soğuk açılış: Nevizade Sokağı. Kira açığı (1.400 ₺) ve Kabile grubu burada ekilir. | — |
-| `c1_s02_orders` | choice | İki Talep | İLK KRİTİK SEÇİM — hikâye burada iki katmana ayrılır ve birleşmez. Zaman aşımı → ROTA paketi atar (Katman A). | — |
-| `c1_a1_printhouse` | choice | Matbaa | Merak vs. güvenlik. Açmak bilgi verir (teklifte üçüncü seçeneği açar) ama iz bırakır (şüphe +1). | — |
-| `c1_a2_school` | cinematic | Galata Feneri İlkokulu | Seçimsiz, nefes alan sahne. Öğretmenliğe tek ince dokunuş. | — |
-| `c1_a3_tower` | choice | Galata Kulesi | Ana gizem ve teklif: adam ROTA'nın içinden biri ("Kurye 2608"). Paket açıldıysa üçüncü seçenek açılır, adam bandı fark eder. | — |
-| `c1_a4_rooftop` | choice | Çatı | Suç ortaklığından sonra vicdan: Kabile'yi uyarmak mı, susmak mı. | — |
-| `c1_a5_chase` | interaction | Yüksek Kaldırım | Basamaklar: şüphe ≥ 2 ise düşer. Pasaj: güvenli ama plaka görülür. Başarısızlık ayrı bir sona (Düşüş) gider. | — |
-| `c1_a6_second_offer` | choice | İkinci Teklif | Katman A'nın en ağır ikilemi: sokaktan kurtuluş (maaş, sigorta) karşılığında kayıtları gömmek. | — |
-| `c1_b1_pharmacy` | cinematic | Nöbetçi Eczane | Karakter sahnesi. Paket talebi Kabile Şefi'ye düşer; Katman B'nin olayı onun başına gelecek. | — |
-| `c1_b2_kid` | choice | Mendilci Çocuk | Kanıt vs. bir çocuğu korumak. Fotoğraf hastanede "gazeteci" seçeneğini açar; ama mendilci çocuk'u riske atar. | — |
-| `c1_b3_boulevard` | choice | Tarlabaşı Bulvarı | Katman B'nin kırılma noktası: bir dostu yerde bırakmamak mı, onu yere sereni kovalamak mı. | — |
-| `c1_b4_hospital` | choice | Taksim İlk Yardım | Dayanışma mı, kanıt mı. Gazeteci seçeneği yalnızca mendilci çocuk'un fotoğrafı alındıysa açılır. | — |
-| `c1_b5_printhouse` | interaction | Matbaa | Katman A'nın başladığı matbaa, burada ROTA'nın gizli merkezi olarak geri döner (mekân tekrar kullanımı + iki katmanın aynası). | — |
-| `c1_end_a_silence` | ending | Sessizlik | A son: Sessizlik. | — |
-| `c1_end_a_tribe` | ending | Kabile | A son: Kabile. | — |
-| `c1_end_a_escape` | ending | Paket Bende | A son: Paket Bende. | — |
-| `c1_end_a_fall` | ending | Düşüş | A son: Düşüş. Başarısızlık en büyük ipucunu verir: ROTA'nın risk listesi (ilk seçimde ROTA'nın neden onu seçtiğini açıklar). | — |
-| `c1_end_a_desk` | ending | Masa | A son: Masa. Karanlık son; ROTA kancası yok, kanca duran yeşil nokta. | — |
-| `c1_end_b_strike` | ending | Kontak Kapatma | B son: Kontak Kapatma. Dayanışma kirayı da çözer. | — |
-| `c1_end_b_headline` | ending | Manşet | B son: Manşet. | — |
-| `c1_end_b_blackbox` | ending | Kara Kutu | B son: Kara Kutu. ROTA kancası yok; kanca adamın kendisi. | — |
-| `c1_end_b_evidence` | ending | Kanıt | B son: Kanıt. | — |
+| kod | scene_id | tür | başlık | işlev | video_asset |
+|---|---|---|---|---|---|
+| **O1** | `c1_s01_nevizade` | cinematic | Nevizade Sokağı | Soğuk açılış: Nevizade Sokağı. Kira açığı (1.400 ₺) ve Kabile grubu burada ekilir. | — |
+| **O2** | `c1_s02_orders` | choice | İki Talep | İLK KRİTİK SEÇİM — hikâye burada iki katmana ayrılır ve birleşmez. Zaman aşımı → ROTA paketi atar (Katman A). | — |
+| **A1** | `c1_a1_printhouse` | choice | Matbaa | Merak vs. güvenlik. Açmak bilgi verir (teklifte üçüncü seçeneği açar) ama iz bırakır (şüphe +1). | — |
+| **A2** | `c1_a2_school` | cinematic | Galata Feneri İlkokulu | Seçimsiz, nefes alan sahne. Öğretmenliğe tek ince dokunuş. | — |
+| **A3** | `c1_a3_tower` | choice | Galata Kulesi | Ana gizem ve teklif: adam ROTA'nın içinden biri ("Kurye 2608"). Paket açıldıysa üçüncü seçenek açılır, adam bandı fark eder. | — |
+| **A4** | `c1_a4_rooftop` | choice | Çatı | Suç ortaklığından sonra vicdan: Kabile'yi uyarmak mı, susmak mı. | — |
+| **A5** | `c1_a5_chase` | interaction | Yüksek Kaldırım | Basamaklar: şüphe ≥ 2 ise düşer. Pasaj: güvenli ama plaka görülür. Başarısızlık ayrı bir sona (Düşüş) gider. | — |
+| **A6** | `c1_a6_second_offer` | choice | İkinci Teklif | Katman A'nın en ağır ikilemi: sokaktan kurtuluş (maaş, sigorta) karşılığında kayıtları gömmek. | — |
+| **B1** | `c1_b1_pharmacy` | cinematic | Nöbetçi Eczane | Karakter sahnesi. Paket talebi Kabile Şefi'ye düşer; Katman B'nin olayı onun başına gelecek. | — |
+| **B2** | `c1_b2_kid` | choice | Mendilci Çocuk | Kanıt vs. bir çocuğu korumak. Fotoğraf hastanede "gazeteci" seçeneğini açar; ama mendilci çocuk'u riske atar. | — |
+| **B3** | `c1_b3_boulevard` | choice | Tarlabaşı Bulvarı | Katman B'nin kırılma noktası: bir dostu yerde bırakmamak mı, onu yere sereni kovalamak mı. | — |
+| **B4** | `c1_b4_hospital` | choice | Taksim İlk Yardım | Dayanışma mı, kanıt mı. Gazeteci seçeneği yalnızca mendilci çocuk'un fotoğrafı alındıysa açılır. | — |
+| **B5** | `c1_b5_printhouse` | interaction | Matbaa | Katman A'nın başladığı matbaa, burada ROTA'nın gizli merkezi olarak geri döner (mekân tekrar kullanımı + iki katmanın aynası). | — |
+| **SA1** | `c1_end_a_silence` | ending | Sessizlik | A son: Sessizlik. | — |
+| **SA2** | `c1_end_a_tribe` | ending | Kabile | A son: Kabile. | — |
+| **SA3** | `c1_end_a_escape` | ending | Paket Bende | A son: Paket Bende. | — |
+| **SA4** | `c1_end_a_fall` | ending | Düşüş | A son: Düşüş. Başarısızlık en büyük ipucunu verir: ROTA'nın risk listesi (ilk seçimde ROTA'nın neden onu seçtiğini açıklar). | — |
+| **SA5** | `c1_end_a_desk` | ending | Masa | A son: Masa. Karanlık son; ROTA kancası yok, kanca duran yeşil nokta. | — |
+| **SB1** | `c1_end_b_strike` | ending | Kontak Kapatma | B son: Kontak Kapatma. Dayanışma kirayı da çözer. | — |
+| **SB2** | `c1_end_b_headline` | ending | Manşet | B son: Manşet. | — |
+| **SB3** | `c1_end_b_blackbox` | ending | Kara Kutu | B son: Kara Kutu. ROTA kancası yok; kanca adamın kendisi. | — |
+| **SB4** | `c1_end_b_evidence` | ending | Kanıt | B son: Kanıt. | — |
 
 <!-- FLOW:END -->
 

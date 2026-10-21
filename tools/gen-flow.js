@@ -37,7 +37,7 @@ function mermaid() {
     ending: (id, l) => `${id}([${l}])`,
   };
   const lines = ['flowchart TD'];
-  for (const s of story.scenes) lines.push(`  ${shape[s.scene_type](s.scene_id, q(`${t(`scenes.${s.scene_id}.title`)}<br/><small>${s.scene_id}</small>`))}`);
+  for (const s of story.scenes) lines.push(`  ${shape[s.scene_type](s.scene_id, q(`${s.code ? s.code + ' · ' : ''}${t(`scenes.${s.scene_id}.title`)}<br/><small>${s.scene_id}</small>`))}`);
   for (const s of story.scenes) {
     const choices = new Map((s.choices || []).map((c) => [c.id, c]));
     for (const e of sceneEdges(s)) {
@@ -61,8 +61,8 @@ function mermaid() {
 
 function table() {
   const rows = story.scenes.map((s) =>
-    `| \`${s.scene_id}\` | ${s.scene_type} | ${t(`scenes.${s.scene_id}.title`)} | ${(s.notes && s.notes.dev || '').replace(/\|/g, '/')} | ${s.video_asset ? `\`${s.video_asset}\`` : '—'} |`);
-  return ['| scene_id | tür | başlık | işlev | video_asset |', '|---|---|---|---|---|', ...rows].join('\n');
+    `| **${s.code || ''}** | \`${s.scene_id}\` | ${s.scene_type} | ${t(`scenes.${s.scene_id}.title`)} | ${(s.notes && s.notes.dev || '').replace(/\|/g, '/')} | ${s.video_asset ? `\`${s.video_asset}\`` : '—'} |`);
+  return ['| kod | scene_id | tür | başlık | işlev | video_asset |', '|---|---|---|---|---|---|', ...rows].join('\n');
 }
 
 function build() {

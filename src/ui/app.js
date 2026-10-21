@@ -321,7 +321,7 @@
     $('#btn-pause').hidden = !['play', 'epilogue'].includes(ui.screen);
     $('#btn-pause').setAttribute('aria-label', t('ui.menu'));
     $('#btn-pause').classList.toggle('warn', !validation.ok);
-    $('#hud-scene').textContent = inGame && settings.dev ? scene().scene_id : '';
+    $('#hud-scene').textContent = inGame && settings.dev ? `${scene().code || ''} · ${scene().scene_id}` : '';
     $('#stage').dataset.mood = inGame ? scene().scene_id : ui.screen;
     // Başlık ekranının arkasında açılış görseli (bulanık)
     if (ui.screen === 'title') {
@@ -613,6 +613,7 @@
     const issues = v.errors.concat(v.warnings);
     return `
       <dl class="dev">
+        <dt>kod</dt><dd><code>${esc(s.code || '—')}</code></dd>
         <dt>scene_id</dt><dd><code>${esc(s.scene_id)}</code></dd>
         <dt>scene_type</dt><dd>${esc(s.scene_type)}</dd>
         <dt>beat</dt><dd>${ui.mode === 'text' ? `${ui.beat + 1}/${blocks().length}` : 'video'}</dd>
@@ -663,8 +664,8 @@
     m.style.top = `${y}%`;
     const label = `hotspot: { x: ${Math.round(x)}, y: ${Math.round(y)} }`;
     m.dataset.label = label;
-    toast(`${scene().scene_id} · ${label}`, 'clue');
-    console.log(`[CICO] ${scene().scene_id} ${label}`);
+    toast(`${scene().code || scene().scene_id} · ${label}`, 'clue');
+    console.log(`[CICO] ${scene().code} ${scene().scene_id} ${label}`);
   }
 
   // Ekranın boş bir yerine dokunmak = devam

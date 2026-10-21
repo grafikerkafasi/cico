@@ -70,6 +70,9 @@
       byId.set(id, story.scenes[i]);
     });
     if (!byId.has(story.start)) errors.push(`Start scene missing: ${story.start}`);
+    const codes = story.scenes.map((s) => s.code).filter(Boolean);
+    codes.forEach((c, i) => codes.indexOf(c) !== i && errors.push(`Duplicate scene code: ${c}`));
+    story.scenes.filter((s) => !s.code).forEach((s) => warnings.push(`${s.scene_id}: no production code`));
 
     const used = { vars: new Set(), clues: new Set(), scenes: new Set() };
     (story.epilogue || []).forEach((b) => typeof b === 'object' && walkCondition(b.if, used));

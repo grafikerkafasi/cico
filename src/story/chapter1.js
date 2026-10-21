@@ -29,6 +29,9 @@
  * Karakterler kasıtlı olarak isimsiz (Cico ve Kabile Şefi dışında): oyuncunun aklında kalacak
  * kadar az kişi, her biri bir tanıtım slaytıyla. Metinler: characters.<who>.name / .line
  *
+ * KOD: her sahnenin kısa üretim kodu (O1, A3, SB2…). Görsel/video dosyaları gönderilirken bu kod kullanılır.
+ *   O = ortak açılış · A = Paket katmanı · B = İlaç katmanı · SA/SB = o katmanın sonları
+ *
  * GÖRSEL ve SEÇİM NOKTALARI
  *   image_asset : sahnenin tam ekran görseli (video yokken). Görsel ekrana "sığdırılır" (tamamı görünür),
  *                 boşluklar bulanık kopyasıyla dolar. Oran: media_aspect (varsayılan 9:16).
@@ -105,6 +108,7 @@
       // ── Ortak açılış ───────────────────────────────────────────────
       {
         scene_id: 'c1_s01_nevizade',
+        code: 'O1',
         scene_type: 'cinematic',
         text: ['l1', 'l2', intro('cico'), 'l3', msg('kabile', 'kabile'), intro('chief'), msg('mom', 'mom')],
         next: 'c1_s02_orders',
@@ -118,6 +122,7 @@
       },
       {
         scene_id: 'c1_s02_orders',
+        code: 'O2',
         scene_type: 'choice',
         text: [intro('rota'), 'l1', 'l2'],
         timer: { seconds: 15, on_timeout: 'timeout' },
@@ -139,6 +144,7 @@
       // ══ KATMAN A — PAKET ════════════════════════════════════════════
       {
         scene_id: 'c1_a1_printhouse',
+        code: 'A1',
         scene_type: 'choice',
         text: ['l1', 'l2', 'l3'],
         choices: [
@@ -153,6 +159,7 @@
       },
       {
         scene_id: 'c1_a2_school',
+        code: 'A2',
         scene_type: 'cinematic',
         text: [
           'l1', 'l2', 'l3',
@@ -168,6 +175,7 @@
       },
       {
         scene_id: 'c1_a3_tower',
+        code: 'A3',
         scene_type: 'choice',
         text: ['l1', 'l2', intro('man'), say('man1', 'man'), 'l3', say('man2', 'man'), line('seal_noticed', { flag: 'seal_broken' })],
         on_enter: [{ clue: 'knows_name' }],
@@ -188,6 +196,7 @@
       },
       {
         scene_id: 'c1_a4_rooftop',
+        code: 'A4',
         scene_type: 'choice',
         text: [
           line('paid_full', { not: HESITATED }),
@@ -210,6 +219,7 @@
       },
       {
         scene_id: 'c1_a5_chase',
+        code: 'A5',
         scene_type: 'interaction',
         text: ['l1', 'l2'],
         timer: { seconds: 8, on_timeout: 'stall' },
@@ -235,6 +245,7 @@
       },
       {
         scene_id: 'c1_a6_second_offer',
+        code: 'A6',
         scene_type: 'choice',
         text: [say('cico', 'cico'), say('m1', 'man'), say('m2', 'man'), 'l1'],
         timer: { seconds: 10, on_timeout: 'silence' },
@@ -254,6 +265,7 @@
       // ══ KATMAN B — İLAÇ ════════════════════════════════════════════
       {
         scene_id: 'c1_b1_pharmacy',
+        code: 'B1',
         scene_type: 'cinematic',
         text: ['l1', 'l2', intro('kid'), say('kid', 'kid')],
         next: 'c1_b2_kid',
@@ -265,6 +277,7 @@
       },
       {
         scene_id: 'c1_b2_kid',
+        code: 'B2',
         scene_type: 'choice',
         text: [say('y1', 'kid'), say('y2', 'kid'), 'photo', msg('chief', 'chief')],
         choices: [
@@ -279,6 +292,7 @@
       },
       {
         scene_id: 'c1_b3_boulevard',
+        code: 'B3',
         scene_type: 'choice',
         text: ['l1', 'l2', say('t1', 'chief'), say('t2', 'chief'), msg('rota', 'rota'), 'l3'],
         on_enter: [{ clue: 'not_accident' }],
@@ -298,6 +312,7 @@
       },
       {
         scene_id: 'c1_b4_hospital',
+        code: 'B4',
         scene_type: 'choice',
         text: [line('froze', HESITATED), 'l1', msg('rota', 'rota'), say('chief', 'chief'), 'l2'],
         choices: [
@@ -312,6 +327,7 @@
       },
       {
         scene_id: 'c1_b5_printhouse',
+        code: 'B5',
         scene_type: 'interaction',
         text: ['l1', 'l2', 'l3'],
         timer: { seconds: 10, on_timeout: 'freeze' },
@@ -331,6 +347,7 @@
       // ══ SONLAR — KATMAN A ══════════════════════════════════════════
       {
         scene_id: 'c1_end_a_silence',
+        code: 'SA1',
         scene_type: 'ending',
         text: ['l1', 'l2', ...RENT, ...NO_MEDICINE, line('@common.system_chose', { flag: 'system_chose' }), ...ROTA_HOOK],
         video_asset: null,
@@ -338,6 +355,7 @@
       },
       {
         scene_id: 'c1_end_a_tribe',
+        code: 'SA2',
         scene_type: 'ending',
         text: [
           'l1', 'l2',
@@ -352,6 +370,7 @@
       },
       {
         scene_id: 'c1_end_a_escape',
+        code: 'SA3',
         scene_type: 'ending',
         text: [
           line('stairs', { var: 'escape_route', eq: 'stairs' }),
@@ -369,6 +388,7 @@
       },
       {
         scene_id: 'c1_end_a_fall',
+        code: 'SA4',
         scene_type: 'ending',
         text: ['l1', 'l2', 'voice', say('fall_1', 'chief'), say('fall_2', 'chief'), 'l3', 'l4', ...NO_MEDICINE, ...ROTA_HOOK],
         on_enter: [{ clue: 'risk_list' }],
@@ -380,6 +400,7 @@
       },
       {
         scene_id: 'c1_end_a_desk',
+        code: 'SA5',
         scene_type: 'ending',
         text: [line('silence', HESITATED), 'l1', 'l2', 'l3', 'l4'],
         video_asset: null,
@@ -389,6 +410,7 @@
       // ══ SONLAR — KATMAN B ══════════════════════════════════════════
       {
         scene_id: 'c1_end_b_strike',
+        code: 'SB1',
         scene_type: 'ending',
         text: ['l1', 'l2', msg('kabile', 'kabile'), ...ROTA_HOOK],
         video_asset: null,
@@ -396,6 +418,7 @@
       },
       {
         scene_id: 'c1_end_b_headline',
+        code: 'SB2',
         scene_type: 'ending',
         text: ['l1', 'l2', msg('kid', 'kid'), 'l3', ...RENT, ...ROTA_HOOK],
         video_asset: null,
@@ -403,6 +426,7 @@
       },
       {
         scene_id: 'c1_end_b_blackbox',
+        code: 'SB3',
         scene_type: 'ending',
         text: [line('froze', HESITATED), 'l1', 'l2', intro('man'), say('man', 'man')],
         on_enter: [{ clue: 'risk_list' }],
@@ -411,6 +435,7 @@
       },
       {
         scene_id: 'c1_end_b_evidence',
+        code: 'SB4',
         scene_type: 'ending',
         text: ['l1', 'l2', 'l3', ...RENT, ...ROTA_HOOK],
         video_asset: null,
