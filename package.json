@@ -1,0 +1,16 @@
+{
+  "name": "cico",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CİCO — FMV interaktif macera: oynanabilir metin demosu (Bölüm 1: Gece Vardiyası)",
+  "license": "UNLICENSED",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node tools/serve.js",
+    "play": "node tools/play-cli.js",
+    "test": "node --test tests/",
+    "validate": "node tools/validate.js",
+    "flow": "node tools/gen-flow.js",
+    "artifact": "node tools/build-artifact.js"
+  }
+}

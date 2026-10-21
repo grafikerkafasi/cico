@@ -1,0 +1,12 @@
+{
+  "name": "CİCO — Gece Vardiyası",
+  "short_name": "CİCO",
+  "description": "Beyoğlu'nda bir gece kuryesinin seçimleri.",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#050608",
+  "theme_color": "#050608",
+  "lang": "tr",
+  "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
