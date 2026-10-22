@@ -21,11 +21,23 @@
     'Characters never look into or turn towards the camera. Cico keeps his head still in exactly the direction it has in the image: he does NOT turn or swivel his head left, right or back, he does not look around; only his eyes may blink and his chest may breathe. No light rays, light beams, lens flares or sudden bright flashes. ' +
     'Only small, natural, physically believable motion that gently returns to the starting pose by the last second.';
 
-  const AUDIO = (ambient) =>
-    `Audio: natural ambient sound only — ${ambient}. Absolutely no speech, no dialogue, no voices, no whispering, no singing, no music.`;
+  const AUDIO = (ambient, musicOk) =>
+    `Audio: natural ambient sound only — ${ambient}. Absolutely no speech, no dialogue, no voices, no whispering, no singing${musicOk ? '' : ', no music'}.`;
+
+  // Döngüsüz sahneler (end_only): başlangıç serbest, BİTİŞ karesi sahne görseli.
+  const RULES_END = RULES
+    .replace('Animate THIS EXACT IMAGE as one continuous vertical 9:16 shot. The start frame and the end frame are the same image: ' +
+      'the video must begin on this exact frame and settle back onto this exact same frame at the end, so it can loop seamlessly. ',
+      'One continuous vertical 9:16 shot that ENDS exactly on THIS IMAGE (the end frame). The action described below happens first and the last frame matches this image exactly. ')
+    .replace(' Only small, natural, physically believable motion that gently returns to the starting pose by the last second.', ' Natural, physically believable motion only.');
 
   // MOTION: yalnızca görselde zaten olan şeyler hareket eder. AMBIENT: ortam sesi.
   const SHOTS = {
+    O1: {
+      motion: 'Cico leans against the wall and stays almost completely still, quietly looking down at his phone; only his eyes blink and his chest breathes. Behind him Nevizade Street is alive: neon signs flicker, warm tavern windows glow, distant blurred silhouettes of people walk and laugh, light fog drifts, raindrops fall and puddles ripple.',
+      ambient: 'Cico makes no sound at all. In the distance, faint and muffled from the taverns of Nevizade: a violin and a darbuka playing, glasses clinking, indistinct cheerful tavern chatter and laughter with no intelligible words, light rain',
+      music_ok: true,
+    },
     O2: {
       motion: 'Cico breathes slowly and blinks, head still, his thumb hovers over the phone; the two floating glowing order cards bob very gently in place; neon signs flicker softly; light fog drifts; rain glistens on the cobblestones.',
       ambient: 'distant tavern chatter and laughter, light rain, a far-off car horn',
@@ -51,8 +63,10 @@
       ambient: 'soft night breeze, a scooter idling very quietly, distant city hum',
     },
     A3a: {
-      motion: 'The black car\'s headlights glare and flicker faintly; the man in the coat stands still beside the open door, his coat moving slightly in the wind; Cico breathes heavily, steadying himself on the scooter; rain falls in the headlight beams.',
-      ambient: 'a car engine idling, light rain, wind in a narrow street',
+      // Döngü yok: yalnızca BİTİŞ karesi = sahne görseli. Adam arabadan iner ve Cico'nun karşısına dikilir.
+      end_only: true,
+      motion: 'The black car has just swerved across the road and stopped, headlights glaring. At the start its rear door is closed and the man in the coat is still inside. The rear door swings open, the man in the coat steps out calmly onto the wet cobblestones and takes two slow steps to stand facing Cico, then stays still. Cico, on his scooter with one foot down, stays tense and still, his head not turning. Rain falls in the headlight glow. The video ends exactly on this image.',
+      ambient: 'a car engine idling, a car door opening, slow footsteps on wet cobblestones, light rain',
     },
     A3: {
       motion: 'The man in the coat is an original, fictional Pixar-style cartoon character (not a real person). He holds out his gloved hand, perfectly calm, a faint smile; his coat stirs slightly in the wind; Cico breathes, clutching the package; the black car\'s headlights glow behind; the tower lights shimmer; light rain falls.',
@@ -87,7 +101,7 @@
       ambient: 'stairwell echo, a TV murmuring indistinctly inside, a clock ticking',
     },
     B2: {
-      motion: 'The phone glow flickers softly; the hand holding the phone trembles very slightly; dust floats in the dim stairwell light; the chain on the door sways a little.',
+      motion: 'Only the kid moves: his small hand holds the phone up towards Cico, steady, with a tiny natural tremble. The phone screen shows only a calm, steady soft glow — no particles, no sparkles, no animation on the screen. The door lock and chain stay completely still and nobody touches them; Cico does not move his hands. Faint dust floats in the dim stairwell light.',
       ambient: 'dripping water, a distant siren, stairwell echo',
     },
     B2a: {
@@ -131,8 +145,8 @@
       ambient: 'server room hum, air conditioning, total silence otherwise',
     },
     SB1: {
-      motion: 'The crowd of couriers raises their helmets and fists, cheering; green flare smoke swirls and drifts upwards; blank placards wave; Cico and the Tribe Chief lift their arms and return; tavern lights glow.',
-      ambient: 'a cheering crowd without intelligible words, clapping, helmets knocking, no engines',
+      motion: 'A serious, determined PROTEST, not a celebration: the couriers stand firm shoulder to shoulder, raising their fists and helmets in a slow, steady rhythm and lowering them again; blank placards are held high and pumped in rhythm; faces are serious and resolute, nobody laughs, nobody jumps; green flare smoke drifts slowly upwards; Cico and the Tribe Chief raise their fists in the same rhythm.',
+      ambient: 'rhythmic clapping and stomping of a protest crowd, helmets knocked together in rhythm, a low determined crowd rumble with no words, no engines',
     },
     SB2: {
       motion: 'The hand holding the phone stays steady with a tiny natural movement; the phone screen stays exactly the same; in the blurred background the couriers cheer, hug and wave their helmets; morning sunlight flickers through the trees.',
@@ -151,7 +165,7 @@
   const prompt = (code) => {
     const s = SHOTS[code];
     if (!s) throw new Error('Bilinmeyen sahne kodu: ' + code);
-    return `${RULES}\n\nMotion: ${s.motion}\n\n${AUDIO(s.ambient)}`;
+    return `${s.end_only ? RULES_END : RULES}\n\nMotion: ${s.motion}\n\n${AUDIO(s.ambient, s.music_ok)}`;
   };
 
   const api = { RULES, SHOTS, prompt, settings: 'Video · Frames · 9:16 · Veo 3.1 Fast · 8s · x1 · Start = End = sahne görseli' };
