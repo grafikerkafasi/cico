@@ -24,7 +24,14 @@
   const settings = Object.assign({ lang: 'tr', timers: true, haptics: true, sound: true, dev: false }, store.get('cico.settings', {}));
   // Seçim noktası tanımlı değilse kullanılacak geçici yerler (görselin yüzdesi)
   const DEFAULT_SPOTS = [{ x: 30, y: 56 }, { x: 70, y: 64 }, { x: 50, y: 40 }];
-  if (!locales[settings.lang]) settings.lang = 'tr';
+  // Dil: oyuncu bir dil seçtiyse (langChosen) o; seçmediyse cihazın dili (destekleniyorsa), yoksa İngilizce
+  function deviceLang() {
+    const prefs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || '']);
+    for (const l of prefs) { const code = String(l).toLowerCase().split('-')[0]; if (locales[code]) return code; }
+    return locales.en ? 'en' : Object.keys(locales)[0];
+  }
+  if (!settings.langChosen || !locales[settings.lang]) settings.lang = deviceLang();
+  document.documentElement.lang = settings.lang;
   let t = i18n.createTranslator(locales, settings.lang);
   const saveSettings = () => store.set('cico.settings', settings);
 
@@ -472,6 +479,7 @@
 
   function setLang(code) {
     settings.lang = code;
+    settings.langChosen = true; // oyuncunun seçimi cihaz dilinden önce gelir
     saveSettings();
     t = i18n.createTranslator(locales, code);
     document.documentElement.lang = code;
