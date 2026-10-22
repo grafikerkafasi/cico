@@ -13,6 +13,8 @@
   const { story, engine: E, i18n, locales, validate, media, flowchart } = window.CICO;
   // Native köprü (Capacitor): tarayıcıda etkisiz bir yedekle çalışır
   const native = window.CICO.native || { isNative: false, mediaUrl: (p) => p, haptic: () => false, init() {}, exitApp() {} };
+  // Öne doğru indirme: okuma sırasında sıradaki sahnelerin videoları arka planda iner (ayar/ekran yok)
+  const prefetch = window.CICO.prefetch ? window.CICO.prefetch.createPrefetcher({ story, sceneEdges: E.sceneEdges, mediaUrl: native.mediaUrl }) : null;
 
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -113,6 +115,7 @@
     // Videosu olmayan ya da videosu bitmiş sahnede görsel çok hafif yakınlaşır ve salınır (still_motion)
     $('#app').classList.toggle('drift', !plan.clip && !!scene().still_motion);
     showClip(plan.clip);
+    if (prefetch) prefetch.warm(game.state.sceneId);
     ui.introQueue = plan.mode === 'video' ? blocks().filter((b) => b.kind === 'intro') : [];
     render();
 
@@ -343,7 +346,7 @@
     if (!loop) v.addEventListener('ended', () => { endClip(v); $('#app').classList.add('drift'); }, { once: true });
     v.addEventListener('playing', () => v.classList.add('ready'), { once: true });
     v.addEventListener('error', () => v.remove(), { once: true });
-    v.src = native.mediaUrl(src); // uygulamada videolar sunucudan akar; bağlantı yoksa görsel kalır
+    v.src = prefetch ? prefetch.videoUrl(src) : native.mediaUrl(src); // önden indiyse bellekten, değilse sunucudan; bağlantı yoksa görsel kalır
     holder.appendChild(v);
     const p = v.play();
     if (p && p.catch) p.catch(() => { v.muted = true; v.play().catch(() => v.remove()); });
@@ -966,4 +969,6 @@
   if (!validation.ok) console.warn('[CICO] Story validation errors:', validation.errors);
   document.documentElement.lang = settings.lang;
   render();
+  // Başlık ekranındayken ilk sahnelerin videoları sessizce inmeye başlar
+  if (prefetch && ui.screen === 'title') prefetch.warm(story.start, true);
 })();

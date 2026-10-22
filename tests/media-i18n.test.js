@@ -75,3 +75,19 @@ test('her vuruş ≤ 120, her seçenek ≤ 60 karakter (tüm diller)', () => {
     check(loc.characters, '.characters');
   }
 });
+
+test('öne doğru indirme: sıradaki sahneler doğru seçilir, mevcut sahnenin videosu tekrar indirilmez', () => {
+  const story = require('../src/story/chapter1.js');
+  const { sceneEdges } = require('../src/engine/engine.js');
+  const { createPrefetcher } = require('../src/ui/prefetch.js');
+  const p = createPrefetcher({ story, sceneEdges });
+  // O2: iki seçenek de O3'e gider; O3 sinematik → A1 ve B0 de eklenir
+  assert.deepEqual(p.lookahead('c1_s02_orders'), ['c1_s03_ride', 'c1_a1_printhouse', 'c1_b0_pharmacy']);
+  // B3: kal → hastane, kovala → takip (sinematik) → matbaa
+  const b3 = p.lookahead('c1_b3_boulevard');
+  assert.ok(b3.includes('c1_b4_hospital') && b3.includes('c1_b3a_tail') && b3.includes('c1_b5_printhouse'));
+  // Sonlardan sonra gidilecek sahne yok
+  assert.deepEqual(p.lookahead('c1_end_b_strike'), []);
+  // Hazır olmayan video için ağ adresi döner
+  assert.equal(p.videoUrl('assets/video/O1_c1_s01_nevizade.mp4'), 'assets/video/O1_c1_s01_nevizade.mp4');
+});
