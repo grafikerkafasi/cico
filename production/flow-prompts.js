@@ -69,7 +69,7 @@
       ambient: 'a car engine idling, a car door opening, slow footsteps on wet cobblestones, light rain',
     },
     A3: {
-      motion: 'The man in the coat is an original, fictional Pixar-style cartoon character (not a real person). He holds out his gloved hand, perfectly calm, a faint smile; his coat stirs slightly in the wind; Cico breathes, clutching the package; the black car\'s headlights glow behind; the tower lights shimmer; light rain falls.',
+      motion: 'The man in the coat is only partly visible at the left edge: his face stays out of frame for the whole video; only his dark coat and his gloved hand, held out palm-up towards Cico, are visible, and the hand stays almost still. Cico, seen from behind at the right, holds the package and breathes, his head still. The black car\'s headlights glow in the background; the tower lights shimmer; light rain falls and ripples on the wet cobblestones.',
       ambient: 'a car engine idling, wind, distant seagulls, light rain',
     },
     A4: {

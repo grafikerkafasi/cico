@@ -249,6 +249,7 @@
         scene_id: 'c1_a3_tower',
         code: 'A3',
         image_asset: 'assets/scenes/A3_c1_a3_tower.jpg',
+        scene_video: 'assets/video/A3_c1_a3_tower.mp4',
         scene_type: 'choice',
         text: ['l1', say('man1', 'man'), 'l3', say('man2', 'man'), line('seal_noticed', { flag: 'seal_broken' })],
         on_enter: [{ clue: 'knows_name' }],
