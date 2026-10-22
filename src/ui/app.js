@@ -270,7 +270,7 @@
       .catch(() => { music.loading = null; startMusicElement(); });
   }
   // Karar anı efekti: kısa (≈1.4 sn), alçak frekanslı sinematik "vurgu". Dosya yok, Web Audio ile sentezlenir.
-  // İyi uygulama: tutarlı tek imza, müziğin biraz altında, sert tiz yok, karar başına bir kez, müziği kısa süre kısar (ducking).
+  // İyi uygulama: tutarlı tek imza, müziğin biraz altında, sert tiz yok, karar başına bir kez. Müzik seviyesi değişmez.
   function playChoiceSting() {
     if (!settings.sound || !music.ctx || music.ctx.state !== 'running') return;
     const ctx = music.ctx;
@@ -302,14 +302,6 @@
       const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = f; o.detune.value = (Math.random() - 0.5) * 8;
       const g = ctx.createGain(); g.gain.value = a; o.connect(g).connect(lp); o.start(tb); o.stop(tb + 1.55);
     });
-    // 4) Müziği kısa süre kıs (ducking), sonra yumuşakça geri getir
-    if (music.gain) {
-      const target = musicGainTarget();
-      music.gain.gain.cancelScheduledValues(t0);
-      music.gain.gain.setValueAtTime(music.gain.gain.value, t0);
-      music.gain.gain.linearRampToValueAtTime(target * 0.55, t0 + 0.12);
-      music.gain.gain.linearRampToValueAtTime(target, t0 + 1.4);
-    }
     setTimeout(() => out.disconnect(), 2200);
   }
 
@@ -332,8 +324,8 @@
     if (music.ctx && music.src && music.ctx.state !== 'running' && !document.hidden) music.ctx.resume().catch(() => {});
   }, { passive: true });
 
-  // Sahne klibi: sesiyle, döngüde oynar (ilk ve son karesi sahne görseliyle aynı, döngü dikişsiz).
-  // Karar anında solar ve altındaki görsel kalır (seçim noktaları görselin koordinatlarına göre).
+  // Sahne klibi: sesiyle, döngüde oynar (ilk ve son karesi sahne görseliyle aynı, döngü dikişsiz);
+  // karar anında da altta oynamaya devam eder. clip_loop: false olanlar bir kez oynar, son karede durup hafifçe salınır.
   function showClip(src) {
     const holder = $('#stage-media');
     const current = holder.querySelector('video.stage-clip');
@@ -350,7 +342,7 @@
     // Çoğu klip dikişsiz döngüdür; clip_loop: false olanlar bir kez oynar, sonra görsel hafifçe "nefes alır"
     const loop = scene().clip_loop !== false;
     v.loop = loop;
-    if (!loop) v.addEventListener('ended', () => { endClip(v); $('#app').classList.add('drift'); }, { once: true });
+    if (!loop) v.addEventListener('ended', () => { $('#app').classList.add('drift'); }, { once: true }); // son karede donar, hafif yakınlaşıp salınır
     v.addEventListener('playing', () => v.classList.add('ready'), { once: true });
     v.addEventListener('error', () => v.remove(), { once: true });
     v.src = prefetch ? prefetch.videoUrl(src) : native.mediaUrl(src); // önden indiyse bellekten, değilse sunucudan; bağlantı yoksa görsel kalır
@@ -560,8 +552,6 @@
     $('#app').classList.toggle('choosing', choicesVisible());
     // Seçenekler bu sahnede ilk kez göründüğünde sinematik vurgu (sahne başına bir kez)
     if (choicesVisible() && ui.stingFor !== game.state.sceneId) { ui.stingFor = game.state.sceneId; playChoiceSting(); }
-    // Karar anı: klip durur, son karesiyle aynı olan görsel kalır
-    if (choicesVisible()) endClip($('#stage-media video.stage-clip'));
     caption.innerHTML = cur && cur.kind !== 'msg' && cur.kind !== 'intro'
       ? `<div class="cap ${cur.kind}" data-k="${esc(cur.key)}">${cur.kind === 'say' ? `<span class="speaker">${esc(t(`speakers.${cur.from}`))}</span>` : ''}<span class="cap-text">${esc(t(cur.key))}</span></div>`
       : '';

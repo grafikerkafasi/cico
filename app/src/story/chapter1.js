@@ -248,6 +248,7 @@
       {
         scene_id: 'c1_a3_tower',
         code: 'A3',
+        clip_loop: false, // paketi istediği an: bir kez oynar, son karede durup hafifçe salınır
         image_asset: 'assets/scenes/A3_c1_a3_tower.jpg',
         scene_video: 'assets/video/A3_c1_a3_tower.mp4',
         scene_type: 'choice',
