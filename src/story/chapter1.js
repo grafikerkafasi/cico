@@ -471,8 +471,8 @@
         scene_type: 'choice',
         text: [line('froze', HESITATED), 'l1', msg('rota', 'rota'), say('chief', 'chief'), 'l2'],
         choices: [
-          { id: 'strike', hotspot: { x: 17, y: 54 }, next: 'c1_end_b_strike' },
-          { id: 'press', hotspot: { x: 52, y: 52, side: 'below' }, conditions: { clue: 'matbaa_photo' }, show_locked: true, next: 'c1_end_b_headline' },
+          { id: 'strike', hotspot: { x: 16, y: 44 }, next: 'c1_end_b_strike' },
+          { id: 'press', hotspot: { x: 50, y: 63, side: 'below' }, conditions: { clue: 'matbaa_photo' }, show_locked: true, next: 'c1_end_b_headline' },
         ],
         video_asset: null,
         notes: {

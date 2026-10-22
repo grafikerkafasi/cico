@@ -1411,8 +1411,8 @@ Slow creeping follow shot; the car slows and stops. Ambient: idling engines. 6 s
 
 | Seçenek (oyunda) | Görselde ne olmalı | Konum (görselin yüzdesi; sol üst = 0,0) |
 |---|---|---|
-| Kabile'ye yaz: "Yarın gece toplu grev. Mesele ciddi." | soldaki kurye grubu (Kabile) | x 17% · y 54% |
-| Çocuğun fotoğrafını bir gazeteciye gönder 🔒 | ortada oturan Cico | x 52% · y 52% |
+| Kabile'ye yaz: "Yarın gece toplu grev. Mesele ciddi." | soldaki kurye grubu (Kabile) | x 16% · y 44% |
+| Çocuğun fotoğrafını bir gazeteciye gönder 🔒 | ortada oturan Cico | x 50% · y 63% |
 
 **Görsel promptu (ChatGPT):**
 
@@ -1422,7 +1422,7 @@ Slow creeping follow shot; the car slows and stops. Ambient: idling engines. 6 s
 [CHARACTER] Cico: 26-year-old Turkish man, light patchy stubble, tired but charismatic eyes, short dark hair. Dark forest-green hoodie with a clearly visible round light-coloured "26" badge on his LEFT shoulder. Dark trousers, dark sneakers. Open-face helmet worn half-open at the chin, visor up, NO lights or gadgets on the back of the helmet. Always keep his light stubble and thin moustache. To keep the badge on the LEFT shoulder, show him facing the LEFT of the frame (his left side to camera); if seen from behind, the badge is on the shoulder on the image-left side. The licence plate is only at the REAR of the scooter.
 [CHARACTER] Tribe Chief: courier in his early 50s, broad shoulders, grey stubble and thick grey moustache, deep laugh lines, warm but tough eyes. Black armoured riding jacket with visible elbow and shoulder protectors, knee guards over dark jeans, worn full-face helmet covered in faded stickers (no readable words). Rides an older dark-blue scooter with a black delivery box.
 [SCENE B4 · c1_b4_hospital] Hospital corridor: on the left, a group of couriers in jackets with helmets in their laps gathers, looking at Cico. The Tribe Chief sits on a plastic chair with a bandaged arm, staring at his phone. Cico stands at the lower right holding his own phone.
-[MUST BE CLEARLY VISIBLE] soldaki kurye grubu (Kabile) at about 17% from the left and 54% from the top; ortada oturan Cico at about 52% from the left and 52% from the top.
+[MUST BE CLEARLY VISIBLE] soldaki kurye grubu (Kabile) at about 16% from the left and 44% from the top; ortada oturan Cico at about 50% from the left and 63% from the top.
 [RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
 [AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
 ```

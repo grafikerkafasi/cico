@@ -516,17 +516,24 @@
     const rectOf = (n) => { const r = n.getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top, b: r.bottom }; };
     const hit = (a, b) => a.l < b.r + pad && a.r > b.l - pad && a.t < b.b + pad && a.b > b.t - pad;
     const inside = (a) => a.l >= fr.left + 4 && a.r <= fr.right - 4 && a.t >= fr.top + 4 && a.b <= fr.bottom - 4;
+    // Noktalar sabittir: önce hepsinin yeri alınır; her etiket TÜM noktalardan ve önceki etiketlerden kaçar
+    const dots = els.map((el) => rectOf(el.querySelector('.hs-dot')));
     const placed = [];
-    els.forEach((el) => {
+    els.forEach((el, idx) => {
       const chip = el.querySelector('.hs-chip');
-      const dot = el.querySelector('.hs-dot');
-      const others = () => placed.flatMap((p) => [p.chip, p.dot]);
-      const fits = () => { const c = rectOf(chip); return inside(c) && !others().some((o) => hit(c, o)) && !placed.some((p) => hit(rectOf(dot), p.chip)); };
+      const others = () => [...placed, ...dots.filter((_, k) => k !== idx)];
+      const fits = () => { const c = rectOf(chip); return inside(c) && !others().some((o) => hit(c, o)); };
       const start = SIDES.find((sd) => el.classList.contains(sd));
       const order = [start, { left: 'right', right: 'left', below: 'above', above: 'below' }[start], ...SIDES].filter((v, i, arr) => v && arr.indexOf(v) === i);
       let ok = false;
       for (const sd of order) {
         el.classList.remove(...SIDES); el.classList.add(sd);
+        chip.style.transform = '';
+        if (sd === 'above' || sd === 'below') { // alt/üst etiket kenardan taşıyorsa içeri kaydır
+          const c = rectOf(chip);
+          const dx = c.r > fr.right - 4 ? fr.right - 4 - c.r : c.l < fr.left + 4 ? fr.left + 4 - c.l : 0;
+          if (dx) chip.style.transform = `translateX(${dx}px)`;
+        }
         if (fits()) { ok = true; break; }
       }
       if (!ok) {
@@ -542,7 +549,7 @@
           dy = (k % 2 ? -1 : 1) * 12 * Math.ceil((k + 1) / 2);
         }
       }
-      placed.push({ chip: rectOf(chip), dot: rectOf(dot) });
+      placed.push(rectOf(chip));
     });
     els.forEach((el) => { el.style.animation = ''; });
   }
