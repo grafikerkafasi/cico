@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <script>window.CICO_MEDIA_BASE = "https://grafikerkafasi.github.io/cico/";</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#050608">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CİCO">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <title>CİCO — Gece Vardiyası</title>
+  <link rel="stylesheet" href="src/ui/styles.css">
+</head>
+<body>
+  <div class="device">
+    <div id="app" class="app">
+      <!-- Sahne: görsel/video ekrana sığdırılır (tamamı görünür); boşluk bulanık kopyayla dolar.
+           Seçim noktaları (hotspot) çerçevenin içinde, görselin yüzdesiyle konumlanır. -->
+      <div id="stage" class="stage">
+        <div id="backdrop" class="backdrop"></div>
+        <div id="frame" class="frame">
+          <div id="stage-media" class="stage-media"></div>
+        </div>
+        <div class="shade"></div>
+        <!-- Görselle aynı ölçüdeki üst katman: seçim noktaları karartmanın üstünde kalır -->
+        <div class="frame frame-ui">
+          <div id="hotspots" class="hotspots"></div>
+          <div id="coord-marker" class="coord-marker" hidden></div>
+        </div>
+        <div class="grain"></div>
+      </div>
+
+      <header class="hud">
+        <div id="hud-chip" class="chip"></div>
+        <div class="hud-right">
+        <button id="btn-sound" class="round-btn" aria-label="Ses"></button>
+        <button id="btn-pause" class="round-btn" aria-label="Duraklat">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.5" fill="currentColor"/></svg>
+        </button>
+        </div>
+      </header>
+      <!-- Arka plan müziği: sahne geçişlerinden bağımsız, oyun boyunca kesintisiz -->
+      <audio id="bgm" loop preload="none"></audio>
+      <code id="hud-scene" class="scene-id"></code>
+
+      <div id="stamp" class="stamp" aria-live="polite"></div>
+      <div id="toasts" class="toasts" aria-live="assertive"></div>
+      <div id="notif" class="notif-layer" aria-live="polite"></div>
+      <div id="slide" class="slide" hidden aria-live="polite"></div>
+
+      <div class="bottom">
+        <div id="notice" class="notice" hidden></div>
+        <div id="caption" class="caption" aria-live="polite"></div>
+        <div id="tap-hint" class="tap-hint" hidden></div>
+        <div id="choices" class="choices"></div>
+      </div>
+
+      <section id="screen" class="screen" hidden></section>
+      <section id="pause" class="pause" hidden></section>
+      <div id="modal" class="modal" hidden></div>
+    </div>
+  </div>
+
+  <!-- Sıra önemli: motor → veri → diller → arayüz. Yeni dil: src/i18n/<kod>.js ekleyip buraya yazın. -->
+  <script src="src/engine/engine.js"></script>
+  <script src="src/engine/i18n.js"></script>
+  <script src="src/engine/validate.js"></script>
+  <script src="src/story/chapter1.js"></script>
+  <script src="src/i18n/tr.js"></script>
+  <script src="src/i18n/en.js"></script>
+  <script src="src/ui/media.js"></script>
+  <script src="src/ui/flowchart.js"></script>
+  <script src="src/ui/native.js"></script>
+  <script src="src/ui/app.js"></script>
+</body>
+</html>

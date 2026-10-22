@@ -1,0 +1,26 @@
+{
+  "appId": "com.grafikerkafasi.cico",
+  "appName": "CİCO",
+  "webDir": "www",
+  "backgroundColor": "#050608",
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#050608"
+  },
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#050608",
+    "scrollEnabled": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false,
+      "backgroundColor": "#050608",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "overlaysWebView": true
+    }
+  }
+}

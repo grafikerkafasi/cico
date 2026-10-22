@@ -7,3 +7,7 @@ assets/scenes/*.png
 assets/video/_master/
 assets/video/*_v0.mp4
 assets/audio/_master/
+www/
+android/app/build/
+android/.gradle/
+ios/App/build/

@@ -11,6 +11,8 @@
   'use strict';
 
   const { story, engine: E, i18n, locales, validate, media, flowchart } = window.CICO;
+  // Native köprü (Capacitor): tarayıcıda etkisiz bir yedekle çalışır
+  const native = window.CICO.native || { isNative: false, mediaUrl: (p) => p, haptic: () => false, init() {}, exitApp() {} };
 
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -58,7 +60,9 @@
 
   // ── Titreşim (Android/Chrome; iOS Safari desteklemez, sessizce yok sayılır) ──
   function haptic(pattern) {
-    if (!settings.haptics || !navigator.vibrate) return;
+    if (!settings.haptics) return;
+    if (native.haptic(pattern)) return; // uygulamada native haptics (iOS dahil)
+    if (!navigator.vibrate) return;
     try { navigator.vibrate(pattern); } catch (e) { /* desteklenmiyor */ }
   }
 
@@ -339,7 +343,7 @@
     if (!loop) v.addEventListener('ended', () => { endClip(v); $('#app').classList.add('drift'); }, { once: true });
     v.addEventListener('playing', () => v.classList.add('ready'), { once: true });
     v.addEventListener('error', () => v.remove(), { once: true });
-    v.src = src;
+    v.src = native.mediaUrl(src); // uygulamada videolar sunucudan akar; bağlantı yoksa görsel kalır
     holder.appendChild(v);
     const p = v.play();
     if (p && p.catch) p.catch(() => { v.muted = true; v.play().catch(() => v.remove()); });
@@ -921,6 +925,18 @@
   // Ekran boyutu/yönü değişince seçim etiketlerini yeniden yerleştir
   let relayout = 0;
   window.addEventListener('resize', () => { clearTimeout(relayout); relayout = setTimeout(() => { if (choicesVisible()) layoutHotspots($('#hotspots')); }, 120); });
+
+  // Uygulama kabuğu: Android geri tuşu duraklatma menüsünü açar/kapatır, başlık ekranında uygulamadan çıkar
+  native.init({
+    onBack() {
+      if (ui.modal) ui.modal = false;
+      else if (ui.pause) ui.pause = ui.pause === 'menu' ? null : 'menu';
+      else if (['play', 'epilogue'].includes(ui.screen)) ui.pause = 'menu';
+      else if (ui.screen === 'title') { native.exitApp(); return; }
+      else ui.screen = 'title';
+      render();
+    },
+  });
 
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.metaKey || e.ctrlKey || e.altKey) return;
