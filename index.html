@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <title>CİCO — Gece Vardiyası</title>
-  <link rel="stylesheet" href="src/ui/styles.css?v=202610221150">
+  <link rel="stylesheet" href="src/ui/styles.css?v=202610221436">
 </head>
 <body>
   <div class="device">
@@ -34,10 +34,15 @@
 
       <header class="hud">
         <div id="hud-chip" class="chip"></div>
+        <div class="hud-right">
+        <button id="btn-sound" class="round-btn" aria-label="Ses"></button>
         <button id="btn-pause" class="round-btn" aria-label="Duraklat">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.5" fill="currentColor"/></svg>
         </button>
+        </div>
       </header>
+      <!-- Arka plan müziği: sahne geçişlerinden bağımsız, oyun boyunca kesintisiz -->
+      <audio id="bgm" loop preload="none"></audio>
       <code id="hud-scene" class="scene-id"></code>
 
       <div id="stamp" class="stamp" aria-live="polite"></div>
@@ -59,14 +64,14 @@
   </div>
 
   <!-- Sıra önemli: motor → veri → diller → arayüz. Yeni dil: src/i18n/<kod>.js ekleyip buraya yazın. -->
-  <script src="src/engine/engine.js?v=202610221150"></script>
-  <script src="src/engine/i18n.js?v=202610221150"></script>
-  <script src="src/engine/validate.js?v=202610221150"></script>
-  <script src="src/story/chapter1.js?v=202610221150"></script>
-  <script src="src/i18n/tr.js?v=202610221150"></script>
-  <script src="src/i18n/en.js?v=202610221150"></script>
-  <script src="src/ui/media.js?v=202610221150"></script>
-  <script src="src/ui/flowchart.js?v=202610221150"></script>
-  <script src="src/ui/app.js?v=202610221150"></script>
+  <script src="src/engine/engine.js?v=202610221436"></script>
+  <script src="src/engine/i18n.js?v=202610221436"></script>
+  <script src="src/engine/validate.js?v=202610221436"></script>
+  <script src="src/story/chapter1.js?v=202610221436"></script>
+  <script src="src/i18n/tr.js?v=202610221436"></script>
+  <script src="src/i18n/en.js?v=202610221436"></script>
+  <script src="src/ui/media.js?v=202610221436"></script>
+  <script src="src/ui/flowchart.js?v=202610221436"></script>
+  <script src="src/ui/app.js?v=202610221436"></script>
 </body>
 </html>

@@ -107,6 +107,7 @@
 
     constants: { rent_gap: 1400 },
     media_aspect: 9 / 16, // görsel/video oranı (genişlik / yükseklik)
+    music: 'assets/audio/c1_music.mp3', // bölüm boyunca alttan çalan müzik (yoksa sessizce atlanır)
 
     scenes: [
       // ── Ortak açılış ───────────────────────────────────────────────
@@ -117,7 +118,7 @@
         text: ['l1', 'l2', intro('cico'), 'l3', msg('kabile', 'kabile'), intro('chief'), msg('mom', 'mom')],
         next: 'c1_s02_orders',
         image_asset: 'assets/scenes/c1_s01_nevizade.jpg',
-        ambient_video: 'assets/video/c1_s01_nevizade.mp4', // sessiz döngü; yüklenene kadar görsel altta
+        scene_video: 'assets/video/O1_c1_s01_nevizade.mp4', // Flow klibi: Cico sabit, arkada Nevizade sesi (keman, darbuka)
         video_asset: null,
         notes: {
           dev: 'Soğuk açılış: Nevizade Sokağı. Kira açığı (1.400 ₺) ve Kabile grubu burada ekilir.',
@@ -232,6 +233,7 @@
       {
         scene_id: 'c1_a3a_cutoff',
         code: 'A3a',
+        clip_loop: false, // adam arabadan iner: bir kez oynar, sonra görsel hafifçe salınır
         image_asset: 'assets/scenes/A3a_c1_a3a_cutoff.jpg',
         scene_video: 'assets/video/A3a_c1_a3a_cutoff.mp4',
         scene_type: 'cinematic',
@@ -246,6 +248,7 @@
       {
         scene_id: 'c1_a3_tower',
         code: 'A3',
+        still_motion: true, // video yok (Flow filtresi): görsel çok hafif yakınlaşır/salınır
         image_asset: 'assets/scenes/A3_c1_a3_tower.jpg',
         scene_type: 'choice',
         text: ['l1', say('man1', 'man'), 'l3', say('man2', 'man'), line('seal_noticed', { flag: 'seal_broken' })],

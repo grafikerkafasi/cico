@@ -294,7 +294,7 @@ Inside the old print shop: abandoned printing presses pushed aside, a row of glo
 | Kadro | [Cico (Aslan)] + [Cico'nun scooter'ı] |
 | Zaman / ışık | 23:50, gece, ıslak zemin, hafif sis |
 | Dosya adı | `O1.png` (görsel) · `O1.mp4` (video) · döngü |
-| Mevcut | görsel ✓ · video ✓ |
+| Mevcut | görsel ✓ |
 
 **Sahnenin işlevi:** Soğuk açılış: Nevizade Sokağı. Kira açığı (1.400 ₺) ve Kabile grubu burada ekilir.
 

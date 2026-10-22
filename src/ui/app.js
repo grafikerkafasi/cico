@@ -17,7 +17,7 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* depolama yoksa sessizce devam */ } },
   };
 
-  const settings = Object.assign({ lang: 'tr', timers: true, haptics: true, dev: false }, store.get('cico.settings', {}));
+  const settings = Object.assign({ lang: 'tr', timers: true, haptics: true, sound: true, dev: false }, store.get('cico.settings', {}));
   // Seçim noktası tanımlı değilse kullanılacak geçici yerler (görselin yüzdesi)
   const DEFAULT_SPOTS = [{ x: 30, y: 56 }, { x: 70, y: 64 }, { x: 50, y: 40 }];
   if (!locales[settings.lang]) settings.lang = 'tr';
@@ -105,6 +105,8 @@
     ui.pendingVideo = null;
     showImage(plan.image);
     showAmbient(plan.ambient);
+    // Videosu olmayan ya da videosu bitmiş sahnede görsel çok hafif yakınlaşır ve salınır (still_motion)
+    $('#app').classList.toggle('drift', !plan.clip && !!scene().still_motion);
     showClip(plan.clip);
     ui.introQueue = plan.mode === 'video' ? blocks().filter((b) => b.kind === 'intro') : [];
     render();
@@ -196,6 +198,33 @@
     holder.appendChild(wrap);
   }
 
+  // ── Ses: arka plan müziği (bölüm boyunca kesintisiz) + sahne kliplerinin ortam sesi ──
+  const MUSIC_VOL = 0.22;
+  const SPEAKER_ON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  const SPEAKER_OFF = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  function applySound() {
+    const bgm = $('#bgm');
+    bgm.muted = !settings.sound;
+    document.querySelectorAll('video.stage-clip').forEach((v) => { v.muted = !settings.sound; });
+    const btn = $('#btn-sound');
+    btn.innerHTML = settings.sound ? SPEAKER_ON : SPEAKER_OFF;
+    btn.setAttribute('aria-label', t(settings.sound ? 'ui.sound_off' : 'ui.sound_on'));
+    btn.setAttribute('aria-pressed', settings.sound ? 'true' : 'false');
+  }
+  function toggleSound() { settings.sound = !settings.sound; saveSettings(); applySound(); if (settings.sound) startMusic(); haptic(8); }
+  // Müzik yalnızca bir dokunuştan sonra başlayabilir (tarayıcı kuralı); yumuşakça açılır
+  function startMusic() {
+    const bgm = $('#bgm');
+    if (!story.music) return;
+    if (!bgm.src) { bgm.src = story.music; bgm.volume = 0; }
+    applySound();
+    const p = bgm.play();
+    if (p && p.catch) p.catch(() => {});
+    const t0 = performance.now();
+    const fade = (now) => { const k = Math.min(1, (now - t0) / 2500); if (bgm.volume < MUSIC_VOL) bgm.volume = Math.min(MUSIC_VOL, MUSIC_VOL * k); if (k < 1) requestAnimationFrame(fade); };
+    requestAnimationFrame(fade);
+  }
+
   // Sahne klibi: sesiyle, döngüde oynar (ilk ve son karesi sahne görseliyle aynı, döngü dikişsiz).
   // Karar anında solar ve altındaki görsel kalır (seçim noktaları görselin koordinatlarına göre).
   function showClip(src) {
@@ -209,7 +238,12 @@
     v.dataset.src = src;
     v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
     v.preload = 'auto';
-    v.loop = true;
+    v.muted = !settings.sound;
+    v.volume = 0.85;
+    // Çoğu klip dikişsiz döngüdür; clip_loop: false olanlar bir kez oynar, sonra görsel hafifçe "nefes alır"
+    const loop = scene().clip_loop !== false;
+    v.loop = loop;
+    if (!loop) v.addEventListener('ended', () => { endClip(v); $('#app').classList.add('drift'); }, { once: true });
     v.addEventListener('playing', () => v.classList.add('ready'), { once: true });
     v.addEventListener('error', () => v.remove(), { once: true });
     v.src = src;
@@ -312,6 +346,7 @@
 
   function beginPlay() {
     clearTimeout(ui.introTimer);
+    startMusic();
     ui.screen = 'play';
     enterScene();
   }
@@ -462,24 +497,54 @@
     layer.querySelectorAll('[data-choice]').forEach((b) => {
       b.onclick = () => { b.classList.add('picked'); act('choose', b.dataset.choice); };
     });
-    // Etiket görselin kenarından taşıyorsa: yan etiketleri öbür tarafa al, alt/üst etiketleri içeri kaydır
-    const fr = $('#frame').getBoundingClientRect();
-    layer.querySelectorAll('.hs').forEach((el) => {
-      const r = el.getBoundingClientRect();
-      if (!r.width) return;
-      if (el.classList.contains('left') && r.left < fr.left + 4) el.classList.replace('left', 'right');
-      else if (el.classList.contains('right') && r.right > fr.right - 4) el.classList.replace('right', 'left');
-      if (el.classList.contains('above') || el.classList.contains('below')) {
-        const chip = el.querySelector('.hs-chip');
-        const c = chip.getBoundingClientRect();
-        const shift = c.right > fr.right - 6 ? fr.right - 6 - c.right : c.left < fr.left + 6 ? fr.left + 6 - c.left : 0;
-        if (shift) chip.style.transform = `translateX(${shift}px)`;
-      }
-    });
+    layoutHotspots(layer);
     if (ui.timer) {
       $('#timer-fill').style.transform = `scaleX(${Math.max(0, ui.timer.left / ui.timer.total)})`;
       $('#timer-num').textContent = Math.max(0, Math.ceil(ui.timer.left / 1000));
     }
+  }
+
+  // Seçim noktası yerleşimi: hiçbir etiket ne görselden taşar ne de başka bir etiketin/noktanın üstüne biner.
+  // Her nokta için sırayla taraf denenir (verilen → karşı → alt → üst); hiçbiri olmazsa etiket dikeyde kaydırılır.
+  const SIDES = ['left', 'right', 'below', 'above'];
+  function layoutHotspots(layer) {
+    const fr = $('#frame').getBoundingClientRect();
+    const els = [...layer.querySelectorAll('.hs')];
+    if (!els.length || !fr.width) return;
+    els.forEach((el) => { el.style.animation = 'none'; el.querySelector('.hs-chip').style.transform = ''; }); // ölçüm, giriş animasyonundaki küçülmeden etkilenmesin
+    const pad = 6;
+    const rectOf = (n) => { const r = n.getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top, b: r.bottom }; };
+    const hit = (a, b) => a.l < b.r + pad && a.r > b.l - pad && a.t < b.b + pad && a.b > b.t - pad;
+    const inside = (a) => a.l >= fr.left + 4 && a.r <= fr.right - 4 && a.t >= fr.top + 4 && a.b <= fr.bottom - 4;
+    const placed = [];
+    els.forEach((el) => {
+      const chip = el.querySelector('.hs-chip');
+      const dot = el.querySelector('.hs-dot');
+      const others = () => placed.flatMap((p) => [p.chip, p.dot]);
+      const fits = () => { const c = rectOf(chip); return inside(c) && !others().some((o) => hit(c, o)) && !placed.some((p) => hit(rectOf(dot), p.chip)); };
+      const start = SIDES.find((sd) => el.classList.contains(sd));
+      const order = [start, { left: 'right', right: 'left', below: 'above', above: 'below' }[start], ...SIDES].filter((v, i, arr) => v && arr.indexOf(v) === i);
+      let ok = false;
+      for (const sd of order) {
+        el.classList.remove(...SIDES); el.classList.add(sd);
+        if (fits()) { ok = true; break; }
+      }
+      if (!ok) {
+        // En az çakışan tarafı seç; etiketi taşmayacak ve çakışmayacak şekilde kaydır
+        el.classList.remove(...SIDES); el.classList.add(start);
+        let c = rectOf(chip);
+        const dx = c.r > fr.right - 4 ? fr.right - 4 - c.r : c.l < fr.left + 4 ? fr.left + 4 - c.l : 0;
+        let dy = 0;
+        for (let k = 0; k < 24; k++) {
+          chip.style.transform = `translate(${dx}px, ${dy}px)`;
+          c = rectOf(chip);
+          if (!others().some((o) => hit(c, o)) && c.t >= fr.top + 4 && c.b <= fr.bottom - 4) break;
+          dy = (k % 2 ? -1 : 1) * 12 * Math.ceil((k + 1) / 2);
+        }
+      }
+      placed.push({ chip: rectOf(chip), dot: rectOf(dot) });
+    });
+    els.forEach((el) => { el.style.animation = ''; });
   }
 
   function decisionsHtml() {
@@ -626,6 +691,7 @@
           <div class="row-item"><span>${esc(t('ui.language'))}</span>
             <div class="segmented">${Object.entries(locales).map(([code, l]) => `<button data-lang="${code}" class="${code === settings.lang ? 'on' : ''}">${esc(code.toUpperCase())}</button>`).join('')}</div>
           </div>
+          ${toggleRow('opt-sound', t('ui.sound'), settings.sound)}
           ${toggleRow('opt-timers', t('ui.timers'), settings.timers)}
           ${toggleRow('opt-haptics', t('ui.haptics'), settings.haptics)}
         </div>
@@ -661,6 +727,7 @@
     on('p-back', () => { ui.pause = 'menu'; render(); });
     p.querySelectorAll('[data-open]').forEach((b) => { b.onclick = () => { if (b.dataset.open === 'dev') { settings.dev = true; saveSettings(); } openPause(b.dataset.open); }; });
     p.querySelectorAll('[data-lang]').forEach((b) => { b.onclick = () => setLang(b.dataset.lang); });
+    on('opt-sound', (e) => { settings.sound = e.target.checked; saveSettings(); applySound(); if (settings.sound) startMusic(); haptic(8); }, 'onchange');
     on('opt-timers', (e) => { settings.timers = e.target.checked; saveSettings(); if (!settings.timers) stopTimer(); haptic(8); }, 'onchange');
     on('opt-haptics', (e) => { settings.haptics = e.target.checked; saveSettings(); haptic(8); }, 'onchange');
     on('p-restart', () => { ui.modal = true; render(); });
@@ -720,6 +787,8 @@
 
   // ── Bağlantılar ───────────────────────────────────────────────────
   $('#btn-pause').onclick = () => openPause(ui.pause ? null : 'menu');
+  $('#btn-sound').onclick = (e) => { e.stopPropagation(); toggleSound(); };
+  applySound();
 
   // Geliştirici: koordinat seçici açıkken görsele dokunmak x/y yüzdesini gösterir (oyun ilerlemez)
   function pickCoord(e) {
@@ -746,6 +815,10 @@
   });
   // Uzun basma menüsünü ve çift dokunma yakınlaştırmasını engelle
   document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  // Ekran boyutu/yönü değişince seçim etiketlerini yeniden yerleştir
+  let relayout = 0;
+  window.addEventListener('resize', () => { clearTimeout(relayout); relayout = setTimeout(() => { if (choicesVisible()) layoutHotspots($('#hotspots')); }, 120); });
 
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.metaKey || e.ctrlKey || e.altKey) return;

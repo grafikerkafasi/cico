@@ -204,6 +204,12 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .8em; 
 }
 .round-btn:active { transform: scale(.9); }
 .round-btn.warn { color: var(--rose); border-color: var(--rose); }
+.hud-right { display: flex; gap: 8px; pointer-events: auto; }
+.round-btn[aria-pressed="false"] { color: var(--ink-2); }
+/* Videosuz ya da videosu bitmiş sahnede: çok hafif yakınlaşma + salınım (görsel kareden taşmaz) */
+.app.drift #stage-media { animation: drift 9s ease-in-out infinite alternate; transform-origin: 50% 45%; }
+@keyframes drift { 0% { transform: scale(1.012) translate(0, 0) rotate(0deg); } 35% { transform: scale(1.028) translate(-.45%, -.25%) rotate(.12deg); } 70% { transform: scale(1.04) translate(.35%, -.5%) rotate(-.1deg); } 100% { transform: scale(1.05) translate(-.2%, -.7%) rotate(.06deg); } }
+@media (prefers-reduced-motion: reduce) { .app.drift #stage-media { animation: none; } }
 .scene-id { position: absolute; z-index: 6; top: calc(var(--safe-t) + 44px); left: var(--gut); color: var(--amber); font-size: 10px; pointer-events: none; }
 
 /* Mekân etiketi */

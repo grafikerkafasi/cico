@@ -101,7 +101,7 @@
       ambient: 'stairwell echo, a TV murmuring indistinctly inside, a clock ticking',
     },
     B2: {
-      motion: 'Only the kid moves: his small hand holds the phone up towards Cico, steady, with a tiny natural tremble. The phone screen shows only a calm, steady soft glow — no particles, no sparkles, no animation on the screen. The door lock and chain stay completely still and nobody touches them; Cico does not move his hands. Faint dust floats in the dim stairwell light.',
+      motion: 'Only the kid moves: his small hand holds the phone up towards Cico, steady, with a tiny natural tremble. The phone screen shows only a calm, steady soft glow — no particles, no sparkles, no animation on the screen. The door lock and chain stay completely still and nobody touches them. Cico, at the right edge, is seen only from behind/the side exactly as in the image: his face is NEVER visible, his head and hands do not move at all, he does not turn. Faint dust floats in the dim stairwell light.',
       ambient: 'dripping water, a distant siren, stairwell echo',
     },
     B2a: {
