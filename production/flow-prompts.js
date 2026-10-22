@@ -39,7 +39,7 @@
       ambient: 'light rain, a distant dog barking, a door creaking softly',
     },
     A1a: {
-      motion: 'Cico keeps his head still; his eyes widen a little more and blink, his chest rises with a shocked breath, his hands tremble slightly holding the open box; the street lamp flickers once; light rain falls in the background.',
+      motion: 'Cico\'s head is locked in place, tilted down towards the open box exactly as in the image, for the whole video; his face never turns sideways or up. Only his eyes widen a little and blink, his chest rises with a shocked breath, his hands tremble slightly holding the box; the street lamp flickers once; light rain falls in the background.',
       ambient: 'light rain, a buzzing street lamp, distant traffic',
     },
     A1b: {
@@ -99,7 +99,7 @@
       ambient: 'traffic, a distant ambulance siren, rain, heavy breathing',
     },
     B3a: {
-      motion: 'Stealthy, slow: Cico leans forward on the dark scooter, perfectly still and watchful; ahead, the black car\'s red tail lights glow and its exhaust drifts; rain falls and red reflections ripple on the wet cobbles.',
+      motion: 'We see Cico only from behind, exactly as in the image, for the whole video: the back of his helmet and hoodie; his face is NEVER visible and he never turns his head. Nothing is added to the helmet (no number, no badge on the helmet). He sits perfectly still on the dark scooter; ahead, the black car\'s red tail lights glow and its exhaust drifts; rain falls and red reflections ripple on the wet cobbles.',
       ambient: 'a car engine idling ahead, light rain, the scooter engine off',
     },
     B4: {
