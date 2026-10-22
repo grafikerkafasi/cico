@@ -30,7 +30,7 @@
 </head>
 <body>
   <h1>CİCO · Flow video inceleme</h1>
-  <p class="lede">Her sahnede: Flow videosu, kaynak görsel ve videonun 0–2–4–6–8. saniyelerinden kareler. Revize istediğin sahnenin kodunu (ör. "B3a: kafası dönüyor") yazman yeterli.</p>
+  <p class="lede">Her sahnede Flow videosu ve kaynak görsel yan yana. Video bu görselle başlayıp aynı görselle bitmeli. Revize istediğin sahnenin kodunu (ör. "B3a: kafası dönüyor") yazman yeterli.</p>
   <div class="tools"><button id="mute">Sesi aç / kapat</button><button id="playall">Hepsini oynat</button></div>
   <div id="list"></div>
 
@@ -50,26 +50,8 @@
         <div class="row">
           <div class="cell">${s.scene_video ? `<video src="${esc(s.scene_video)}" controls playsinline muted preload="metadata" loop></video>` : `<div class="src missing" style="display:grid;place-items:center">video yok</div>`}<small>Video</small></div>
           <div class="cell"><img class="src" src="${esc(s.image_asset)}" alt="" loading="lazy"><small>Kaynak görsel (son kare bununla aynı olmalı)</small></div>
-          ${s.scene_video ? `<div class="cell"><div class="sheet">${[0, 2, 4, 6, 8].map((t) => `<div><canvas width="180" height="320" data-t="${t}"></canvas><span>${t}s</span></div>`).join('')}</div><small>Kareler</small></div>` : ''}
         </div>`;
       list.appendChild(el);
-      if (s.scene_video) buildSheet(s.scene_video, el.querySelectorAll('canvas'));
-    }
-    // Kareleri ayrı, gizli bir video ile çıkarır (sırayla, tarayıcıyı yormadan)
-    const queue = [];
-    function buildSheet(src, canvases) { queue.push({ src, canvases }); if (queue.length === 1) next(); }
-    function next() {
-      const job = queue[0]; if (!job) return;
-      const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v.src = job.src;
-      let i = 0;
-      const grab = () => { const c = job.canvases[i]; const t = Math.min(+c.dataset.t, (v.duration || 8) - 0.05); v.currentTime = t; };
-      v.addEventListener('loadedmetadata', grab, { once: true });
-      v.addEventListener('seeked', () => {
-        job.canvases[i].getContext('2d').drawImage(v, 0, 0, 180, 320);
-        i++;
-        if (i < job.canvases.length) grab(); else { v.removeAttribute('src'); v.load(); queue.shift(); next(); }
-      });
-      v.addEventListener('error', () => { queue.shift(); next(); }, { once: true });
     }
     document.getElementById('mute').onclick = () => { muted = !muted; document.querySelectorAll('.row video').forEach((v) => { v.muted = muted; }); };
     document.getElementById('playall').onclick = () => document.querySelectorAll('.row video').forEach((v) => v.play().catch(() => {}));
