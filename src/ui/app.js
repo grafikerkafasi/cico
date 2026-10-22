@@ -204,10 +204,18 @@
   const CLIP_VOL = 0.5;
   const SPEAKER_ON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
   const SPEAKER_OFF = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  // Müzik Web Audio ile çalar: iOS'ta sesli bir <video> başlayınca/döngüye girince <audio> öğesi duraklatılabiliyor;
+  // Web Audio katmanı video oynatmadan etkilenmez ve tampon döngüsü örnek-hassas (boşluksuz) döner.
+  const music = { ctx: null, gain: null, src: null, buffer: null, loading: null, el: null };
+  function musicGainTarget() { return settings.sound ? MUSIC_VOL : 0; }
   function applySound() {
-    const bgm = $('#bgm');
-    bgm.muted = !settings.sound;
     document.querySelectorAll('video.stage-clip').forEach((v) => { v.muted = !settings.sound; });
+    if (music.gain) {
+      const now = music.ctx.currentTime;
+      music.gain.gain.cancelScheduledValues(now);
+      music.gain.gain.setTargetAtTime(musicGainTarget(), now, 0.25);
+    }
+    if (music.el) music.el.muted = !settings.sound;
     const btn = $('#btn-sound');
     btn.innerHTML = settings.sound ? SPEAKER_ON : SPEAKER_OFF;
     btn.setAttribute('aria-label', t(settings.sound ? 'ui.sound_off' : 'ui.sound_on'));
@@ -216,16 +224,54 @@
   function toggleSound() { settings.sound = !settings.sound; saveSettings(); applySound(); if (settings.sound) startMusic(); haptic(8); }
   // Müzik yalnızca bir dokunuştan sonra başlayabilir (tarayıcı kuralı); yumuşakça açılır
   function startMusic() {
-    const bgm = $('#bgm');
     if (!story.music) return;
-    if (!bgm.src) { bgm.src = story.music; bgm.volume = 0; }
-    applySound();
+    // iOS 17+: sessiz anahtarı açıkken de çalsın (oyun sesi "playback" türünde)
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { /* desteklenmiyor */ }
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return startMusicElement();
+    if (!music.ctx) {
+      music.ctx = new AC();
+      music.gain = music.ctx.createGain();
+      music.gain.gain.value = 0;
+      music.gain.connect(music.ctx.destination);
+    }
+    if (music.ctx.state !== 'running') music.ctx.resume().catch(() => {});
+    if (music.src || music.loading) { applySound(); return; }
+    music.loading = fetch(story.music)
+      .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+      .then((buf) => new Promise((res, rej) => music.ctx.decodeAudioData(buf, res, rej)))
+      .then((decoded) => {
+        music.buffer = decoded;
+        const src = music.ctx.createBufferSource();
+        src.buffer = decoded;
+        src.loop = true;
+        src.connect(music.gain);
+        src.start();
+        music.src = src;
+        const now = music.ctx.currentTime;
+        music.gain.gain.setValueAtTime(0, now);
+        music.gain.gain.linearRampToValueAtTime(musicGainTarget(), now + 2.5);
+      })
+      .catch(() => { music.loading = null; startMusicElement(); });
+  }
+  // Yedek: Web Audio yoksa ya da dosya çözülemezse eski <audio> yolu
+  function startMusicElement() {
+    const bgm = $('#bgm');
+    music.el = bgm;
+    if (!bgm.src) { bgm.src = story.music; bgm.volume = MUSIC_VOL; }
+    bgm.muted = !settings.sound;
     const p = bgm.play();
     if (p && p.catch) p.catch(() => {});
-    const t0 = performance.now();
-    const fade = (now) => { const k = Math.min(1, (now - t0) / 2500); if (bgm.volume < MUSIC_VOL) bgm.volume = Math.min(MUSIC_VOL, MUSIC_VOL * k); if (k < 1) requestAnimationFrame(fade); };
-    requestAnimationFrame(fade);
   }
+  // Uygulama arka plana geçince müzik durur, dönünce kaldığı yerden devam eder; iOS bağlamı askıya alırsa ilk dokunuşta canlanır
+  document.addEventListener('visibilitychange', () => {
+    if (!music.ctx) return;
+    if (document.hidden) music.ctx.suspend().catch(() => {});
+    else if (music.src) music.ctx.resume().catch(() => {});
+  });
+  document.addEventListener('pointerdown', () => {
+    if (music.ctx && music.src && music.ctx.state !== 'running' && !document.hidden) music.ctx.resume().catch(() => {});
+  }, { passive: true });
 
   // Sahne klibi: sesiyle, döngüde oynar (ilk ve son karesi sahne görseliyle aynı, döngü dikişsiz).
   // Karar anında solar ve altındaki görsel kalır (seçim noktaları görselin koordinatlarına göre).
