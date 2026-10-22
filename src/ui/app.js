@@ -96,6 +96,7 @@
     ui.videoHandle = null;
     ui.notice = null;
     ui.beat = 0;
+    ui.stingFor = null;
     recordDiscovery();
     showStamp();
 
@@ -254,6 +255,50 @@
       })
       .catch(() => { music.loading = null; startMusicElement(); });
   }
+  // Karar anı efekti: kısa (≈1.4 sn), alçak frekanslı sinematik "vurgu". Dosya yok, Web Audio ile sentezlenir.
+  // İyi uygulama: tutarlı tek imza, müziğin biraz altında, sert tiz yok, karar başına bir kez, müziği kısa süre kısar (ducking).
+  function playChoiceSting() {
+    if (!settings.sound || !music.ctx || music.ctx.state !== 'running') return;
+    const ctx = music.ctx;
+    const t0 = ctx.currentTime + 0.02;
+    const out = ctx.createGain();
+    out.gain.value = 0.42;
+    out.connect(ctx.destination);
+    // 1) Hava sesi: bant geçiren gürültü, açılıp kapanan
+    const len = Math.floor(ctx.sampleRate * 0.9);
+    const nb = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = nb.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    const noise = ctx.createBufferSource(); noise.buffer = nb;
+    const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 0.9;
+    bp.frequency.setValueAtTime(280, t0); bp.frequency.exponentialRampToValueAtTime(1500, t0 + 0.32); bp.frequency.exponentialRampToValueAtTime(500, t0 + 0.8);
+    const ng = ctx.createGain(); ng.gain.setValueAtTime(0.0001, t0); ng.gain.exponentialRampToValueAtTime(0.22, t0 + 0.26); ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.85);
+    noise.connect(bp).connect(ng).connect(out); noise.start(t0); noise.stop(t0 + 0.9);
+    // 2) Alçak vuruş: aşağı kayan sinüs
+    const tb = t0 + 0.2;
+    const boom = ctx.createOscillator(); boom.type = 'sine';
+    boom.frequency.setValueAtTime(72, tb); boom.frequency.exponentialRampToValueAtTime(36, tb + 0.9);
+    const bg = ctx.createGain(); bg.gain.setValueAtTime(0.0001, tb); bg.gain.exponentialRampToValueAtTime(0.9, tb + 0.012); bg.gain.exponentialRampToValueAtTime(0.0001, tb + 1.2);
+    boom.connect(bg).connect(out); boom.start(tb); boom.stop(tb + 1.25);
+    // 3) Karanlık tını: D3 + A3 ve çok hafif E♭4 (Hicaz rengi), alçak geçiren süzgeçle yumuşatılmış
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1400;
+    const tg = ctx.createGain(); tg.gain.setValueAtTime(0.0001, tb); tg.gain.exponentialRampToValueAtTime(0.09, tb + 0.06); tg.gain.exponentialRampToValueAtTime(0.0001, tb + 1.5);
+    lp.connect(tg).connect(out);
+    [[146.83, 1], [220, 0.8], [311.13, 0.35]].forEach(([f, a]) => {
+      const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = f; o.detune.value = (Math.random() - 0.5) * 8;
+      const g = ctx.createGain(); g.gain.value = a; o.connect(g).connect(lp); o.start(tb); o.stop(tb + 1.55);
+    });
+    // 4) Müziği kısa süre kıs (ducking), sonra yumuşakça geri getir
+    if (music.gain) {
+      const target = musicGainTarget();
+      music.gain.gain.cancelScheduledValues(t0);
+      music.gain.gain.setValueAtTime(music.gain.gain.value, t0);
+      music.gain.gain.linearRampToValueAtTime(target * 0.55, t0 + 0.12);
+      music.gain.gain.linearRampToValueAtTime(target, t0 + 1.4);
+    }
+    setTimeout(() => out.disconnect(), 2200);
+  }
+
   // Yedek: Web Audio yoksa ya da dosya çözülemezse eski <audio> yolu
   function startMusicElement() {
     const bgm = $('#bgm');
@@ -498,6 +543,8 @@
     showOverlay(cur && cur.overlay, cur && cur.overlay_style);
     // Seçim anında bildirim kartları çekilir: hiçbir seçim noktasının üstünü örtmesinler
     $('#app').classList.toggle('choosing', choicesVisible());
+    // Seçenekler bu sahnede ilk kez göründüğünde sinematik vurgu (sahne başına bir kez)
+    if (choicesVisible() && ui.stingFor !== game.state.sceneId) { ui.stingFor = game.state.sceneId; playChoiceSting(); }
     // Karar anı: klip durur, son karesiyle aynı olan görsel kalır
     if (choicesVisible()) endClip($('#stage-media video.stage-clip'));
     caption.innerHTML = cur && cur.kind !== 'msg' && cur.kind !== 'intro'

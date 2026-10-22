@@ -14,7 +14,8 @@
   const RULES =
     'Animate THIS EXACT IMAGE as one continuous vertical 9:16 shot. The start frame and the end frame are the same image: ' +
     'the video must begin on this exact frame and settle back onto this exact same frame at the end, so it can loop seamlessly. ' +
-    'Keep everything exactly as it is: same characters, faces, hair, light stubble and thin moustache, clothes, the green hoodie and the round "26" badge, ' +
+    'Keep everything exactly as it is: same characters, faces, hair, clothes, and — only where Cico is visible — his light stubble, thin moustache, green hoodie and the round "26" badge on his hoodie; ' +
+    'never add a badge, number, patch or logo to anyone else\'s clothing; ' +
     'the helmet, the green scooter, all props, the composition, the framing, the camera position, the lighting, the colours and the Pixar-style stylized 3D look. ' +
     'Do NOT add or remove any person, animal, object, vehicle, sign, text or logo. No readable text anywhere. ' +
     'No cuts, no new angles, no zoom reveal, no camera shake, no morphing, no face changes. ' +
@@ -105,7 +106,7 @@
       ambient: 'dripping water, a distant siren, stairwell echo',
     },
     B2a: {
-      motion: 'Tracking shot moving with the scooter: the Tribe Chief stays in place in the frame while the street lights stream past with motion blur; he glances at the phone in his hand and at the mirror; the black car\'s headlights behind him grow a little brighter and dim again; the wheels spin, water sprays.',
+      motion: 'The Tribe Chief keeps exactly the same face, grey beard, moustache, helmet and dark leather jacket as in the image for the whole video; his jacket is plain, with NO badge or number on it. Tracking shot moving with the scooter: the Tribe Chief stays in place in the frame while the street lights stream past with motion blur; he glances at the phone in his hand and at the mirror; the black car\'s headlights behind him grow a little brighter and dim again; the wheels spin, water sprays.',
       ambient: 'scooter engine, tyres on wet asphalt, a car engine close behind, rain',
     },
     B3: {

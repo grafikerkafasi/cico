@@ -6,22 +6,29 @@
 #
 # Ayarlar: H.264 High, 540x960 (9:16), CRF 28, AAC 80 kbps, +faststart (indirme bitmeden oynar).
 #          Döngü dikişini bozmamak için kare sayısı ve süre korunur.
+#          Ses: başta 0.35 sn fade-in, sonda 0.45 sn fade-out → döngü dönerken kulak tırmalayan kesik olmaz
+#          (iOS video sesini koddan kısmaya izin vermediği için yumuşatma dosyanın içine gömülür).
 set -euo pipefail
 cd "$(dirname "$0")/.."
-command -v ffmpeg >/dev/null || { echo "ffmpeg yok → brew install ffmpeg"; exit 1; }
+FF=$(command -v ffmpeg || echo /usr/local/bin/ffmpeg)
+[ -x "$FF" ] || { echo "ffmpeg yok → https://evermeet.cx/ffmpeg/"; exit 1; }
 mkdir -p assets/video/_master
 for f in assets/video/*.mp4; do
   name=$(basename "$f")
   case "$name" in *_v0.mp4) continue;; esac
   master="assets/video/_master/$name"
   [ -f "$master" ] || cp "$f" "$master"
-  tmp="$(mktemp -t cico).mp4"
-  ffmpeg -loglevel error -y -i "$master" \
+  tmp="assets/video/_master/.tmp_$name"
+  dur=$( ("$FF" -hide_banner -i "$master" 2>&1 || true) | sed -n 's/.*Duration: \([0-9:.]*\).*/\1/p' | awk -F: '{print $1*3600+$2*60+$3}')
+  fo=$(awk -v d="$dur" 'BEGIN{printf "%.2f", d-0.45}')
+  "$FF" -loglevel error -y -i "$master" \
     -vf "scale=540:960:flags=lanczos,format=yuv420p" \
+    -af "afade=t=in:st=0:d=0.35,afade=t=out:st=${fo}:d=0.45" \
     -c:v libx264 -profile:v high -preset slow -crf 28 -g 48 \
     -c:a aac -b:a 80k -ac 2 \
     -movflags +faststart "$tmp"
   mv "$tmp" "$f"
   printf '%-40s %6s KB → %6s KB\n' "$name" "$(( $(stat -f%z "$master") / 1024 ))" "$(( $(stat -f%z "$f") / 1024 ))"
 done
-du -sh assets/video --exclude=_master 2>/dev/null || du -sh assets/video
+total=0; for f in assets/video/*.mp4; do total=$(( total + $(stat -f%z "$f") )); done
+echo "Toplam (masterlar hariç): $(( total / 1048576 )) MB"
