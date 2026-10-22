@@ -196,8 +196,8 @@
     holder.appendChild(wrap);
   }
 
-  // Sahne klibi: bir kez, sesiyle oynar; son karesi sahne görseliyle aynı. Bitince ya da karar anında
-  // solar ve altındaki görsel kalır (seçim noktaları görselin koordinatlarına göre).
+  // Sahne klibi: sesiyle, döngüde oynar (ilk ve son karesi sahne görseliyle aynı, döngü dikişsiz).
+  // Karar anında solar ve altındaki görsel kalır (seçim noktaları görselin koordinatlarına göre).
   function showClip(src) {
     const holder = $('#stage-media');
     const current = holder.querySelector('video.stage-clip');
@@ -209,8 +209,8 @@
     v.dataset.src = src;
     v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
     v.preload = 'auto';
+    v.loop = true;
     v.addEventListener('playing', () => v.classList.add('ready'), { once: true });
-    v.addEventListener('ended', () => endClip(v), { once: true });
     v.addEventListener('error', () => v.remove(), { once: true });
     v.src = src;
     holder.appendChild(v);
