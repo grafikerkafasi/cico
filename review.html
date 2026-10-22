@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CİCO · Video inceleme</title>
+<style>
+  :root { color-scheme: dark; --bg: #0b0e12; --panel: #141a21; --line: #26303b; --ink: #e9eef2; --muted: #8d9aa7; --green: #62d1a4; --amber: #ffb547; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; padding: 20px 16px 60px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .lede { color: var(--muted); margin: 0 0 18px; max-width: 70ch; }
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .tools button { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font: inherit; cursor: pointer; }
+  .scene { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 14px; margin-bottom: 16px; }
+  .head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .code { font: 700 13px ui-monospace, Menlo, monospace; color: #04140d; background: var(--green); border-radius: 6px; padding: 2px 7px; }
+  .title { font-weight: 650; }
+  .id { color: var(--muted); font: 12px ui-monospace, Menlo, monospace; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+  .cell { display: flex; flex-direction: column; gap: 6px; }
+  .cell small { color: var(--muted); font-size: 12px; }
+  video, .src { width: 200px; aspect-ratio: 9 / 16; border-radius: 10px; background: #000; object-fit: cover; display: block; }
+  .sheet { display: grid; grid-template-columns: repeat(5, 92px); gap: 4px; }
+  .sheet canvas { width: 92px; aspect-ratio: 9 / 16; border-radius: 6px; background: #000; display: block; }
+  .sheet span { font: 11px ui-monospace, Menlo, monospace; color: var(--muted); text-align: center; }
+  .missing { color: var(--amber); }
+  .prompt { margin-top: 10px; color: var(--muted); font-size: 13px; max-width: 80ch; }
+</style>
+</head>
+<body>
+  <h1>CİCO · Flow video inceleme</h1>
+  <p class="lede">Her sahnede: Flow videosu, kaynak görsel ve videonun 0–2–4–6–8. saniyelerinden kareler. Revize istediğin sahnenin kodunu (ör. "B3a: kafası dönüyor") yazman yeterli.</p>
+  <div class="tools"><button id="mute">Sesi aç / kapat</button><button id="playall">Hepsini oynat</button></div>
+  <div id="list"></div>
+
+  <script src="src/story/chapter1.js"></script>
+  <script src="src/i18n/tr.js"></script>
+  <script>
+    const story = CICO.story, tr = CICO.locales.tr;
+    const list = document.getElementById('list');
+    let muted = true;
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    for (const s of story.scenes) {
+      const title = (tr.scenes[s.scene_id] || {}).title || '';
+      const el = document.createElement('section');
+      el.className = 'scene';
+      el.innerHTML = `
+        <div class="head"><span class="code">${esc(s.code)}</span><span class="title">${esc(title)}</span><span class="id">${esc(s.scene_id)}</span></div>
+        <div class="row">
+          <div class="cell">${s.scene_video ? `<video src="${esc(s.scene_video)}" controls playsinline muted preload="metadata" loop></video>` : `<div class="src missing" style="display:grid;place-items:center">video yok</div>`}<small>Video</small></div>
+          <div class="cell"><img class="src" src="${esc(s.image_asset)}" alt="" loading="lazy"><small>Kaynak görsel (son kare bununla aynı olmalı)</small></div>
+          ${s.scene_video ? `<div class="cell"><div class="sheet">${[0, 2, 4, 6, 8].map((t) => `<div><canvas width="180" height="320" data-t="${t}"></canvas><span>${t}s</span></div>`).join('')}</div><small>Kareler</small></div>` : ''}
+        </div>`;
+      list.appendChild(el);
+      if (s.scene_video) buildSheet(s.scene_video, el.querySelectorAll('canvas'));
+    }
+    // Kareleri ayrı, gizli bir video ile çıkarır (sırayla, tarayıcıyı yormadan)
+    const queue = [];
+    function buildSheet(src, canvases) { queue.push({ src, canvases }); if (queue.length === 1) next(); }
+    function next() {
+      const job = queue[0]; if (!job) return;
+      const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v.src = job.src;
+      let i = 0;
+      const grab = () => { const c = job.canvases[i]; const t = Math.min(+c.dataset.t, (v.duration || 8) - 0.05); v.currentTime = t; };
+      v.addEventListener('loadedmetadata', grab, { once: true });
+      v.addEventListener('seeked', () => {
+        job.canvases[i].getContext('2d').drawImage(v, 0, 0, 180, 320);
+        i++;
+        if (i < job.canvases.length) grab(); else { v.removeAttribute('src'); v.load(); queue.shift(); next(); }
+      });
+      v.addEventListener('error', () => { queue.shift(); next(); }, { once: true });
+    }
+    document.getElementById('mute').onclick = () => { muted = !muted; document.querySelectorAll('.row video').forEach((v) => { v.muted = muted; }); };
+    document.getElementById('playall').onclick = () => document.querySelectorAll('.row video').forEach((v) => v.play().catch(() => {}));
+  </script>
+</body>
+</html>

@@ -105,6 +105,7 @@
     ui.pendingVideo = null;
     showImage(plan.image);
     showAmbient(plan.ambient);
+    showClip(plan.clip);
     ui.introQueue = plan.mode === 'video' ? blocks().filter((b) => b.kind === 'intro') : [];
     render();
 
@@ -193,6 +194,33 @@
     img.src = src;
     wrap.appendChild(img);
     holder.appendChild(wrap);
+  }
+
+  // Sahne klibi: bir kez, sesiyle oynar; son karesi sahne görseliyle aynı. Bitince ya da karar anında
+  // solar ve altındaki görsel kalır (seçim noktaları görselin koordinatlarına göre).
+  function showClip(src) {
+    const holder = $('#stage-media');
+    const current = holder.querySelector('video.stage-clip');
+    if (current && current.dataset.src === src) return;
+    if (current) endClip(current);
+    if (!src) return;
+    const v = document.createElement('video');
+    v.className = 'stage-clip';
+    v.dataset.src = src;
+    v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+    v.preload = 'auto';
+    v.addEventListener('playing', () => v.classList.add('ready'), { once: true });
+    v.addEventListener('ended', () => endClip(v), { once: true });
+    v.addEventListener('error', () => v.remove(), { once: true });
+    v.src = src;
+    holder.appendChild(v);
+    const p = v.play();
+    if (p && p.catch) p.catch(() => { v.muted = true; v.play().catch(() => v.remove()); });
+  }
+  function endClip(v) {
+    if (!v || v.classList.contains('out')) return;
+    v.classList.add('out');
+    setTimeout(() => { v.pause(); v.removeAttribute('src'); v.load(); v.remove(); }, 700);
   }
 
   // Mekân etiketi: film gibi, sahne başında birkaç saniye
@@ -387,6 +415,8 @@
     showOverlay(cur && cur.overlay, cur && cur.overlay_style);
     // Seçim anında bildirim kartları çekilir: hiçbir seçim noktasının üstünü örtmesinler
     $('#app').classList.toggle('choosing', choicesVisible());
+    // Karar anı: klip durur, son karesiyle aynı olan görsel kalır
+    if (choicesVisible()) endClip($('#stage-media video.stage-clip'));
     caption.innerHTML = cur && cur.kind !== 'msg' && cur.kind !== 'intro'
       ? `<div class="cap ${cur.kind}" data-k="${esc(cur.key)}">${cur.kind === 'say' ? `<span class="speaker">${esc(t(`speakers.${cur.from}`))}</span>` : ''}<span class="cap-text">${esc(t(cur.key))}</span></div>`
       : '';

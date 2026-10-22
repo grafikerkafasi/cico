@@ -12,6 +12,8 @@
  *   subtitles      : { tr: 'media/subs/tr/c1_s01_opening.vtt', en: ... }
  *   image_asset    : video yokken gösterilen tam ekran görsel (video varsa poster olarak kullanılır)
  *   ambient_video  : metin modunda arkada sessiz döngüde oynayan video (görselin üstüne yüklenince gelir)
+ *   scene_video    : metin modunda bir kez, sesiyle oynayan sahne klibi. Son karesi image_asset ile aynıdır;
+ *                    karar anında (ya da bitince) solup altındaki görsele bırakır.
  */
 (function (root) {
   'use strict';
@@ -21,6 +23,7 @@
       const plan = { mode: 'text' };
       if (scene.image_asset) plan.image = scene.image_asset;
       if (scene.ambient_video) plan.ambient = scene.ambient_video;
+      if (scene.scene_video) plan.clip = scene.scene_video;
       return plan;
     }
     return {
