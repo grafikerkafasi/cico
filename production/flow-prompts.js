@@ -39,7 +39,7 @@
       ambient: 'light rain, a distant dog barking, a door creaking softly',
     },
     A1a: {
-      motion: 'Cico\'s head is locked in place, tilted down towards the open box exactly as in the image, for the whole video; his face never turns sideways or up. Only his eyes widen a little and blink, his chest rises with a shocked breath, his hands tremble slightly holding the box; the street lamp flickers once; light rain falls in the background.',
+      motion: 'Almost a still image. Cico is frozen in shock exactly as in the image: his head, face, shoulders and arms do not move at all for the whole video; only his eyes blink once and his chest rises with one breath. The street lamp flickers once; light rain falls in the background; the puddles ripple.',
       ambient: 'light rain, a buzzing street lamp, distant traffic',
     },
     A1b: {
