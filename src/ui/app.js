@@ -199,7 +199,9 @@
   }
 
   // ── Ses: arka plan müziği (bölüm boyunca kesintisiz) + sahne kliplerinin ortam sesi ──
-  const MUSIC_VOL = 0.22;
+  // Karışım: tema müziği önde, sahne kliplerinin ortam sesi arkada bir detay olarak (%50)
+  const MUSIC_VOL = 0.7;
+  const CLIP_VOL = 0.5;
   const SPEAKER_ON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
   const SPEAKER_OFF = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
   function applySound() {
@@ -239,7 +241,7 @@
     v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
     v.preload = 'auto';
     v.muted = !settings.sound;
-    v.volume = 0.85;
+    v.volume = CLIP_VOL;
     // Çoğu klip dikişsiz döngüdür; clip_loop: false olanlar bir kez oynar, sonra görsel hafifçe "nefes alır"
     const loop = scene().clip_loop !== false;
     v.loop = loop;
