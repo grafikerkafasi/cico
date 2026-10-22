@@ -224,7 +224,7 @@
       location: 'tower', cast: ['cico', 'man', 'car'], time: 'Gece yarısı',
       image: 'At the foot of Galata Tower: the Man in the coat stands calmly in the centre-left holding out his gloved hand towards the viewer, face lit from below, eyes in the upper-centre of the frame. ' +
         'Cico stands in the foreground right next to his scooter, the package under his arm. Right behind the man, the long black sedan blocks the road, rear door open, headlights on — he has just cut Cico off.',
-      spots: { hand_over: 'paltolu adamın uzanmış eldivenli eli (orta sol)', run: 'sağdaki scooter gidonu ve aynası (kaçış)', confront: 'adamın yüzü (üst sol-orta)' },
+      spots: { hand_over: 'paltolu adamın uzanmış eldivenli eli (sol orta)', run: 'sağ alttaki scooter gidonu ve aynası (kaçış)', confront: 'Cico\'nun elindeki paket (orta sağ)' },
       video: 'Slow dolly-in on the outstretched gloved hand; the black car\'s headlights flick on behind. The man does not blink. Seamless tense loop. ' +
         'Ambient: wind, distant seagulls, a low engine idling. No speech. 8 seconds.',
       loop: true,

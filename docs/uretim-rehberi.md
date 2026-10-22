@@ -744,9 +744,9 @@ The car swerves in, brakes squeal, the door opens slowly; the man's shoe touches
 
 | Seçenek (oyunda) | Görselde ne olmalı | Konum (görselin yüzdesi; sol üst = 0,0) |
 |---|---|---|
-| Paketi ver, parayı al | paltolu adamın uzanmış eldivenli eli (orta sol) | x 37% · y 51% |
-| Paketi verme, motora atla | sağdaki scooter gidonu ve aynası (kaçış) | x 88% · y 68% |
-| "İçinde ne olduğunu biliyorum." 🔒 | adamın yüzü (üst sol-orta) | x 43% · y 24% |
+| Paketi ver, parayı al | paltolu adamın uzanmış eldivenli eli (sol orta) | x 31% · y 53% |
+| Paketi verme, motora atla | sağ alttaki scooter gidonu ve aynası (kaçış) | x 84% · y 82% |
+| "İçinde ne olduğunu biliyorum." 🔒 | Cico'nun elindeki paket (orta sağ) | x 64% · y 62% |
 
 **Görsel promptu (ChatGPT):**
 
@@ -757,7 +757,7 @@ The car swerves in, brakes squeal, the door opens slowly; the man's shoe touches
 [CHARACTER] Man in the coat: tall man in his mid-40s, long charcoal wool coat, black leather gloves, clean-shaven, slicked-back dark hair with grey temples, calm unreadable half smile, perfectly dry even in rain. Stands very still. Holds a closed black umbrella.
 [CHARACTER] Black car: black sedan with fully tinted windows, no logos, plate unreadable, headlights often the only visible part, reads as a dark "iron cage".
 [SCENE A3 · c1_a3_tower] At the foot of Galata Tower: the Man in the coat stands calmly in the centre-left holding out his gloved hand towards the viewer, face lit from below, eyes in the upper-centre of the frame. Cico stands in the foreground right next to his scooter, the package under his arm. Right behind the man, the long black sedan blocks the road, rear door open, headlights on — he has just cut Cico off.
-[MUST BE CLEARLY VISIBLE] paltolu adamın uzanmış eldivenli eli (orta sol) at about 37% from the left and 51% from the top; sağdaki scooter gidonu ve aynası (kaçış) at about 88% from the left and 68% from the top; adamın yüzü (üst sol-orta) at about 43% from the left and 24% from the top.
+[MUST BE CLEARLY VISIBLE] paltolu adamın uzanmış eldivenli eli (sol orta) at about 31% from the left and 53% from the top; sağ alttaki scooter gidonu ve aynası (kaçış) at about 84% from the left and 82% from the top; Cico'nun elindeki paket (orta sağ) at about 64% from the left and 62% from the top.
 [RULES] No readable text anywhere that carries story information: phone screens show only a soft glow, papers and lists are blurred, plates unreadable except where noted. Atmospheric neon signs may exist but must not spell game-relevant words; prefer shapes and partial letters. No logos or brand names on any vehicle, helmet, bag or clothing. No UI, captions, subtitles, watermarks or borders in the image. No blood or graphic injury. Falls and accidents are shown by aftermath and implication. No readable text in ANY language (signs, packaging, screens): the game is global. Signs are blank or show only icons/shapes. Galata Tower appears only in A3 and A6. Locations are geographically realistic Istanbul, but the RENDER STYLE always stays Pixar-like stylized 3D. Keep the top 14% (notifications, pause button) and bottom 20% (subtitles) free of important details.
 [AVOID] text overlay, captions, UI, watermark, logo, brand name, readable screen, extra fingers, distorted hands, horizontal frame, letterbox, blood, gore
 ```

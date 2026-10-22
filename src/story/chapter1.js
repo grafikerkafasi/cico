@@ -248,16 +248,15 @@
       {
         scene_id: 'c1_a3_tower',
         code: 'A3',
-        still_motion: true, // video yok (Flow filtresi): görsel çok hafif yakınlaşır/salınır
         image_asset: 'assets/scenes/A3_c1_a3_tower.jpg',
         scene_type: 'choice',
         text: ['l1', say('man1', 'man'), 'l3', say('man2', 'man'), line('seal_noticed', { flag: 'seal_broken' })],
         on_enter: [{ clue: 'knows_name' }],
         timer: { seconds: 12, on_timeout: 'freeze' },
         choices: [
-          { id: 'hand_over', hotspot: { x: 37, y: 51 }, effects: [{ add: { earnings: 1500 } }], next: 'c1_a4_rooftop' },
-          { id: 'run', hotspot: { x: 88, y: 68 }, effects: [{ add: { suspicion: 1 } }], next: 'c1_a5_chase' },
-          { id: 'confront', hotspot: { x: 43, y: 24 }, conditions: { clue: 'drive' }, show_locked: true, next: 'c1_a6_second_offer' },
+          { id: 'hand_over', hotspot: { x: 31, y: 53 }, effects: [{ add: { earnings: 1500 } }], next: 'c1_a4_rooftop' },
+          { id: 'run', hotspot: { x: 84, y: 82 }, effects: [{ add: { suspicion: 1 } }], next: 'c1_a5_chase' },
+          { id: 'confront', hotspot: { x: 64, y: 62 }, conditions: { clue: 'drive' }, show_locked: true, next: 'c1_a6_second_offer' },
           { id: 'freeze', hidden: true, effects: [{ set: { hesitated: true }, add: { earnings: 750 } }], next: 'c1_a4_rooftop' },
         ],
         video_asset: null,
@@ -400,7 +399,7 @@
         scene_id: 'c1_b2_kid',
         code: 'B2',
         image_asset: 'assets/scenes/B2_c1_b2_kid.jpg',
-        still_motion: true, // Flow klibi tutarsızdı (Cico'nun yüzü/eli): görsel hafifçe salınır
+        scene_video: 'assets/video/B2_c1_b2_kid.mp4', // kullanıcının seçtiği Flow klibi
         scene_type: 'choice',
         text: [say('y1', 'kid'), say('y2', 'kid'), 'photo'],
         choices: [
