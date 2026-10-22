@@ -18,7 +18,7 @@
     'the helmet, the green scooter, all props, the composition, the framing, the camera position, the lighting, the colours and the Pixar-style stylized 3D look. ' +
     'Do NOT add or remove any person, animal, object, vehicle, sign, text or logo. No readable text anywhere. ' +
     'No cuts, no new angles, no zoom reveal, no camera shake, no morphing, no face changes. ' +
-    'Characters never look into or turn towards the camera; they keep the head direction they have in the image. No light rays, light beams, lens flares or sudden bright flashes. ' +
+    'Characters never look into or turn towards the camera. Cico keeps his head still in exactly the direction it has in the image: he does NOT turn or swivel his head left, right or back, he does not look around; only his eyes may blink and his chest may breathe. No light rays, light beams, lens flares or sudden bright flashes. ' +
     'Only small, natural, physically believable motion that gently returns to the starting pose by the last second.';
 
   const AUDIO = (ambient) =>
@@ -27,7 +27,7 @@
   // MOTION: yalnızca görselde zaten olan şeyler hareket eder. AMBIENT: ortam sesi.
   const SHOTS = {
     O2: {
-      motion: 'Cico breathes slowly and blinks, his thumb hovers over the phone; the two floating glowing order cards bob very gently in place; neon signs flicker softly; light fog drifts; rain glistens on the cobblestones.',
+      motion: 'Cico breathes slowly and blinks, head still, his thumb hovers over the phone; the two floating glowing order cards bob very gently in place; neon signs flicker softly; light fog drifts; rain glistens on the cobblestones.',
       ambient: 'distant tavern chatter and laughter, light rain, a far-off car horn',
     },
     O3: {
@@ -35,19 +35,19 @@
       ambient: 'scooter engine humming, tyres on wet asphalt, rain hiss, wind',
     },
     A1: {
-      motion: 'The gloved hand in the doorway pulls back slightly and returns; Cico breathes and glances down at the package, his thumb hesitating near the lifted corner of the tape; the warm light inside the doorway flickers faintly; light rain falls.',
+      motion: 'The gloved hand in the doorway pulls back slightly and returns; Cico breathes with his head still, eyes on the package, his thumb hesitating near the lifted corner of the tape; the warm light inside the doorway flickers faintly; light rain falls.',
       ambient: 'light rain, a distant dog barking, a door creaking softly',
     },
     A1a: {
-      motion: 'Cico\'s eyes widen a little more and blink, his chest rises with a shocked breath, his hands tremble slightly holding the open box; the street lamp flickers once; light rain falls in the background.',
+      motion: 'Cico keeps his head still; his eyes widen a little more and blink, his chest rises with a shocked breath, his hands tremble slightly holding the open box; the street lamp flickers once; light rain falls in the background.',
       ambient: 'light rain, a buzzing street lamp, distant traffic',
     },
     A1b: {
-      motion: 'Cico settles onto the seat and glances back over his shoulder, then returns to the same pose; the tail light glows softly; rain falls and puddles ripple on the cobblestones; the street lamp flickers gently.',
+      motion: 'Cico sits still on the seat, holding the handlebar, breathing; the tail light glows softly; rain falls and puddles ripple on the cobblestones; the street lamp flickers gently.',
       ambient: 'scooter idling, light rain, water dripping from a gutter',
     },
     A2: {
-      motion: 'Very slow, calm motion: Cico breathes slowly, his head turns a tiny bit towards the dark school and back; leaves and children\'s drawings on the railings flutter slightly in the breeze; the single lamp glows steadily.',
+      motion: 'Very slow, calm motion: Cico breathes slowly, his head stays still; leaves and children\'s drawings on the railings flutter slightly in the breeze; the single lamp glows steadily.',
       ambient: 'soft night breeze, a scooter idling very quietly, distant city hum',
     },
     A3a: {
@@ -55,7 +55,7 @@
       ambient: 'a car engine idling, light rain, wind in a narrow street',
     },
     A3: {
-      motion: 'The man in the coat holds out his gloved hand, perfectly calm, a faint smile; his coat stirs slightly in the wind; Cico breathes, clutching the package; the black car\'s headlights glow behind; the tower lights shimmer; light rain falls.',
+      motion: 'The man in the coat is an original, fictional Pixar-style cartoon character (not a real person). He holds out his gloved hand, perfectly calm, a faint smile; his coat stirs slightly in the wind; Cico breathes, clutching the package; the black car\'s headlights glow behind; the tower lights shimmer; light rain falls.',
       ambient: 'a car engine idling, wind, distant seagulls, light rain',
     },
     A4: {
@@ -63,7 +63,7 @@
       ambient: 'distant city hum, wind on the rooftop, a far-off ship horn',
     },
     A5: {
-      motion: 'Tense, held moment, very little movement: the scooter vibrates slightly as the engine idles; Cico stays in the same pose with his face in profile, breathing fast, eyes glancing back; a soft, dim white glow from car headlights slowly brightens a little on the wet wall at the right edge and fades again (no beams, no rays); rain falls on the steps; the lantern inside the empty arched passage flickers gently. The steps and the arched passage stay clearly visible the whole time.',
+      motion: 'Tense, held moment, very little movement: the scooter vibrates slightly as the engine idles; Cico stays in the same pose with his face in profile, breathing fast, his head still; a soft, dim white glow from car headlights slowly brightens a little on the wet wall at the right edge and fades again (no beams, no rays); rain falls on the steps; the lantern inside the empty arched passage flickers gently. The steps and the arched passage stay clearly visible the whole time.',
       ambient: 'scooter engine revving, rain, a car engine approaching from behind',
     },
     A5b: {
@@ -104,7 +104,7 @@
     },
     B4: {
       motion: 'Slow, tired motion in the hospital corridor: couriers shift slightly in their seats and breathe; the fluorescent light flickers once; the Tribe Chief looks at his phone; Cico stands holding his phone.',
-      ambient: 'hospital hum, distant beeping monitors, quiet indistinct murmurs without words',
+      ambient: 'a quiet hospital corridor hum, a soft distant monitor beep, a chair creaking',
     },
     B5: {
       motion: 'Cico crouches in the shadows, breathing quietly; the light from the ajar door spills and flickers; the monitors in the basement window glow and the green dots twinkle; light rain falls.',
@@ -115,15 +115,15 @@
       ambient: 'teaspoons clinking, a muffled TV with no intelligible words, morning street sounds',
     },
     SA2: {
-      motion: 'Phones on the tables light up and vibrate one after another; Cico glances around and back; steam rises from the tea; morning light through the window.',
+      motion: 'Phones on the tables light up and vibrate one after another; Cico sits still and blinks; steam rises from the tea; morning light through the window.',
       ambient: 'phones buzzing, teaspoons clinking, quiet teahouse ambience without words',
     },
     SA3: {
-      motion: 'Dawn: seagulls glide across the sky; the sea glitters and small boats rock gently; the awning stirs in the breeze; Cico breathes and looks down at the open box of hard drives.',
+      motion: 'Dawn: seagulls glide across the sky; the sea glitters and small boats rock gently; the awning stirs in the breeze; Cico breathes, his head still, looking down at the open box of hard drives.',
       ambient: 'gentle waves, seagulls, a distant ferry horn, morning breeze',
     },
     SA4: {
-      motion: 'Cico sits on the wet steps reading the sheet; his eyes move slightly along the paper and widen; his jaw tightens; rain falls softly; the street lamps shimmer; the fallen scooter\'s headlight flickers.',
+      motion: 'Cico sits on the wet steps reading the sheet, head still; his eyes move slightly along the paper and widen; his jaw tightens; rain falls softly; the street lamps shimmer; the fallen scooter\'s headlight flickers.',
       ambient: 'soft rain on stone, distant city hum, paper rustling',
     },
     SA5: {
