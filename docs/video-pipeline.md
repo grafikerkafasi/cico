@@ -125,3 +125,11 @@ Oyun sonu metni (epilog) video gerektirmez: siyah ekran + seslendirme (bkz. `epi
 - Çıktılar: `assets/video/<KOD>_<scene_id>.mp4`. İnceleme: `review.html`.
 - Bilinen sorun: A3'te (Galata Kulesi) paltolu adamın yakın planı Flow'un "tanınmış kişi" filtresine takılıyor
   (Veo Fast ve Omni ile üç deneme). A3 şimdilik durağan görselle oynuyor.
+
+## Sıkıştırma ve ses yumuşatma
+
+- `bash tools/compress-videos.sh` (ffmpeg gerekir; macOS 12 için hazır ikili: evermeet.cx/ffmpeg/ffmpeg-<sürüm>.zip → /usr/local/bin).
+- 540×960, H.264 CRF 28, AAC 80 kbps, +faststart. Ses başta 0.35 sn fade-in, sonda 0.45 sn fade-out (iOS video sesini koddan
+  kısmaya izin vermediği için yumuşatma dosyaya gömülür; döngü dikişinde kesik duyulmaz). Orijinaller `assets/video/_master/`.
+- Bölüm 1: 74 MB → ~25 MB. Müzik (`assets/audio/c1_music.mp3`): kapak görseli atılıp 112 kbps → 2.4 MB.
+- Flow promptlarında "26" rozeti yalnızca Cico görünürken geçer; başka karakterlere rozet/numara eklenmez (B2a'da şefe rozet eklenmişti).
