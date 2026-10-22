@@ -112,3 +112,16 @@ ffmpeg -i input.mov -c:v libx264 -preset slow -crf 21 -pix_fmt yuv420p -r 24 \
 Oyun sonu metni (epilog) video gerektirmez: siyah ekran + seslendirme (bkz. `epilogue-voiceover.md`).
 
 **Henüz uygulanmamış:** Duruma göre farklı video seçimi (ör. paket açıldıysa farklı bir kule çekimi). Gerektiğinde `video_asset` alanı `[{ if, src }, { src }]` biçimine genişletilebilir. Motor zaten aynı koşul dilini kullanıyor.
+
+## Google Flow ile sahne klipleri (Bölüm 1)
+
+- Ayar: Video · **Frames** · 9:16 · Veo 3.1 Fast · 8 sn · x1. **Start = End = sahne görseli** (`assets/scenes/<KOD>_<scene_id>.jpg`).
+  Video görselle başlar ve aynı görselle biter; döngü dikişsiz olur ve karar anında görsele geçiş fark edilmez.
+- Promptlar: [production/flow-prompts.js](../production/flow-prompts.js) (sabit kurallar + sahneye özel hareket ve ortam sesi).
+  `node tools/flow-prompt.js <KOD>` tam metni basar, `node tools/flow-json.js` otomasyon için JSON üretir.
+- Sabit kurallar: hiçbir şey eklenmez/çıkarılmaz, okunabilir yazı yok, kamera sabit, ışık huzmesi/flaş yok,
+  karakterler kameraya bakmaz, **Cico başını sağa sola çevirmez**, konuşma ve müzik yok (yalnızca ortam sesi).
+- Oyunda: `scene_video` metin modunda sesiyle **döngüde** oynar; karar anında solar ve altındaki görsel kalır.
+- Çıktılar: `assets/video/<KOD>_<scene_id>.mp4`. İnceleme: `review.html`.
+- Bilinen sorun: A3'te (Galata Kulesi) paltolu adamın yakın planı Flow'un "tanınmış kişi" filtresine takılıyor
+  (Veo Fast ve Omni ile üç deneme). A3 şimdilik durağan görselle oynuyor.
