@@ -4,3 +4,5 @@ dist/
 node_modules/
 assets/Nevizade Sokağı.mp4
 assets/scenes/*.png
+assets/video/_master/
+assets/video/*_v0.mp4

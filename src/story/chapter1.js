@@ -400,7 +400,7 @@
         scene_id: 'c1_b2_kid',
         code: 'B2',
         image_asset: 'assets/scenes/B2_c1_b2_kid.jpg',
-        scene_video: 'assets/video/B2_c1_b2_kid.mp4',
+        still_motion: true, // Flow klibi tutarsızdı (Cico'nun yüzü/eli): görsel hafifçe salınır
         scene_type: 'choice',
         text: [say('y1', 'kid'), say('y2', 'kid'), 'photo'],
         choices: [
