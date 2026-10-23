@@ -188,7 +188,10 @@ fs.writeFileSync(path.join(ROOT, 'src/story/chapter2.tr.js'), `${header}(functio
   const part = ${JSON.stringify(tr, null, 1)};
   function merge(a, b) { for (const k of Object.keys(b)) { if (b[k] && typeof b[k] === 'object' && !Array.isArray(b[k])) merge(a[k] = a[k] || {}, b[k]); else a[k] = b[k]; } return a; }
   if (typeof module === 'object' && module.exports) module.exports = part;
-  else { const L = ((root.CICO = root.CICO || {}).locales = root.CICO.locales || {}); merge(L.tr = L.tr || {}, part); }
+  // Diğer diller: çeviri gelene kadar Türkçe metin (yalnızca eksik anahtarlar)
+  function fill(a, b) { for (const k of Object.keys(b)) { if (b[k] && typeof b[k] === 'object' && !Array.isArray(b[k])) fill(a[k] = a[k] || {}, b[k]); else if (!(k in a)) a[k] = b[k]; } return a; }
+  if (typeof module === 'object' && module.exports) { /* node: yalnızca dışa aktar */ }
+  else { const L = ((root.CICO = root.CICO || {}).locales = root.CICO.locales || {}); merge(L.tr = L.tr || {}, part); Object.keys(L).filter((c) => c !== 'tr').forEach((c) => fill(L[c], part)); }
 })(typeof self !== 'undefined' ? self : this);
 `);
 console.log('chapter2:', scenes.length, 'sahne');
