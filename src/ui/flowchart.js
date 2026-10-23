@@ -25,11 +25,12 @@
     edges.forEach((e) => out.set(e.from, [...(out.get(e.from) || []), e.to]));
 
     // Uzun yol derinliği (DAG; validator döngüleri ayrıca yakalar)
-    const depth = new Map([[story.start, 0]]);
+    const starts = Array.isArray(story.start) ? story.start.map((b) => b.goto) : [story.start];
+    const depth = new Map(starts.map((st) => [st, 0]));
     const order = [];
     const seen = new Set();
     const topo = (id) => { if (seen.has(id)) return; seen.add(id); (out.get(id) || []).forEach(topo); order.unshift(id); };
-    topo(story.start);
+    starts.forEach(topo);
     for (const id of order) for (const n of out.get(id) || []) depth.set(n, Math.max(depth.get(n) || 0, depth.get(id) + 1));
     // Bütün sonlar en sağdaki tek sütunda: kaç son olduğu bir bakışta görülsün
     const maxDepth = Math.max(...depth.values());

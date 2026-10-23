@@ -10,11 +10,14 @@
 (function () {
   'use strict';
 
-  const { story, engine: E, i18n, locales, validate, media, flowchart } = window.CICO;
+  const { engine: E, i18n, locales, validate, media, flowchart } = window.CICO;
+  // Bölümler: Bölüm 2, Bölüm 1'in sonundan taşınan durumla açılır (cico.c1end)
+  const chapters = { 1: window.CICO.story, 2: window.CICO.story2 };
+  let story = chapters[1];
   // Native köprü (Capacitor): tarayıcıda etkisiz bir yedekle çalışır
   const native = window.CICO.native || { isNative: false, mediaUrl: (p) => p, haptic: () => false, init() {}, exitApp() {} };
   // Öne doğru indirme: okuma sırasında sıradaki sahnelerin videoları arka planda iner (ayar/ekran yok)
-  const prefetch = window.CICO.prefetch ? window.CICO.prefetch.createPrefetcher({ story, sceneEdges: E.sceneEdges, mediaUrl: native.mediaUrl }) : null;
+  let prefetch = window.CICO.prefetch ? window.CICO.prefetch.createPrefetcher({ story, sceneEdges: E.sceneEdges, mediaUrl: native.mediaUrl }) : null;
 
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
@@ -35,9 +38,39 @@
   let t = i18n.createTranslator(locales, settings.lang);
   const saveSettings = () => store.set('cico.settings', settings);
 
-  const game = E.createEngine(story);
+  let game = E.createEngine(story);
   const validation = validate.validateStory(story, locales);
-  let discovery = store.get('cico.discovery.v1', { scenes: [], edges: [] });
+  const discoveryKey = () => (story.chapter === 1 ? 'cico.discovery.v1' : `cico.discovery.c${story.chapter}`);
+  let discovery = store.get(discoveryKey(), { scenes: [], edges: [] });
+  const chapterTitle = (st = story) => t(st.title_key || 'ui.chapter_title');
+
+  // Bölüm değiştir: motor, ön indirme ve keşif kaydı o bölüme geçer
+  function loadChapter(n) {
+    if (!chapters[n] || story === chapters[n]) return;
+    story = chapters[n];
+    game = E.createEngine(story);
+    discovery = store.get(discoveryKey(), { scenes: [], edges: [] });
+    if (window.CICO.prefetch) prefetch = window.CICO.prefetch.createPrefetcher({ story, sceneEdges: E.sceneEdges, mediaUrl: native.mediaUrl });
+    $('#app').style.setProperty('--ar', String(story.media_aspect || 9 / 16));
+  }
+
+  // Bölüm 1 sonu → Bölüm 2'nin girişi. Kayıt yoksa oyuncu Bölüm 1'i nasıl bitirdiğini seçer.
+  const C1_CHIEF = { SB1: 'stayed', SB2: 'stayed', SB3: 'chased', SB4: 'chased' };
+  const C1_EARN = { SA1: 1500, SA2: 1500, SA5: 1500 };
+  function carryFor(code) { return { c1_end: code, c1_chief: C1_CHIEF[code] || null, c1_earnings: C1_EARN[code] || 0 }; }
+  function saveChapter1End() {
+    const s = game.getScene();
+    if (story.chapter !== 1 || s.scene_type !== 'ending' || !s.code) return;
+    store.set('cico.c1end', { c1_end: s.code, c1_chief: game.state.vars.chief || C1_CHIEF[s.code] || null, c1_earnings: game.state.vars.earnings || 0 });
+  }
+  function startChapter2(carry) {
+    const c = carry || store.get('cico.c1end', null);
+    if (!c) { ui.screen = 'pick'; render(); return; }
+    store.set('cico.c1end', c);
+    ui.carry = c;
+    loadChapter(2);
+    startGame();
+  }
 
   const ui = {
     screen: 'title',   // 'title' | 'intro' | 'play' | 'epilogue' | 'summary' | 'memorial'
@@ -99,7 +132,7 @@
     game.state.visited.forEach((id) => s.add(id));
     game.state.history.forEach((h) => e.add(`${h.scene}>${h.to}`));
     discovery = { scenes: [...s], edges: [...e] };
-    store.set('cico.discovery.v1', discovery);
+    store.set(discoveryKey(), discovery);
   }
 
   // ── Sahneye giriş ─────────────────────────────────────────────────
@@ -111,6 +144,7 @@
     ui.beat = 0;
     ui.stingFor = null;
     recordDiscovery();
+    saveChapter1End();
     showStamp();
 
     const plan = media.resolveMedia(scene(), settings.lang);
@@ -368,6 +402,21 @@
   // Dokunuş: sıradaki vuruş → seçimler / sonraki sahne / oyun sonu metni
   function tap() {
     if (paused()) return;
+    if (ui.screen === 'pick') {
+      const ends = chapters[1].scenes.filter((s) => s.scene_type === 'ending');
+      el.innerHTML = `
+        <div class="pick">
+          <div class="kicker">${esc(t('ui.chapter', { n: 2 }))} · ${esc(chapterTitle(chapters[2]))}</div>
+          <h2>${esc(t('ui.c2_pick_title'))}</h2>
+          <p class="pick-hint">${esc(t('ui.c2_pick_hint'))}</p>
+          <div class="pick-grid">${ends.map((s) => `<button class="pick-item" data-code="${esc(s.code)}"><img src="${esc(s.image_asset)}" alt="" loading="lazy"><span><b>${esc(s.code)}</b> ${esc(t(`scenes.${s.scene_id}.title`))}</span></button>`).join('')}</div>
+        </div>
+        <div class="screen-bottom"><button class="pill" id="btn-pick-back">${esc(t('ui.back'))}</button></div>`;
+      el.querySelectorAll('.pick-item').forEach((b) => { b.onclick = () => { haptic(15); startChapter2(carryFor(b.dataset.code)); }; });
+      $('#btn-pick-back').onclick = () => { ui.screen = 'title'; render(); };
+      return;
+    }
+
     if (ui.screen === 'intro') { beginPlay(); return; }
     if (ui.screen === 'epilogue') { nextEpilogueLine(); return; }
     if (ui.screen !== 'play') return;
@@ -431,7 +480,7 @@
   }
 
   function startGame() {
-    game.restart();
+    game.restart(story.chapter === 1 ? undefined : ui.carry);
     ui.pause = null;
     ui.modal = false;
     ui.screen = 'intro';
@@ -455,6 +504,7 @@
     stopTimer();
     ui.screen = 'epilogue';
     ui.epi = { keys: game.epilogueKeys(), i: 0, timer: 0 };
+    if (!ui.epi.keys.length) { ui.screen = 'summary'; render(); return; }
     render();
     scheduleEpilogue();
   }
@@ -506,7 +556,8 @@
     $('#stage').dataset.mood = inGame ? scene().scene_id : ui.screen;
     // Başlık ekranının arkasında açılış görseli (bulanık)
     if (ui.screen === 'title') {
-      const first = story.scenes.find((s) => s.scene_id === story.start);
+      const c1 = chapters[1];
+      const first = c1.scenes.find((s) => s.scene_id === c1.start);
       $('#backdrop').style.backgroundImage = first && first.image_asset ? `url("${first.image_asset}")` : '';
       $('#app').classList.toggle('has-image', !!(first && first.image_asset));
     }
@@ -679,16 +730,18 @@
         <div class="title-top"></div>
         <div class="title-mid">
           <h1 class="logo"><img class="logo-img" src="assets/logo.png" alt="${esc(t('ui.game_title'))}" onerror="this.replaceWith(document.createTextNode(this.alt))"></h1>
-          <div class="subtitle">${esc(t('ui.chapter', { n: story.chapter }))} · ${esc(t('ui.chapter_title'))}</div>
+          <div class="subtitle">${esc(t('ui.chapter', { n: 1 }))} · ${esc(chapterTitle(chapters[1]))}</div>
         </div>
         <div class="title-bottom">
           <button class="cta" id="btn-start">${esc(t('ui.start'))}</button>
+          ${chapters[2] ? `<button class="cta-2" id="btn-c2"><span>${esc(t('ui.c2_continue'))}</span><i class="new">${esc(t('ui.c2_new'))}</i></button>` : ''}
           <div class="title-row">
             <button class="pill" id="btn-title-lang">${esc(locales[settings.lang].meta.name)}</button>
             <button class="pill" id="btn-title-settings">${esc(t('ui.timers'))}: ${settings.timers ? '●' : '○'}</button>
           </div>
         </div>`;
-      $('#btn-start').onclick = () => { haptic(20); startGame(); };
+      $('#btn-start').onclick = () => { haptic(20); loadChapter(1); startGame(); };
+      if ($('#btn-c2')) $('#btn-c2').onclick = () => { haptic(20); startChapter2(); };
       $('#btn-title-lang').onclick = () => { const codes = Object.keys(locales); setLang(codes[(codes.indexOf(settings.lang) + 1) % codes.length]); };
       $('#btn-title-settings').onclick = () => { settings.timers = !settings.timers; saveSettings(); render(); };
       return;
@@ -698,7 +751,7 @@
       el.innerHTML = `
         <div class="intro">
           <div class="intro-num">${esc(t('ui.chapter', { n: story.chapter }))}</div>
-          <div class="intro-title">${esc(t('ui.chapter_title'))}</div>
+          <div class="intro-title">${esc(chapterTitle())}</div>
           <div class="intro-line"></div>
         </div>`;
       return;
@@ -758,8 +811,9 @@
           <p class="road">${esc(t('ui.road'))}</p>
           <p class="support">${esc(t('ui.support'))}</p>
         </div>
-        <div class="screen-bottom">${againButton()}</div>`;
+        <div class="screen-bottom">${story.chapter === 1 && chapters[2] ? `<button class="cta" id="btn-next-chapter">${esc(t('ui.c2_continue'))}</button>` : ''}${againButton()}</div>`;
       $('#btn-again').onclick = startGame;
+      if ($('#btn-next-chapter')) $('#btn-next-chapter').onclick = () => { haptic(20); startChapter2(); };
     }
   }
 

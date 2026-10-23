@@ -161,9 +161,10 @@
       go(scene, null, false);
     }
 
-    function restart() {
-      state = { sceneId: null, vars: clone(initialVars), clues: [], history: [], visited: [], log: [], ended: false };
-      enter(story.start);
+    // carry: önceki bölümden taşınan değişkenler (ör. Bölüm 1'in sonu). start bir liste ise ona göre seçilir.
+    function restart(carry) {
+      state = { sceneId: null, vars: Object.assign(clone(initialVars), carry || {}), clues: [], history: [], visited: [], log: [], ended: false };
+      enter(resolveNext(story.start, state));
     }
 
     restart();

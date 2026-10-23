@@ -69,7 +69,9 @@
       if (ids.indexOf(id) !== i) errors.push(`Duplicate scene_id: ${id}`);
       byId.set(id, story.scenes[i]);
     });
-    if (!byId.has(story.start)) errors.push(`Start scene missing: ${story.start}`);
+    // start: tek sahne ya da önceki bölüme göre seçilen [{ if, goto }] listesi
+    const starts = Array.isArray(story.start) ? story.start.map((b) => b.goto) : [story.start];
+    starts.filter((st) => !byId.has(st)).forEach((st) => errors.push(`Start scene missing: ${st}`));
     const codes = story.scenes.map((s) => s.code).filter(Boolean);
     codes.forEach((c, i) => codes.indexOf(c) !== i && errors.push(`Duplicate scene code: ${c}`));
     story.scenes.filter((s) => !s.code).forEach((s) => warnings.push(`${s.scene_id}: no production code`));
@@ -136,7 +138,7 @@
     const adj = new Map(ids.map((id) => [id, []]));
     edges.forEach((e) => adj.has(e.from) && byId.has(e.to) && adj.get(e.from).push(e.to));
     const reachable = new Set();
-    const stack = [story.start];
+    const stack = [...starts];
     while (stack.length) {
       const id = stack.pop();
       if (reachable.has(id) || !byId.has(id)) continue;
@@ -157,7 +159,7 @@
       }
       color.set(id, 2);
     };
-    if (byId.has(story.start)) dfs(story.start, []);
+    starts.filter((st) => byId.has(st) && !color.get(st)).forEach((st) => dfs(st, []));
     const allowed = story.allowed_cycles || [];
     cycles.filter((c) => !allowed.some((a) => c.includes(a))).forEach((c) => errors.push(`Unintended cycle: ${c.join(' → ')}`));
 

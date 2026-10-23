@@ -11,3 +11,6 @@ www/
 android/app/build/
 android/.gradle/
 ios/App/build/
+assets/scenes/c2/_master/
+assets/scenes/c2/gyro_a/
+assets/scenes/c2/gyro_b/
