@@ -402,21 +402,6 @@
   // Dokunuş: sıradaki vuruş → seçimler / sonraki sahne / oyun sonu metni
   function tap() {
     if (paused()) return;
-    if (ui.screen === 'pick') {
-      const ends = chapters[1].scenes.filter((s) => s.scene_type === 'ending');
-      el.innerHTML = `
-        <div class="pick">
-          <div class="kicker">${esc(t('ui.chapter', { n: 2 }))} · ${esc(chapterTitle(chapters[2]))}</div>
-          <h2>${esc(t('ui.c2_pick_title'))}</h2>
-          <p class="pick-hint">${esc(t('ui.c2_pick_hint'))}</p>
-          <div class="pick-grid">${ends.map((s) => `<button class="pick-item" data-code="${esc(s.code)}"><img src="${esc(s.image_asset)}" alt="" loading="lazy"><span><b>${esc(s.code)}</b> ${esc(t(`scenes.${s.scene_id}.title`))}</span></button>`).join('')}</div>
-        </div>
-        <div class="screen-bottom"><button class="pill" id="btn-pick-back">${esc(t('ui.back'))}</button></div>`;
-      el.querySelectorAll('.pick-item').forEach((b) => { b.onclick = () => { haptic(15); startChapter2(carryFor(b.dataset.code)); }; });
-      $('#btn-pick-back').onclick = () => { ui.screen = 'title'; render(); };
-      return;
-    }
-
     if (ui.screen === 'intro') { beginPlay(); return; }
     if (ui.screen === 'epilogue') { nextEpilogueLine(); return; }
     if (ui.screen !== 'play') return;
@@ -744,6 +729,21 @@
       if ($('#btn-c2')) $('#btn-c2').onclick = () => { haptic(20); startChapter2(); };
       $('#btn-title-lang').onclick = () => { const codes = Object.keys(locales); setLang(codes[(codes.indexOf(settings.lang) + 1) % codes.length]); };
       $('#btn-title-settings').onclick = () => { settings.timers = !settings.timers; saveSettings(); render(); };
+      return;
+    }
+
+    if (ui.screen === 'pick') {
+      const ends = chapters[1].scenes.filter((s) => s.scene_type === 'ending');
+      el.innerHTML = `
+        <div class="pick">
+          <div class="kicker">${esc(t('ui.chapter', { n: 2 }))} · ${esc(chapterTitle(chapters[2]))}</div>
+          <h2>${esc(t('ui.c2_pick_title'))}</h2>
+          <p class="pick-hint">${esc(t('ui.c2_pick_hint'))}</p>
+          <div class="pick-grid">${ends.map((s) => `<button class="pick-item" data-code="${esc(s.code)}"><img src="${esc(s.image_asset)}" alt="" loading="lazy"><span><b>${esc(s.code)}</b> ${esc(t(`scenes.${s.scene_id}.title`))}</span></button>`).join('')}</div>
+        </div>
+        <div class="screen-bottom"><button class="pill" id="btn-pick-back">${esc(t('ui.back'))}</button></div>`;
+      el.querySelectorAll('.pick-item').forEach((b) => { b.onclick = () => { haptic(15); startChapter2(carryFor(b.dataset.code)); }; });
+      $('#btn-pick-back').onclick = () => { ui.screen = 'title'; render(); };
       return;
     }
 
