@@ -231,7 +231,7 @@
         ctx.save();
         ctx.beginPath(); ctx.ellipse(mx + mw / 2, my + mh / 2, mw / 2, mh / 2, 0, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(12,16,22,.78)'; ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,220,170,.75)'; ctx.stroke(); ctx.clip();
-        const ch = mh * (0.35 + near * 1.1), cw = ch * cim.width / cim.height;
+        const ch = mh * (0.62 + near * 0.9), cw = ch * cim.width / cim.height;
         ctx.drawImage(cim, mx + mw / 2 - cw / 2, my + mh * 0.92 - ch * 0.85, cw, ch);
         ctx.restore();
       }

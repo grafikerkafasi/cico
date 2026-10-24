@@ -743,7 +743,7 @@
     },
     "b2"
    ],
-   "image_asset": "assets/scenes/c2/2A13a.jpg",
+   "image_asset": "assets/scenes/c2/2A10b.jpg",
    "still_motion": true,
    "next": "c2_2a11"
   },

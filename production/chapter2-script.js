@@ -194,7 +194,7 @@ module.exports = {
       { k: 'n', t: 'Sabah okul kapısında veliler sırada, ellerinde telefon, ödeme yapıyor.' },
       { k: 'n', t: 'Filiz onu görüyor. Selam vermiyor.' },
       { k: 'm', who: 'ROTA', t: 'Tebrikler! Bu haftanın primini kazandınız.' },
-    ], redo: 'Metin değişti: hastane yok. Okul kapısında ödeme sırası, Filiz selam vermiyor.', choices: [] },
+    ], choices: [] },
     '2SA5': { title: 'Sessiz Kalan', type: 'ending', beats: [
       { k: 'n', t: 'Ertesi gün her şey yerinde. Dolap, kamera, siyah araba.' },
       { k: 'n', t: 'Filiz kapıda el sallıyor. Cico başını eğip geçiyor.' },
@@ -361,7 +361,7 @@ module.exports = {
       { k: 'n', t: 'Çocuk babaannesinin ilacını alamadan dönüyor.' },
       { k: 'n', t: 'Cico ücreti kendi cebinden ödüyor. Bölme açılıyor.' },
       { k: 's', who: 'Mendilci çocuk', t: 'Hocam, bunu her gün yapamazsın ki.' },
-    ], redo: 'Metin değişti: yağmur ve kurtarma yok. Akşam, kilitli dolap, Cico ücreti ödüyor.', choices: [] },
+    ], choices: [] },
     '2SB6': { title: 'İtiraf', type: 'ending', beats: [
       { k: 'n', t: 'Köprü altı. Kabile geri çekilmiş.' },
       { k: 's', who: 'Cico', t: 'Bu telefonu bana o verdi. Ben de onlardandım. Zorla.' },
