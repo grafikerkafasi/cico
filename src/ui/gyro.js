@@ -22,16 +22,16 @@
   // u: dokunun yatay konumu (0 sol kenar … 1 sağ kenar). Şeritler dokudaki çizgilere göre.
   const SETS = {
     A: {
-      bg: 'gA_bg.jpg', road: 'gA_road.jpg', crop: [0.085, 0.905], hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
-      lanes: [0.29, 0.5, 0.71], props: { img: 'gA_lamp.png', u: [0.06, 0.935], every: 7, w: 0.12 },
+      bg: 'gA_bg.jpg', road: 'gA_road.jpg', crop: [0.085, 0.905], curve: 0.14, hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
+      lanes: [0.29, 0.5, 0.71], props: { img: 'gA_lamp.png', u: [0.06, 0.935], every: 5, w: 0.13 },
       obstacles: [
         { img: 'gA_car.png', w: 0.26, horn: 'car' }, { img: 'gA_taxi.png', w: 0.26, horn: 'car' }, { img: 'gA_dolmus.png', w: 0.24, horn: 'car' },
         { img: 'gA_tram.png', w: 0.24, lanes: [0], oncoming: true, horn: 'tram' },
       ],
     },
     B: {
-      bg: 'gB_bg.jpg', road: 'gB_road.jpg', crop: [0.13, 0.92], hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
-      lanes: [0.36, 0.535, 0.72], props: { img: 'gB_lamp.png', u: [0.2, 0.9], every: 7.5, w: 0.12 },
+      bg: 'gB_bg.jpg', road: 'gB_road.jpg', crop: [0.13, 0.92], curve: 0.35, hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
+      lanes: [0.36, 0.535, 0.72], props: { img: 'gB_lamp.png', u: [0.2, 0.9], every: 5.5, w: 0.13 },
       obstacles: [
         { img: 'gB_truck.png', w: 0.26, horn: 'truck' }, { img: 'gB_bus.png', w: 0.26, horn: 'truck' }, { img: 'gB_taxi.png', w: 0.26, horn: 'car' },
         { img: 'gB_puddle.png', w: 0.24, slip: true, ground: true },
@@ -251,7 +251,7 @@
       st.pos += st.speed * dt;
       // Viraj: uzun dalga, yumuşak geçiş
       st.curveT += dt;
-      const target = Math.sin(st.curveT * 0.32) * 0.8 + Math.sin(st.curveT * 0.11 + 1.3) * 0.45;
+      const target = (Math.sin(st.curveT * 0.32) * 0.8 + Math.sin(st.curveT * 0.11 + 1.3) * 0.45) * (set.curve || 0.3);
       st.curve += (target - st.curve) * Math.min(1, dt * 0.8);
 
       const want = touchTarget != null ? touchTarget : keys ? keys * 1.1 : tiltTarget;
@@ -263,7 +263,7 @@
       st.camX = st.px * 0.42;
 
       st.spawn -= dt;
-      if (st.spawn <= 0) { spawn(); st.spawn = (0.75 + Math.random() * 0.5) / (1 + speedN * 0.6); }
+      if (st.spawn <= 0) { spawn(); st.spawn = (0.55 + Math.random() * 0.4) / (1 + speedN * 0.7); }
       for (const o of st.objs) {
         o.z -= st.speed * dt * (o.k.oncoming ? 2.0 : 0.55);
         const lanePos = o.lane - 1;
