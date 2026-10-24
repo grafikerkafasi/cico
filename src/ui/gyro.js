@@ -22,7 +22,7 @@
   // u: dokunun yatay konumu (0 sol kenar … 1 sağ kenar). Şeritler dokudaki çizgilere göre.
   const SETS = {
     A: {
-      bg: 'gA_bg.jpg', road: 'gA_road.jpg', crop: [0.085, 0.905], curve: 0.14, hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
+      bg: 'gA_bg.jpg', road: 'gA_road.jpg', crop: [0.085, 0.905], curve: 0.14, vx: 0.55, hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
       lanes: [0.29, 0.5, 0.71], props: { img: 'gA_lamp.png', u: [0.06, 0.935], every: 5, w: 0.13 },
       obstacles: [
         { img: 'gA_car.png', w: 0.26, horn: 'car' }, { img: 'gA_taxi.png', w: 0.26, horn: 'car' }, { img: 'gA_dolmus.png', w: 0.24, horn: 'car' },
@@ -30,7 +30,7 @@
       ],
     },
     B: {
-      bg: 'gB_bg.jpg', road: 'gB_road.jpg', crop: [0.13, 0.92], curve: 0.35, hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
+      bg: 'gB_bg.jpg', road: 'gB_road.jpg', crop: [0.13, 0.92], curve: 0.35, vx: 0.58, hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
       lanes: [0.36, 0.535, 0.72], props: { img: 'gB_lamp.png', u: [0.2, 0.9], every: 5.5, w: 0.13 },
       obstacles: [
         { img: 'gB_truck.png', w: 0.26, horn: 'truck' }, { img: 'gB_bus.png', w: 0.26, horn: 'truck' }, { img: 'gB_taxi.png', w: 0.26, horn: 'car' },
@@ -39,7 +39,7 @@
     },
   };
 
-  const ROAD_W = 1.75;   // dokunun dünya genişliği (en alt satırda ekran genişliğinin katı)
+  const ROAD_W = 2.35;   // dokunun dünya genişliği (en alt satırda ekran genişliğinin katı)
   const TILE_Z = 3.0;    // bir doku döşemesinin dünya derinliği
   const FAR = 34;        // çizim mesafesi
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -295,7 +295,8 @@
     const KAM = () => H - hzY();                       // en alt satır z = 1
     const zToY = (z) => hzY() + KAM() / z;
     // Derinlikteki yol merkezi (ekran x): kamera kayması 1/z ile, viraj derinlikle karesel
-    const centerX = (z) => W / 2 + (-st.camX * W) / z + st.curve * W * 0.55 * Math.pow(1 - 1 / z, 2);
+    // alt satırda ekran ortası, ufukta zemin görselinin kaybolma noktası (vx)
+    const centerX = (z) => W / 2 + (W * ((set.vx || 0.5) - 0.5)) * (1 - 1 / z) + (-st.camX * W) / z + st.curve * W * 0.55 * Math.pow(1 - 1 / z, 2);
 
     function drawSky(im) {
       const hz = hzY();
@@ -338,7 +339,7 @@
       const scale = 1 / z;
       const x = centerX(z) + worldX(u) * W * scale;
       const y = zToY(z);
-      const w = worldW * W * scale * 1.6;
+      const w = worldW * W * scale * 1.75;
       const h = w * im.height / im.width;
       ctx.globalAlpha = alpha * clamp((FAR + 2 - z) / 6, 0, 1);
       if (flip) { ctx.save(); ctx.translate(x, 0); ctx.scale(-1, 1); ctx.drawImage(im, -w / 2, ground ? y - h * 0.5 : y - h, w, h); ctx.restore(); }
@@ -372,7 +373,7 @@
       const pim = imgs.player;
       if (pim) {
         const w = W * 0.26, h = w * pim.height / pim.width;
-        const x = W / 2 + st.px * W * 0.13;
+        const x = W / 2 + st.px * W * (0.21 * ROAD_W - 0.42); // şerit konumu araçlarla aynı
         ctx.save(); ctx.translate(x, H * 0.99); ctx.rotate(st.px * 0.08 + (st.slip ? Math.sin(st.t * 30) * 0.05 : 0) - st.curve * 0.03);
         ctx.drawImage(pim, -w / 2, -h, w, h); ctx.restore();
       }
