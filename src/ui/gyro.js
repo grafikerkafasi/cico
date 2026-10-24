@@ -22,7 +22,7 @@
   // u: dokunun yatay konumu (0 sol kenar … 1 sağ kenar). Şeritler dokudaki çizgilere göre.
   const SETS = {
     A: {
-      bg: 'gA_bg.jpg', road: 'gA_road.jpg', crop: [0.085, 0.905], curve: 0.14, vx: 0.55, hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
+      bg: 'gA_bg.jpg', road: 'gA_road.jpg', crop: [0.05, 0.945], rail: { u: [0.05, 0.945], h: 0.16, every: 0.7 }, water: [0.17, 0.235], curve: 0.14, vx: 0.55, hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
       lanes: [0.29, 0.5, 0.71], props: { img: 'gA_lamp.png', u: [0.06, 0.935], every: 5, w: 0.13 },
       obstacles: [
         { img: 'gA_car.png', w: 0.26, horn: 'car' }, { img: 'gA_taxi.png', w: 0.26, horn: 'car' }, { img: 'gA_dolmus.png', w: 0.24, horn: 'car' },
@@ -30,7 +30,7 @@
       ],
     },
     B: {
-      bg: 'gB_bg.jpg', road: 'gB_road.jpg', crop: [0.13, 0.92], curve: 0.35, vx: 0.58, hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
+      bg: 'gB_bg.jpg', road: 'gB_road.jpg', crop: [0.115, 0.925], rail: { u: [0.115, 0.925], h: 0.13, every: 0.8 }, water: [0.2, 0.26], curve: 0.35, vx: 0.58, hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
       lanes: [0.36, 0.535, 0.72], props: { img: 'gB_lamp.png', u: [0.2, 0.9], every: 5.5, w: 0.13 },
       obstacles: [
         { img: 'gB_truck.png', w: 0.26, horn: 'truck' }, { img: 'gB_bus.png', w: 0.26, horn: 'truck' }, { img: 'gB_taxi.png', w: 0.26, horn: 'car' },
@@ -39,7 +39,7 @@
     },
   };
 
-  const ROAD_W = 2.35;   // dokunun dünya genişliği (en alt satırda ekran genişliğinin katı)
+  const ROAD_W = 2.9;   // dokunun dünya genişliği (en alt satırda ekran genişliğinin katı)
   const TILE_Z = 3.0;    // bir doku döşemesinin dünya derinliği
   const FAR = 34;        // çizim mesafesi
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -301,12 +301,74 @@
     function drawSky(im) {
       const hz = hzY();
       if (!im) { ctx.fillStyle = '#0b0f14'; ctx.fillRect(0, 0, W, hz + 2); return; }
-      // Zemin görselinin tamamı taban: ufuk üstü şehir, yanlarda perspektifli korkuluk/deniz.
-      // Ufku oyunun ufkuyla hizala; virajda ters yöne hafifçe kay.
-      const s = (hz / set.hz) / im.height * 1.0;
+      // Ufkun altı: köprünün altında, derinde akan bulanık deniz (zemin görselinin deniz şeridinden)
+      const water = waterLayer(im);
+      if (water) {
+        const wh = water.height, off = ((st.pos * 6) % wh + wh) % wh;
+        ctx.drawImage(water, 0, hz + off - wh, W, wh);
+        ctx.drawImage(water, 0, hz + off, W, wh);
+      }
+      // Ufkun üstü: şehir silueti (yalnızca bu kısım; köprünün sabit asfaltı ve balıkçılar görünmez)
+      const s = (hz / set.hz) / im.height;
       const w = Math.max(W * 1.2, im.width * s), h = im.height * (w / im.width);
       const y0 = hz - h * set.hz;
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, hz - h * 0.012); ctx.clip();
       ctx.drawImage(im, (W - w) / 2 - st.curve * W * 0.07, y0, w, h);
+      ctx.restore();
+      const g = ctx.createLinearGradient(0, hz - h * 0.03, 0, hz + 30);
+      g.addColorStop(0, 'rgba(10,14,22,0)'); g.addColorStop(1, 'rgba(10,14,22,.65)');
+      ctx.fillStyle = g; ctx.fillRect(0, hz - h * 0.03, W, h * 0.03 + 30);
+    }
+
+    let waterCv = null, waterKey = '';
+    function waterLayer(im) {
+      if (!im || !set.water) return null;
+      const key = W + 'x' + H;
+      if (waterCv && waterKey === key) return waterCv;
+      waterKey = key;
+      waterCv = document.createElement('canvas');
+      const wh = Math.max(4, Math.round(H - hzY()));
+      waterCv.width = Math.round(W); waterCv.height = wh;
+      const c = waterCv.getContext('2d');
+      const [a, b] = set.water;
+      c.filter = 'blur(14px) brightness(0.55) saturate(1.25)';
+      c.drawImage(im, 0, im.height * a, im.width, im.height * (b - a), -30, -30, W + 60, wh + 60);
+      c.filter = 'none';
+      const g = c.createLinearGradient(0, 0, 0, wh); g.addColorStop(0, 'rgba(6,10,18,.35)'); g.addColorStop(1, 'rgba(6,10,18,.75)');
+      c.fillStyle = g; c.fillRect(0, 0, W, wh);
+      return waterCv;
+    }
+
+    // Korkuluklar: kaldırımın dış kenarında, perspektifle doğru; direkler yolla birlikte akar
+    function drawRails() {
+      const R = set.rail; if (!R) return;
+      for (const u of R.u) {
+        const wx = worldX(u);
+        const top = [], base = [];
+        for (let z = FAR; z >= 0.9; z *= 0.94) {
+          const sc = 1 / z, x = centerX(z) + wx * W * sc, y = zToY(z);
+          base.push([x, y]); top.push([x, y - R.h * W * sc * 2.2]);
+        }
+        // panel dolgusu (yarı saydam demir)
+        ctx.beginPath(); base.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+        for (let i = top.length - 1; i >= 0; i--) ctx.lineTo(top[i][0], top[i][1]);
+        ctx.closePath(); ctx.fillStyle = 'rgba(28,24,22,.55)'; ctx.fill();
+        // direkler
+        const e = R.every, first = e - (((st.pos % e) + e) % e);
+        for (let z = first + 0.9; z < FAR; z += e) {
+          const sc = 1 / z, x = centerX(z) + wx * W * sc, y = zToY(z), hh = R.h * W * sc * 2.2;
+          ctx.fillStyle = `rgba(40,34,30,${clamp(1.2 - z / FAR, 0.2, 1)})`;
+          const pw = Math.max(1, 0.03 * W * sc);
+          ctx.fillRect(x - pw / 2, y - hh, pw, hh);
+          ctx.fillStyle = `rgba(255,190,120,${clamp(0.5 - z / (FAR * 2), 0.05, 0.5)})`;
+          ctx.fillRect(x - pw / 2, y - hh, Math.max(1, pw * 0.3), hh);
+        }
+        // üst ve orta tırabzan
+        ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(255,196,130,.55)';
+        ctx.beginPath(); top.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke();
+        ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(60,50,44,.8)';
+        ctx.beginPath(); top.forEach(([x, y], i) => { const yb = base[i][1]; const ym = y + (yb - y) * 0.55; i ? ctx.lineTo(x, ym) : ctx.moveTo(x, ym); }); ctx.stroke();
+      }
     }
 
     function drawRoad(tex) {
@@ -334,14 +396,23 @@
       ctx.fillStyle = g; ctx.fillRect(0, hz - 4, W, kam * 0.08 + 4);
     }
 
-    function drawSprite(im, u, z, worldW, ground, alpha, flip) {
+    function shadow(x, y, w) {
+      const h = w * 0.16;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, w / 2);
+      g.addColorStop(0, 'rgba(0,0,0,.42)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.save(); ctx.translate(x, y); ctx.scale(1, h / w); ctx.translate(-x, -y);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, w / 2, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    }
+
+    function drawSprite(im, u, z, worldW, ground, alpha, flip, shadowW) {
       if (!im || z < 0.55) return;
       const scale = 1 / z;
       const x = centerX(z) + worldX(u) * W * scale;
       const y = zToY(z);
-      const w = worldW * W * scale * 1.75;
+      const w = worldW * W * scale * 2.16;
       const h = w * im.height / im.width;
       ctx.globalAlpha = alpha * clamp((FAR + 2 - z) / 6, 0, 1);
+      if (!ground) shadow(x, y, w * (shadowW || 0.95));
       if (flip) { ctx.save(); ctx.translate(x, 0); ctx.scale(-1, 1); ctx.drawImage(im, -w / 2, ground ? y - h * 0.5 : y - h, w, h); ctx.restore(); }
       else ctx.drawImage(im, x - w / 2, ground ? y - h * 0.5 : y - h, w, h);
       ctx.globalAlpha = 1;
@@ -352,9 +423,10 @@
       if (st.shake) ctx.translate((Math.random() - 0.5) * 10 * st.shake, (Math.random() - 0.5) * 8 * st.shake);
       drawSky(imgs.bg);
       drawRoad(imgs.road);
+      drawRails();
       // Uzaktan yakına: engeller ve yol kenarı lambaları
       const items = st.objs.map((o) => ({ z: o.z, f: () => drawSprite(imgs[o.k.img], set.lanes[o.lane], o.z, o.k.w, o.k.ground, o.hit && !o.k.slip ? 0.5 : 1) }));
-      if (imgs.prop) st.props.forEach((p) => items.push({ z: p.z, f: () => drawSprite(imgs.prop, p.u, p.z, set.props.w, false, 1, p.u > 0.5) }));
+      if (imgs.prop) st.props.forEach((p) => items.push({ z: p.z, f: () => drawSprite(imgs.prop, p.u, p.z, set.props.w, false, 1, p.u > 0.5, 1.4) }));
       items.sort((a, b) => b.z - a.z).forEach((i) => i.f());
       if (set.rain) {
         ctx.strokeStyle = 'rgba(200,220,255,.22)'; ctx.lineWidth = 1;
@@ -374,6 +446,7 @@
       if (pim) {
         const w = W * 0.26, h = w * pim.height / pim.width;
         const x = W / 2 + st.px * W * (0.21 * ROAD_W - 0.42); // şerit konumu araçlarla aynı
+        shadow(x, H * 0.985, w * 0.85);
         ctx.save(); ctx.translate(x, H * 0.99); ctx.rotate(st.px * 0.08 + (st.slip ? Math.sin(st.t * 30) * 0.05 : 0) - st.curve * 0.03);
         ctx.drawImage(pim, -w / 2, -h, w, h); ctx.restore();
       }
