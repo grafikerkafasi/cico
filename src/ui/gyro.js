@@ -302,9 +302,9 @@
       const hz = hzY();
       if (!im) { ctx.fillStyle = '#0b0f14'; ctx.fillRect(0, 0, W, hz + 2); return; }
       // Ufkun altı: köprünün altında, derinde akan bulanık deniz (zemin görselinin deniz şeridinden)
-      const water = waterLayer(im);
+      const water = waterLayer();
       if (water) {
-        const wh = water.height, off = ((st.pos * 6) % wh + wh) % wh;
+        const wh = water.height, off = ((st.pos * 9) % wh + wh) % wh;
         ctx.drawImage(water, 0, hz + off - wh, W, wh);
         ctx.drawImage(water, 0, hz + off, W, wh);
       }
@@ -321,8 +321,8 @@
     }
 
     let waterCv = null, waterKey = '';
-    function waterLayer(im) {
-      if (!im || !set.water) return null;
+    // Derinde deniz: koyu lacivert, bulanık altın yansımalar; dikeyde dikişsiz (akarken tekrar eder)
+    function waterLayer() {
       const key = W + 'x' + H;
       if (waterCv && waterKey === key) return waterCv;
       waterKey = key;
@@ -330,12 +330,18 @@
       const wh = Math.max(4, Math.round(H - hzY()));
       waterCv.width = Math.round(W); waterCv.height = wh;
       const c = waterCv.getContext('2d');
-      const [a, b] = set.water;
-      c.filter = 'blur(14px) brightness(0.55) saturate(1.25)';
-      c.drawImage(im, 0, im.height * a, im.width, im.height * (b - a), -30, -30, W + 60, wh + 60);
-      c.filter = 'none';
-      const g = c.createLinearGradient(0, 0, 0, wh); g.addColorStop(0, 'rgba(6,10,18,.35)'); g.addColorStop(1, 'rgba(6,10,18,.75)');
+      const g = c.createLinearGradient(0, 0, 0, wh);
+      g.addColorStop(0, set.rain ? '#0b1422' : '#0c1626'); g.addColorStop(1, '#04080f');
       c.fillStyle = g; c.fillRect(0, 0, W, wh);
+      c.filter = 'blur(10px)';
+      let seed = 7; const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+      for (let i = 0; i < 26; i++) {
+        const x = rnd() * W, y = rnd() * wh, rw = 6 + rnd() * 18, rh = 40 + rnd() * 120;
+        const warm = rnd() < 0.8;
+        c.fillStyle = warm ? `rgba(255,${150 + rnd() * 60 | 0},80,${0.25 + rnd() * 0.3})` : `rgba(120,170,255,${0.15 + rnd() * 0.2})`;
+        for (const dy of [-wh, 0, wh]) { c.beginPath(); c.ellipse(x, y + dy, rw, rh, 0, 0, Math.PI * 2); c.fill(); }
+      }
+      c.filter = 'none';
       return waterCv;
     }
 
@@ -352,7 +358,7 @@
         // panel dolgusu (yarı saydam demir)
         ctx.beginPath(); base.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
         for (let i = top.length - 1; i >= 0; i--) ctx.lineTo(top[i][0], top[i][1]);
-        ctx.closePath(); ctx.fillStyle = 'rgba(28,24,22,.55)'; ctx.fill();
+        ctx.closePath(); ctx.fillStyle = 'rgba(22,18,16,.6)'; ctx.fill();
         // direkler
         const e = R.every, first = e - (((st.pos % e) + e) % e);
         for (let z = first + 0.9; z < FAR; z += e) {
