@@ -23,7 +23,7 @@
   const SETS = {
     A: {
       bg: 'gA_bg.jpg', road: 'gA_road.jpg', hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
-      lanes: [0.29, 0.5, 0.71], props: { img: 'gA_lamp.png', u: [0.06, 0.935], every: 3.2, w: 0.16 },
+      lanes: [0.29, 0.5, 0.71], props: { img: 'gA_lamp.png', u: [0.06, 0.935], every: 7, w: 0.12 },
       obstacles: [
         { img: 'gA_car.png', w: 0.26, horn: 'car' }, { img: 'gA_taxi.png', w: 0.26, horn: 'car' }, { img: 'gA_dolmus.png', w: 0.24, horn: 'car' },
         { img: 'gA_tram.png', w: 0.24, lanes: [0], oncoming: true, horn: 'tram' },
@@ -31,7 +31,7 @@
     },
     B: {
       bg: 'gB_bg.jpg', road: 'gB_road.jpg', hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
-      lanes: [0.36, 0.535, 0.72], props: { img: 'gB_lamp.png', u: [0.2, 0.9], every: 3.6, w: 0.16 },
+      lanes: [0.36, 0.535, 0.72], props: { img: 'gB_lamp.png', u: [0.2, 0.9], every: 7.5, w: 0.12 },
       obstacles: [
         { img: 'gB_truck.png', w: 0.26, horn: 'truck' }, { img: 'gB_bus.png', w: 0.26, horn: 'truck' }, { img: 'gB_taxi.png', w: 0.26, horn: 'car' },
         { img: 'gB_puddle.png', w: 0.24, slip: true, ground: true },
@@ -172,7 +172,7 @@
     }
 
     function reset() {
-      st = { t: 0, pos: 0, px: 0, camX: 0, gap: 100, objs: [], props: [], spawn: 1.2, shake: 0, slip: 0, flash: 0, curve: 0, curveT: 0, speed: 9 };
+      st = { t: 0, pos: 0, px: 0, camX: 0, gap: 100, objs: [], props: [], spawn: 0.3, shake: 0, slip: 0, flash: 0, curve: 0, curveT: 0, speed: 9 };
       for (let z = 2; z < FAR; z += set.props.every) set.props.u.forEach((u) => st.props.push({ u, z }));
     }
 
@@ -313,10 +313,10 @@
       if (!tex) return;
       const TW = tex.width, TH = tex.height;
       // Bir karede geçilen mesafe kadar doku = hareket bulanıklığı (yakında belirgin, uzakta yok)
-      const smear = clamp((st.speed / 60) / TILE_Z * TH * 1.15, 1, 48);
+      const smear = clamp((st.speed / 60) / TILE_Z * TH * 1.15, 1, 22);
       for (let y = Math.floor(hz) + 1; y < H; y += 1) {
         const z = kam / (y - hz);
-        if (z > FAR + 6) continue;
+        if (z > 90) continue;
         const scale = 1 / z;
         const w = ROAD_W * W * scale;
         const cx = centerX(z);
@@ -327,9 +327,9 @@
         ctx.drawImage(tex, 0, syc, TW, sh, cx - w / 2, y, w, 1.6);
       }
       // ufukta pus: yol ile gökyüzü birleşimi yumuşasın
-      const g = ctx.createLinearGradient(0, hz - 8, 0, hz + kam * 0.14);
-      g.addColorStop(0, 'rgba(18,22,32,.9)'); g.addColorStop(1, 'rgba(18,22,32,0)');
-      ctx.fillStyle = g; ctx.fillRect(0, hz - 8, W, kam * 0.14 + 8);
+      const g = ctx.createLinearGradient(0, hz - 14, 0, hz + kam * 0.1);
+      g.addColorStop(0, 'rgba(70,52,44,0)'); g.addColorStop(0.35, 'rgba(70,52,44,.45)'); g.addColorStop(1, 'rgba(70,52,44,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, hz - 14, W, kam * 0.1 + 14);
     }
 
     function drawSprite(im, u, z, worldW, ground, alpha, flip) {
