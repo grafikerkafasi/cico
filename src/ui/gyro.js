@@ -22,7 +22,7 @@
   // u: dokunun yatay konumu (0 sol kenar … 1 sağ kenar). Şeritler dokudaki çizgilere göre.
   const SETS = {
     A: {
-      bg: 'gA_bg.jpg', road: 'gA_road.jpg', hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
+      bg: 'gA_bg.jpg', road: 'gA_road.jpg', crop: [0.085, 0.905], hz: 0.25, player: 'gA_cico.png', chaser: 'gA_enduro.png', rain: false,
       lanes: [0.29, 0.5, 0.71], props: { img: 'gA_lamp.png', u: [0.06, 0.935], every: 7, w: 0.12 },
       obstacles: [
         { img: 'gA_car.png', w: 0.26, horn: 'car' }, { img: 'gA_taxi.png', w: 0.26, horn: 'car' }, { img: 'gA_dolmus.png', w: 0.24, horn: 'car' },
@@ -30,7 +30,7 @@
       ],
     },
     B: {
-      bg: 'gB_bg.jpg', road: 'gB_road.jpg', hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
+      bg: 'gB_bg.jpg', road: 'gB_road.jpg', crop: [0.13, 0.92], hz: 0.27, player: 'gB_cico.png', chaser: 'gB_enduro.png', rain: true,
       lanes: [0.36, 0.535, 0.72], props: { img: 'gB_lamp.png', u: [0.2, 0.9], every: 7.5, w: 0.12 },
       obstacles: [
         { img: 'gB_truck.png', w: 0.26, horn: 'truck' }, { img: 'gB_bus.png', w: 0.26, horn: 'truck' }, { img: 'gB_taxi.png', w: 0.26, horn: 'car' },
@@ -300,12 +300,12 @@
     function drawSky(im) {
       const hz = hzY();
       if (!im) { ctx.fillStyle = '#0b0f14'; ctx.fillRect(0, 0, W, hz + 2); return; }
-      // Zemin görselinin ufuk üstü kısmı; virajda ters yöne hafifçe kayar
-      const srcH = im.height * set.hz * 1.04;
-      const w = W * 1.24, h = hz + 3;
-      const sx = srcH / h; // kaynak ölçeği
-      ctx.drawImage(im, 0, 0, im.width, srcH, (W - w) / 2 - st.curve * W * 0.07, 0, w, h);
-      void sx;
+      // Zemin görselinin tamamı taban: ufuk üstü şehir, yanlarda perspektifli korkuluk/deniz.
+      // Ufku oyunun ufkuyla hizala; virajda ters yöne hafifçe kay.
+      const s = (hz / set.hz) / im.height * 1.0;
+      const w = Math.max(W * 1.2, im.width * s), h = im.height * (w / im.width);
+      const y0 = hz - h * set.hz;
+      ctx.drawImage(im, (W - w) / 2 - st.curve * W * 0.07, y0, w, h);
     }
 
     function drawRoad(tex) {
@@ -324,12 +324,13 @@
         const sy = (1 - v) * TH;
         const sh = Math.min(smear, TH - 2);
         const syc = clamp(sy - sh * 0.5, 0, TH - sh);
-        ctx.drawImage(tex, 0, syc, TW, sh, cx - w / 2, y, w, 1.6);
+        const [u0, u1] = set.crop || [0, 1];
+        ctx.drawImage(tex, u0 * TW, syc, (u1 - u0) * TW, sh, cx - w / 2 + u0 * w, y, (u1 - u0) * w, 1.6);
       }
       // ufukta pus: yol ile gökyüzü birleşimi yumuşasın
-      const g = ctx.createLinearGradient(0, hz - 14, 0, hz + kam * 0.1);
-      g.addColorStop(0, 'rgba(70,52,44,0)'); g.addColorStop(0.35, 'rgba(70,52,44,.45)'); g.addColorStop(1, 'rgba(70,52,44,0)');
-      ctx.fillStyle = g; ctx.fillRect(0, hz - 14, W, kam * 0.1 + 14);
+      const g = ctx.createLinearGradient(0, hz - 4, 0, hz + kam * 0.08);
+      g.addColorStop(0, 'rgba(60,46,40,.35)'); g.addColorStop(1, 'rgba(60,46,40,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, hz - 4, W, kam * 0.08 + 4);
     }
 
     function drawSprite(im, u, z, worldW, ground, alpha, flip) {
