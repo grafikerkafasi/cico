@@ -380,7 +380,13 @@
     function drawRoad(tex) {
       const hz = hzY(), kam = KAM();
       if (!tex) return;
-      const TW = tex.width, TH = tex.height;
+      // doku dikeyde iki kat: bulanıklık örneği döşeme sınırını geçse de dikiş olmaz
+      if (!tex.__double) {
+        const d = document.createElement('canvas'); d.width = tex.width; d.height = tex.height * 2;
+        const c = d.getContext('2d'); c.drawImage(tex, 0, 0); c.drawImage(tex, 0, tex.height);
+        tex.__double = d;
+      }
+      const TW = tex.width, TH = tex.height, dbl = tex.__double;
       // Bir karede geçilen mesafe kadar doku = hareket bulanıklığı (yakında belirgin, uzakta yok)
       const smear = clamp((st.speed / 60) / TILE_Z * TH * 1.15, 1, 22);
       for (let y = Math.floor(hz) + 1; y < H; y += 1) {
@@ -392,9 +398,9 @@
         const v = ((((z + st.pos) / TILE_Z) % 1) + 1) % 1;   // yukarı doğru derinlik artar
         const sy = (1 - v) * TH;
         const sh = Math.min(smear, TH - 2);
-        const syc = clamp(sy - sh * 0.5, 0, TH - sh);
+        const syc = clamp(sy - sh * 0.5 + TH, 0, TH * 2 - sh);
         const [u0, u1] = set.crop || [0, 1];
-        ctx.drawImage(tex, u0 * TW, syc, (u1 - u0) * TW, sh, cx - w / 2 + u0 * w, y, (u1 - u0) * w, 1.6);
+        ctx.drawImage(dbl, u0 * TW, syc, (u1 - u0) * TW, sh, cx - w / 2 + u0 * w, y, (u1 - u0) * w, 1.6);
       }
       // ufukta pus: yol ile gökyüzü birleşimi yumuşasın
       const g = ctx.createLinearGradient(0, hz - 4, 0, hz + kam * 0.08);
