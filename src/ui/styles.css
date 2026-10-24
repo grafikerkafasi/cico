@@ -498,7 +498,7 @@ h4 { font: 700 11px/1 var(--sys); letter-spacing: .2em; text-transform: uppercas
 }
 
 /* ── Jiroskop kaçışı (src/ui/gyro.js) ── */
-.gyro { position: absolute; inset: 0; z-index: 40; background: #05070a; touch-action: none; overflow: hidden; }
+.gyro { position: absolute; inset: 0 0 auto 0; height: 100%; z-index: 40; background: #05070a; touch-action: none; overflow: hidden; pointer-events: auto; }
 .gyro-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .gyro-hud { position: absolute; left: var(--gut); right: var(--gut); top: calc(var(--safe-t) + 14px); display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
 .gyro-bar { height: 5px; border-radius: 999px; background: rgba(255,255,255,.14); overflow: hidden; }
@@ -512,3 +512,5 @@ h4 { font: 700 11px/1 var(--sys); letter-spacing: .2em; text-transform: uppercas
   background: linear-gradient(180deg, rgba(22,26,34,.82), rgba(10,12,16,.9)); border: 1px solid rgba(255,214,170,.22); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,.5); }
 .gyro-title { margin: 0; font: 600 24px/1.2 var(--serif); color: var(--warm-1); }
 .gyro-how { margin: 0 0 4px; font: 500 14px/1.45 var(--sys); color: var(--ink-2); }
+.app.gaming .bottom, .app.gaming .notif-layer, .app.gaming .stamp, .app.gaming .hud, .app.gaming .hotspots { visibility: hidden; }
+.app.gaming .frame-ui { z-index: 30; }

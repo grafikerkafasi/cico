@@ -73,9 +73,13 @@
     let st;
 
     function size() {
+      // Çerçeve pencereden taşıyorsa yalnızca görünen kısmı kullan (Cico ekranın altında kesilmesin)
+      host.style.height = '';
       const r = host.getBoundingClientRect();
+      const vis = Math.min(r.height, window.innerHeight - Math.max(0, r.top));
+      if (vis > 200 && vis < r.height) host.style.height = vis + 'px';
       dpr = Math.min(2, window.devicePixelRatio || 1);
-      W = r.width; H = r.height;
+      W = r.width; H = vis > 200 ? vis : r.height;
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }

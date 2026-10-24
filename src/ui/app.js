@@ -468,20 +468,21 @@
     const s = scene();
     if (ui.gameHandle) return;
     haptic(15);
+    $('#app').classList.add('gaming');
     try {
     ui.gameHandle = window.CICO.gyro.start({
-      root: $('#app'),
+      root: document.querySelector('.frame-ui'), // sahne çerçevesi (9:16)
       set: s.game.set,
       seconds: s.game.seconds,
       haptic,
       text: { title: t('ui.c2_gyro_title'), how: t('ui.c2_gyro_how'), ready: t('ui.c2_gyro_ready'), caught: t('ui.c2_gyro_caught'), retry: t('ui.c2_gyro_retry'), cont: t('ui.c2_gyro_cont'), gap: t('ui.c2_gyro_gap') },
-      onDone: (res) => { ui.gameHandle = null; act('choose', res === 'escape' ? 'escape' : 'caught'); },
+      onDone: (res) => { ui.gameHandle = null; $('#app').classList.remove('gaming'); act('choose', res === 'escape' ? 'escape' : 'caught'); },
     });
-    } catch (e) { ui.gameHandle = null; act('choose', 'escape'); } // oyun açılamazsa hikâye kilitlenmesin
+    } catch (e) { ui.gameHandle = null; $('#app').classList.remove('gaming'); act('choose', 'escape'); } // oyun açılamazsa hikâye kilitlenmesin
   }
 
   function startGame() {
-    if (ui.gameHandle) { ui.gameHandle.stop(); ui.gameHandle = null; }
+    if (ui.gameHandle) { ui.gameHandle.stop(); ui.gameHandle = null; $('#app').classList.remove('gaming'); }
     game.restart(story.chapter === 1 ? undefined : ui.carry);
     ui.pause = null;
     ui.modal = false;
