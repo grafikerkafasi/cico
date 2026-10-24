@@ -8,8 +8,15 @@
   "c2_pick_hint": "Bölüm 2, Bölüm 1'deki sonuna göre açılır.",
   "c2_continue": "Bölüm 2 · Sabah Zili",
   "c2_new": "yeni",
-  "c2_gas": "Gaza yüklen!",
-  "c2_gas_sub": "Telefonu eğerek kaçış yakında"
+  "c2_ready": "Kaçışa hazır",
+  "c2_ready_sub": "Telefonu eğerek sür",
+  "c2_gyro_title": "Endurocu peşinde!",
+  "c2_gyro_how": "Telefonu sağa sola eğ. Ya da ekranın iki yanına basılı tut. 35 saniye dayan.",
+  "c2_gyro_ready": "Hazırım",
+  "c2_gyro_caught": "Yakalandın.",
+  "c2_gyro_retry": "Tekrar dene",
+  "c2_gyro_cont": "Hikâyeye devam et",
+  "c2_gyro_gap": "Mesafe"
  },
  "speakers": {
   "teacher": "Filiz",
@@ -164,8 +171,8 @@
   "c2_2a12": {
    "title": "Köprü Kaçışı",
    "choices": {
-    "gas": "Gaza yüklen!",
-    "gas_sub": "Telefonu eğerek kaçış yakında"
+    "escape": "Kaçtı",
+    "caught": "Yakalandı"
    },
    "b0": "Galata Köprüsü. Arkada tek bir far.",
    "b1": "Telefonu eğ. Arabaların, tramvayın arasından geç.",
@@ -355,8 +362,8 @@
   "c2_2b10": {
    "title": "Sahil Yolu Kaçışı",
    "choices": {
-    "gas": "Gaza yüklen!",
-    "gas_sub": "Telefonu eğerek kaçış yakında"
+    "escape": "Kaçtı",
+    "caught": "Yakalandı"
    },
    "b0": "Yağmur. Tophane sahil yolu. Arkada tek bir far.",
    "b1": "ROTA'nın iki muhbiri birbirini tanımıyor. Endurocu onu Kabile'den sanıyor.",

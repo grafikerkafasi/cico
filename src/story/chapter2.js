@@ -790,13 +790,14 @@
    ],
    "image_asset": "assets/scenes/c2/2A12.jpg",
    "still_motion": true,
-   "timer": {
-    "seconds": 7,
-    "on_timeout": "timeout"
+   "game": {
+    "type": "gyro",
+    "set": "A",
+    "seconds": 35
    },
    "choices": [
     {
-     "id": "gas",
+     "id": "escape",
      "hotspot": {
       "x": 50,
       "y": 76,
@@ -812,8 +813,12 @@
      "next": "c2_2a13a"
     },
     {
-     "id": "timeout",
-     "hidden": true,
+     "id": "caught",
+     "hotspot": {
+      "x": 50,
+      "y": 76,
+      "side": "below"
+     },
      "effects": [
       {
        "set": {
@@ -1585,13 +1590,14 @@
    ],
    "image_asset": "assets/scenes/c2/2B10.jpg",
    "still_motion": true,
-   "timer": {
-    "seconds": 7,
-    "on_timeout": "timeout"
+   "game": {
+    "type": "gyro",
+    "set": "B",
+    "seconds": 35
    },
    "choices": [
     {
-     "id": "gas",
+     "id": "escape",
      "hotspot": {
       "x": 50,
       "y": 76,
@@ -1617,8 +1623,12 @@
      ]
     },
     {
-     "id": "timeout",
-     "hidden": true,
+     "id": "caught",
+     "hotspot": {
+      "x": 50,
+      "y": 76,
+      "side": "below"
+     },
      "effects": [
       {
        "set": {

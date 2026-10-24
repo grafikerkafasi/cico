@@ -75,7 +75,7 @@ const SPOTS = {
 };
 
 const scenes = [];
-const tr = { ui: { chapter2_title: 'Sabah Zili', c2_pick_title: 'Bölüm 1\'i nasıl bitirdin?', c2_pick_hint: 'Bölüm 2, Bölüm 1\'deki sonuna göre açılır.', c2_continue: 'Bölüm 2 · Sabah Zili', c2_new: 'yeni', c2_gas: 'Gaza yüklen!', c2_gas_sub: 'Telefonu eğerek kaçış yakında' }, speakers: { teacher: 'Filiz', enduro: 'Endurocu', courier: 'Kurye' }, characters: {}, scenes: {} };
+const tr = { ui: { chapter2_title: 'Sabah Zili', c2_pick_title: 'Bölüm 1\'i nasıl bitirdin?', c2_pick_hint: 'Bölüm 2, Bölüm 1\'deki sonuna göre açılır.', c2_continue: 'Bölüm 2 · Sabah Zili', c2_new: 'yeni', c2_ready: 'Kaçışa hazır', c2_ready_sub: 'Telefonu eğerek sür', c2_gyro_title: 'Endurocu peşinde!', c2_gyro_how: 'Telefonu sağa sola eğ. Ya da ekranın iki yanına basılı tut. 35 saniye dayan.', c2_gyro_ready: 'Hazırım', c2_gyro_caught: 'Yakalandın.', c2_gyro_retry: 'Tekrar dene', c2_gyro_cont: 'Hikâyeye devam et', c2_gyro_gap: 'Mesafe' }, speakers: { teacher: 'Filiz', enduro: 'Endurocu', courier: 'Kurye' }, characters: {}, scenes: {} };
 
 for (const [code, s] of Object.entries(S)) {
   const sid = id(code);
@@ -105,19 +105,19 @@ for (const [code, s] of Object.entries(S)) {
   if (s.type !== 'ending') scene.still_motion = true;
 
   if (s.game) {
-    // Jiroskop oyunu gelene kadar: süre içinde dokun → kaç; süre dolarsa → yakalandın
+    // Jiroskop kaçışı (src/ui/gyro.js): sonuç 'escape' ya da 'caught' seçeneği olarak motora döner
     const caught = s.choices.find((c) => c.t === 'Yakalandı').to;
     const escaped = s.choices.find((c) => c.t === 'Kaçtı').to;
     const plan = s.choices.find((c) => c.auto);
     const wrap = (to) => (plan ? [{ if: { flag: 'wrote_plan' }, goto: id(plan.to) }, { goto: id(to) }] : id(to));
     scene.scene_type = 'interaction';
-    scene.timer = { seconds: 7, on_timeout: 'timeout' };
+    scene.game = { type: 'gyro', set: code.startsWith('2A') ? 'A' : 'B', seconds: 35 };
     scene.choices = [
-      { id: 'gas', hotspot: { x: 50, y: 76, side: 'below' }, effects: [{ set: { escaped: true } }], next: wrap(escaped) },
-      { id: 'timeout', hidden: true, effects: [{ set: { escaped: false } }], next: wrap(caught) },
+      { id: 'escape', hotspot: { x: 50, y: 76, side: 'below' }, effects: [{ set: { escaped: true } }], next: wrap(escaped) },
+      { id: 'caught', hotspot: { x: 50, y: 76, side: 'below' }, effects: [{ set: { escaped: false } }], next: wrap(caught) },
     ];
-    T.choices.gas = tr.ui.c2_gas;
-    T.choices.gas_sub = tr.ui.c2_gas_sub;
+    T.choices.escape = 'Kaçtı';
+    T.choices.caught = 'Yakalandı';
   } else if (NEXT[code]) {
     scene.next = NEXT[code];
   } else {

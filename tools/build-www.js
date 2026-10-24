@@ -40,6 +40,8 @@ const copyDir = (rel, filter = () => true) => {
 copyDir('src', (n) => /\.(js|css)$/.test(n));
 // Görseller (yalnızca web JPEG'leri; _v1/_v2 yedekleri hariç), logo, ikon, manifest
 copyDir('assets/scenes', (n) => /\.jpg$/.test(n) && !/_v\d+\.jpg$/.test(n));
+// Mini oyun katmanları (jiroskop kaçışları: zemin JPEG, saydam sprite PNG)
+copyDir('assets/game', (n) => /\.(jpg|png)$/.test(n));
 ['assets/logo.png', 'assets/icon.svg', 'manifest.webmanifest'].forEach((f) => fs.existsSync(path.join(ROOT, f)) && copy(f));
 // Müzik paketin içinde (2.4 MB); videolar varsayılan olarak sunucudan
 copyDir('assets/audio', (n) => /\.(mp3|m4a)$/.test(n));

@@ -464,7 +464,24 @@
     enterScene();
   }
 
+  function startMiniGame() {
+    const s = scene();
+    if (ui.gameHandle) return;
+    haptic(15);
+    try {
+    ui.gameHandle = window.CICO.gyro.start({
+      root: $('#app'),
+      set: s.game.set,
+      seconds: s.game.seconds,
+      haptic,
+      text: { title: t('ui.c2_gyro_title'), how: t('ui.c2_gyro_how'), ready: t('ui.c2_gyro_ready'), caught: t('ui.c2_gyro_caught'), retry: t('ui.c2_gyro_retry'), cont: t('ui.c2_gyro_cont'), gap: t('ui.c2_gyro_gap') },
+      onDone: (res) => { ui.gameHandle = null; act('choose', res === 'escape' ? 'escape' : 'caught'); },
+    });
+    } catch (e) { ui.gameHandle = null; act('choose', 'escape'); } // oyun açılamazsa hikâye kilitlenmesin
+  }
+
   function startGame() {
+    if (ui.gameHandle) { ui.gameHandle.stop(); ui.gameHandle = null; }
     game.restart(story.chapter === 1 ? undefined : ui.carry);
     ui.pause = null;
     ui.modal = false;
@@ -607,6 +624,18 @@
     const urgent = s.scene_type === 'interaction';
     box.className = `choices${urgent ? ' urgent' : ''}`;
     layer.className = `hotspots${urgent ? ' urgent' : ''}`;
+    // Mini oyun sahnesi (jiroskop kaçışı): tek nokta → oyun açılır, sonucu seçenek olarak döner
+    if (s.game && window.CICO.gyro) {
+      box.innerHTML = '';
+      layer.innerHTML = `<button class="hs below" style="left:50%;top:74%;--i:0" data-game="1" aria-label="${esc(t('ui.c2_ready'))}">
+          <span class="hs-dot"><i class="hs-ring"></i><i class="hs-core">▶</i></span>
+          <span class="hs-line"></span>
+          <span class="hs-chip"><span class="main">${esc(t('ui.c2_ready'))}</span><span class="sub">${esc(t('ui.c2_ready_sub'))}</span></span>
+        </button>`;
+      layer.querySelector('[data-game]').onclick = startMiniGame;
+      layoutHotspots(layer);
+      return;
+    }
     const list = game.getChoices();
     box.innerHTML = s.timer && settings.timers
       ? `<div class="timer" role="timer" aria-label="${esc(t('ui.timeout_hint'))}"><div class="timer-track"><div class="timer-fill" id="timer-fill"></div></div><span class="timer-num" id="timer-num">${s.timer.seconds}</span></div>`
