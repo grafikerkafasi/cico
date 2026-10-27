@@ -514,3 +514,4 @@ h4 { font: 700 11px/1 var(--sys); letter-spacing: .2em; text-transform: uppercas
 .gyro-how { margin: 0 0 4px; font: 500 14px/1.45 var(--sys); color: var(--ink-2); }
 .app.gaming .bottom, .app.gaming .notif-layer, .app.gaming .stamp, .app.gaming .hud, .app.gaming .hotspots { visibility: hidden; }
 .app.gaming .frame-ui { z-index: 30; }
+.cta:disabled { opacity: .55; filter: saturate(.6); }

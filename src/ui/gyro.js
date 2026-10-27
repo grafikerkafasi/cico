@@ -148,7 +148,7 @@
       <div class="gyro-panel" data-panel="intro">
         <p class="gyro-title">${T.title || 'Kaç!'}</p>
         <p class="gyro-how">${T.how || 'Telefonu sağa sola eğ. Ya da ekranın iki yanına basılı tut.'}</p>
-        <button class="cta gyro-go">${T.ready || 'Hazırım'}</button>
+        <button class="cta gyro-go" disabled>${T.loading || 'Yükleniyor…'}</button>
       </div>`;
     opts.root.appendChild(host);
     const cv = host.querySelector('canvas');
@@ -157,7 +157,7 @@
     const gapFill = host.querySelector('.gyro-gapfill');
     let W = 0, H = 0, dpr = 1, raf = 0, last = 0, running = false, stopped = false;
     const imgs = {};
-    let st, snd = null;
+    let st, snd = null, ready = false;
 
     function size() {
       host.style.height = '';
@@ -312,12 +312,10 @@
       const s = (hz / set.hz) / im.height;
       const w = Math.max(W * 1.2, im.width * s), h = im.height * (w / im.width);
       const y0 = hz - h * set.hz;
-      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, hz - h * 0.012); ctx.clip();
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, hz + 1); ctx.clip();
       ctx.drawImage(im, (W - w) / 2 - st.curve * W * 0.07, y0, w, h);
       ctx.restore();
-      const g = ctx.createLinearGradient(0, hz - h * 0.03, 0, hz + 30);
-      g.addColorStop(0, 'rgba(10,14,22,0)'); g.addColorStop(1, 'rgba(10,14,22,.65)');
-      ctx.fillStyle = g; ctx.fillRect(0, hz - h * 0.03, W, h * 0.03 + 30);
+
     }
 
     let waterCv = null, waterKey = '';
@@ -356,7 +354,7 @@
       for (const u of R.u) {
         const wx = worldX(u);
         const top = [], base = [];
-        for (let z = FAR; z >= 0.9; z *= 0.94) {
+        for (let z = 400; z >= 0.9; z *= 0.94) {
           const sc = 1 / z, x = centerX(z) + wx * W * sc, y = zToY(z);
           base.push([x, y]); top.push([x, y - R.h * W * sc * 2.2]);
         }
@@ -396,7 +394,7 @@
       const smear = clamp((st.speed / 60) / TILE_Z * TH * 1.15, 1, 22);
       for (let y = Math.floor(hz) + 1; y < H; y += 1) {
         const z = kam / (y - hz);
-        if (z > 90) continue;
+        if (z > 2000) continue;
         const scale = 1 / z;
         const w = ROAD_W * W * scale;
         const cx = centerX(z);
@@ -408,9 +406,10 @@
         ctx.drawImage(dbl, u0 * TW, syc, (u1 - u0) * TW, sh, cx - w / 2 + u0 * w, y, (u1 - u0) * w, 1.6);
       }
       // ufukta pus: yol ile gökyüzü birleşimi yumuşasın
-      const g = ctx.createLinearGradient(0, hz - 4, 0, hz + kam * 0.08);
-      g.addColorStop(0, 'rgba(60,46,40,.35)'); g.addColorStop(1, 'rgba(60,46,40,0)');
-      ctx.fillStyle = g; ctx.fillRect(0, hz - 4, W, kam * 0.08 + 4);
+      // uzak yol kıyının ışığına karışsın (koyu bant yok)
+      const g = ctx.createLinearGradient(0, hz, 0, hz + kam * 0.06);
+      g.addColorStop(0, 'rgba(255,190,130,.18)'); g.addColorStop(1, 'rgba(255,190,130,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, hz, W, kam * 0.06);
     }
 
     function shadow(x, y, w) {
@@ -436,6 +435,7 @@
     }
 
     function draw() {
+      if (!ready) { ctx.fillStyle = '#05070a'; ctx.fillRect(0, 0, W, H); return; }
       ctx.save();
       if (st.shake) ctx.translate((Math.random() - 0.5) * 10 * st.shake, (Math.random() - 0.5) * 8 * st.shake);
       drawSky(imgs.bg);
@@ -533,9 +533,12 @@
       assetList(set).forEach((src, i) => { if (src) imgs[src] = list[i]; });
       imgs.bg = imgs[set.bg]; imgs.road = imgs[set.road]; imgs.player = imgs[set.player]; imgs.chaser = imgs[set.chaser];
       imgs.prop = set.props && imgs[set.props.img];
+      ready = true;
+      const go = host.querySelector('.gyro-go');
+      if (go) { go.disabled = false; go.textContent = T.ready || 'Hazırım'; }
       draw();
     });
-    host.querySelector('.gyro-go').onclick = async () => { haptic(20); await askTilt(); begin(); };
+    host.querySelector('.gyro-go').onclick = async () => { if (!ready) return; haptic(20); await askTilt(); begin(); };
     return { stop };
   }
 

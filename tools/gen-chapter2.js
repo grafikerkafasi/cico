@@ -75,7 +75,7 @@ const SPOTS = {
 };
 
 const scenes = [];
-const tr = { ui: { chapter2_title: 'Sabah Zili', c2_pick_title: 'Bölüm 1\'i nasıl bitirdin?', c2_pick_hint: 'Bölüm 2, Bölüm 1\'deki sonuna göre açılır.', c2_continue: 'Bölüm 2 · Sabah Zili', c2_new: 'yeni', c2_ready: 'Kaçışa hazır', c2_ready_sub: 'Telefonu eğerek sür', c2_gyro_title: 'Endurocu peşinde!', c2_gyro_how: 'Telefonu sağa sola eğ. Ya da ekranın iki yanına basılı tut. 35 saniye dayan.', c2_gyro_ready: 'Hazırım', c2_gyro_caught: 'Yakalandın.', c2_gyro_retry: 'Tekrar dene', c2_gyro_cont: 'Hikâyeye devam et', c2_gyro_gap: 'Mesafe' }, speakers: { teacher: 'Filiz', enduro: 'Endurocu', courier: 'Kurye' }, characters: {}, scenes: {} };
+const tr = { ui: { chapter2_title: 'Sabah Zili', c2_pick_title: 'Bölüm 1\'i nasıl bitirdin?', c2_pick_hint: 'Bölüm 2, Bölüm 1\'deki sonuna göre açılır.', c2_continue: 'Bölüm 2 · Sabah Zili', c2_new: 'yeni', c2_ready: 'Kaçışa hazır', c2_ready_sub: 'Telefonu eğerek sür', c2_gyro_title: 'Endurocu peşinde!', c2_gyro_how: 'Telefonu sağa sola eğ. Ya da ekranın iki yanına basılı tut. 35 saniye dayan.', c2_gyro_ready: 'Hazırım', c2_gyro_loading: 'Yükleniyor…', c2_gyro_caught: 'Yakalandın.', c2_gyro_retry: 'Tekrar dene', c2_gyro_cont: 'Hikâyeye devam et', c2_gyro_gap: 'Mesafe' }, speakers: { teacher: 'Filiz', enduro: 'Endurocu', courier: 'Kurye' }, characters: {}, scenes: {} };
 
 for (const [code, s] of Object.entries(S)) {
   const sid = id(code);

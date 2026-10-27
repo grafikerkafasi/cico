@@ -157,6 +157,8 @@
     $('#app').classList.toggle('drift', !plan.clip && !!scene().still_motion);
     showClip(plan.clip);
     if (prefetch) prefetch.warm(game.state.sceneId);
+    // Kaçış oyunu sahnesi: oyun katmanları metin okunurken iner
+    if (scene().game && window.CICO.gyro) window.CICO.gyro.preload(scene().game.set);
     ui.introQueue = plan.mode === 'video' ? blocks().filter((b) => b.kind === 'intro') : [];
     render();
 
@@ -475,7 +477,7 @@
       set: s.game.set,
       seconds: s.game.seconds,
       haptic,
-      text: { title: t('ui.c2_gyro_title'), how: t('ui.c2_gyro_how'), ready: t('ui.c2_gyro_ready'), caught: t('ui.c2_gyro_caught'), retry: t('ui.c2_gyro_retry'), cont: t('ui.c2_gyro_cont'), gap: t('ui.c2_gyro_gap') },
+      text: { loading: t('ui.c2_gyro_loading'), title: t('ui.c2_gyro_title'), how: t('ui.c2_gyro_how'), ready: t('ui.c2_gyro_ready'), caught: t('ui.c2_gyro_caught'), retry: t('ui.c2_gyro_retry'), cont: t('ui.c2_gyro_cont'), gap: t('ui.c2_gyro_gap') },
       onDone: (res) => { ui.gameHandle = null; $('#app').classList.remove('gaming'); act('choose', res === 'escape' ? 'escape' : 'caught'); },
     });
     } catch (e) { ui.gameHandle = null; $('#app').classList.remove('gaming'); act('choose', 'escape'); } // oyun açılamazsa hikâye kilitlenmesin

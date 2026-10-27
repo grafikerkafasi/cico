@@ -13,6 +13,7 @@
   "c2_gyro_title": "Endurocu peşinde!",
   "c2_gyro_how": "Telefonu sağa sola eğ. Ya da ekranın iki yanına basılı tut. 35 saniye dayan.",
   "c2_gyro_ready": "Hazırım",
+  "c2_gyro_loading": "Yükleniyor…",
   "c2_gyro_caught": "Yakalandın.",
   "c2_gyro_retry": "Tekrar dene",
   "c2_gyro_cont": "Hikâyeye devam et",
