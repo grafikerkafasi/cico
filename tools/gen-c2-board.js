@@ -35,9 +35,13 @@ function noteHeight(s) {
   const ch = (s.choices || []).filter((c) => c.t && !c.auto);
   if (ch.length) {
     h += 22;
-    for (const c of ch) h += Math.ceil(c.t.length / CPL) * 15 + (c.sub ? 14 : 0) + 6;
+    for (const c of ch) {
+      const txt = Math.ceil(c.t.length / CPL) * 15 + (c.sub ? 14 : 0) + 6;
+      h += c.after ? Math.max(txt + Math.ceil(c.after.t.length / 32) * 13 + 6, 86) : txt;
+    }
   }
-  if (s.choices.some((c) => c.timeout)) h += 20;
+  const to = s.choices.find((c) => c.timeout);
+  if (to) h += to.after ? 92 : 20;
   if (s.note) h += 18;
   if (s.redo) h += Math.ceil(s.redo.length / CPL) * 14 + 22;
   if (s.video) h += Math.ceil(s.video.length / CPL) * 14 + 22;
@@ -48,7 +52,8 @@ function noteHtml(code, s) {
   const beats = s.beats.map((b) => `<li class="b-${b.k}"><span class="k">${KIND[b.k]}${b.who ? ` · <b>${esc(b.who)}</b>` : ''}</span>${esc(b.t)}${b.only ? `<em class="only">yalnızca: ${esc(b.only)}</em>` : ''}</li>`).join('');
   const ch = s.choices.filter((c) => c.t && !c.auto);
   const tout = s.choices.find((c) => c.timeout);
-  const chHtml = ch.length ? `<div class="nch"><span class="lbl">Seçenekler</span><ul>${ch.map((c) => `<li>${c.lock ? '🔒 ' : ''}${esc(c.t)}${c.lock ? ` <i class="lk">${esc(c.lock)}</i>` : ''}${c.sub ? `<small>${esc(c.sub)}</small>` : ''}</li>`).join('')}</ul>${tout ? `<p class="tout">⏱ ${s.timer || ''} sn dolarsa: ${esc(tout.sub || '')}</p>` : ''}</div>` : '';
+  const aft = (c) => c.after ? `<span class="aft">${hasImg(c.after.id) ? `<img src="img/${c.after.id}.jpg" alt="" loading="lazy">` : '<i class="noimg"></i>'}<span><b>${esc(c.after.id)}</b>${esc(c.after.t)}</span></span>` : '';
+  const chHtml = ch.length ? `<div class="nch"><span class="lbl">Seçenekler → sonuç sahnesi</span><ul>${ch.map((c) => `<li>${c.lock ? '🔒 ' : ''}${esc(c.t)}${c.lock ? ` <i class="lk">${esc(c.lock)}</i>` : ''}${c.sub ? `<small>${esc(c.sub)}</small>` : ''}${aft(c)}</li>`).join('')}</ul>${tout ? `<p class="tout">⏱ ${s.timer || ''} sn dolarsa: ${esc(tout.sub || '')}</p>${aft(tout)}` : ''}</div>` : '';
   return `<aside class="note">${s.note ? `<p class="nnote">${esc(s.note)}</p>` : ''}${s.redo ? `<p class="redo">⟳ Görsel yenilenecek: ${esc(s.redo)}</p>` : ''}${s.video ? `<p class="vnote">🎬 Video notu: ${esc(s.video)}</p>` : ''}<span class="lbl">Ekranda</span><ol>${beats}</ol>${chHtml}</aside>`;
 }
 
@@ -136,8 +141,9 @@ function oldSections() {
 }
 
 const sceneCount = Object.keys(data.scenes).length;
+const afterCount = Object.values(data.scenes).reduce((n, s) => n + s.choices.filter((c) => c.after).length, 0);
 const D = {};
-for (const [c, s] of Object.entries(data.scenes)) D[c] = { title: s.title, type: TYPE[s.type], img: hasImg(c), note: s.note || '', beats: s.beats.map((b) => ({ k: KIND[b.k], who: b.who || '', t: b.t, only: b.only || '' })), choices: s.choices.filter((x) => x.t || x.timeout).map((x) => ({ t: x.timeout ? '⏱ süre dolarsa' : x.t, sub: x.sub || '', lock: x.lock || '', to: x.to, auto: !!x.auto })) };
+for (const [c, s] of Object.entries(data.scenes)) D[c] = { title: s.title, type: TYPE[s.type], img: hasImg(c), note: s.note || '', beats: s.beats.map((b) => ({ k: KIND[b.k], who: b.who || '', t: b.t, only: b.only || '' })), choices: s.choices.filter((x) => x.t || x.timeout).map((x) => ({ t: x.timeout ? '⏱ süre dolarsa' : x.t, sub: x.sub || '', lock: x.lock || '', to: x.to, auto: !!x.auto, after: x.after ? { id: x.after.id, t: x.after.t, img: hasImg(x.after.id) } : null })) };
 
 const page = `<title>Sabah Zili Akışı</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -211,6 +217,11 @@ p { max-width:68ch; }
 .note .vnote { margin:0 0 7px; padding:5px 7px; border-radius:6px; background:rgba(135,150,166,.12); color:var(--muted); font-size:11px; }
 .card .nb.redo { background:rgba(255,107,133,.92); }
 .note .tout { margin:6px 0 0; font:10.5px var(--mono); color:var(--rose); }
+.aft { display:flex; gap:7px; align-items:flex-start; margin-top:4px; color:var(--muted); font-size:10.5px; font-style:italic; line-height:1.3; }
+.aft img, .aft .noimg { flex:none; width:44px; height:78px; object-fit:cover; border-radius:5px; border:1px solid var(--line); background:#1b2430; }
+.aft b { display:block; font:600 9.5px var(--mono); font-style:normal; color:#8796a6; margin-bottom:1px; }
+.nch li { list-style:none; }
+.dch .aft img { width:64px; height:114px; cursor:zoom-in; }
 .drawer { position:fixed; z-index:20; top:max(12px, env(safe-area-inset-top,0px)); right:max(12px, env(safe-area-inset-right,0px)); bottom:12px; width:min(400px, calc(100vw - 24px)); overflow-y:auto; background:rgba(13,18,24,.97); border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 20px 60px rgba(0,0,0,.6); }
 .dclose { position:sticky; top:0; float:right; width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:var(--panel); color:var(--ink); font-size:20px; cursor:pointer; }
 .dcode { font:600 22px var(--mono); color:var(--amber); }
@@ -248,8 +259,8 @@ a { color:var(--green); }
   <header>
     <div class="eyebrow">CİCO · Bölüm 2 · Taslak 5 · görselli akış</div>
     <h1>Sabah Zili akışı</h1>
-    <p class="lede">Bölüm 1 panosu gibi: her sahne görseliyle bir kart, oklar seçenekleri gösterir. Ekranda sırayla çıkacak bütün yazılar ve seçenekler kartın yanındaki notta. Bir karta dokununca büyük görsel ve metin açılır. Yorumlarını kod ile bırakabilirsin (ör. "2A7 notu çok uzun").</p>
-    <div class="stats"><span><b>${sceneCount}</b> kart</span><span><b>2</b> katman</span><span><b>12</b> son</span><span><b>2</b> jiroskop kaçışı</span><span><b>2</b> yeni köprü sahnesi</span></div>
+    <p class="lede">Bölüm 1 panosu gibi: her sahne görseliyle bir kart, oklar seçenekleri gösterir. Ekranda sırayla çıkacak bütün yazılar ve seçenekler kartın yanındaki notta. Her seçeneğin altında, o seçim yapılınca oynayan kısa sonuç sahnesinin görseli ve ekran cümlesi var; oyuncu seçimin sonucunu böyle görür, hikâye sonra bir sonraki karta geçer. Bir karta dokununca büyük görsel ve metin açılır. Yorumlarını kod ile bırakabilirsin (ör. "2A7 notu çok uzun").</p>
+    <div class="stats"><span><b>${sceneCount}</b> kart</span><span><b>${afterCount}</b> sonuç sahnesi</span><span><b>2</b> katman</span><span><b>12</b> son</span><span><b>2</b> jiroskop kaçışı</span><span><b>2</b> yeni köprü sahnesi</span></div>
     <div class="legend"><span><i class="lg choice"></i>Karar</span><span><i class="lg love"></i>Aşk kararı</span><span><i class="lg interaction"></i>Jiroskop</span><span><i class="lg cinematic"></i>Sinematik</span><span><i class="lg ending"></i>Son</span><span><i class="lg lgnote"></i>Ekran metni (not)</span><span><i class="lg dash"></i>Süre dolarsa</span><span><i class="lg cond"></i>Önceki karara göre</span><span>🔒 kilitli seçenek</span></div>
   </header>
   ${board('A')}
@@ -267,7 +278,7 @@ function open(code) {
   body.innerHTML = '<div class="dcode">' + code + '</div><h3>' + esc(s.title) + '</h3><p class="dmeta">' + s.type + (s.note ? ' · ' + esc(s.note) : '') + '</p>'
     + (s.img ? '<img class="dimg" src="img/' + code + '.jpg" alt="">' : '')
     + '<ol class="dbeats">' + s.beats.map((b) => '<li><span class="k">' + b.k + (b.who ? ' · <b>' + esc(b.who) + '</b>' : '') + '</span>' + esc(b.t) + (b.only ? '<em>yalnızca: ' + esc(b.only) + '</em>' : '') + '</li>').join('') + '</ol>'
-    + (s.choices.length ? '<ul class="dch">' + s.choices.map((c) => '<li>' + (c.lock ? '🔒 ' : '') + esc(c.t) + (c.sub ? '<span>' + esc(c.sub) + '</span>' : '') + (c.lock ? '<span>kilit: ' + esc(c.lock) + '</span>' : '') + '<span class="to">→ ' + c.to + (D[c.to] ? ' ' + esc(D[c.to].title) : '') + '</span></li>').join('') + '</ul>' : '');
+    + (s.choices.length ? '<ul class="dch">' + s.choices.map((c) => '<li>' + (c.lock ? '🔒 ' : '') + esc(c.t) + (c.sub ? '<span>' + esc(c.sub) + '</span>' : '') + (c.lock ? '<span>kilit: ' + esc(c.lock) + '</span>' : '') + (c.after ? '<span class="aft">' + (c.after.img ? '<img src="img/' + c.after.id + '.jpg" alt="">' : '') + '<span><b>' + c.after.id + '</b>' + esc(c.after.t) + '</span></span>' : '') + '<span class="to">→ ' + c.to + (D[c.to] ? ' ' + esc(D[c.to].title) : '') + '</span></li>').join('') + '</ul>' : '');
   drawer.hidden = false;
 }
 document.querySelectorAll('.board .card').forEach((c) => c.addEventListener('click', () => { open(c.dataset.code); c.classList.add('sel'); }));

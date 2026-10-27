@@ -70,6 +70,26 @@
    "b0": "07:58. Galata Feneri İlkokulu. Dün gece önünden geçtiği okul.",
    "b2": "Alıcı kim? Bu koli bizim listede yok."
   },
+  "c2_2a2_a": {
+   "title": "Okul Kapısı",
+   "b0": "Koli basamakta kaldı. Filiz'in bakışı sırtında.",
+   "choices": {}
+  },
+  "c2_2a2_b": {
+   "title": "Okul Kapısı",
+   "b0": "Bant yırtılıyor. Filiz eğiliyor: \"Bakalım.\"",
+   "choices": {}
+  },
+  "c2_2a2_c": {
+   "title": "Okul Kapısı",
+   "b0": "Filiz ekrana eğiliyor. İlk kez ona güvenle bakıyor.",
+   "choices": {}
+  },
+  "c2_2a2_d": {
+   "title": "Okul Kapısı",
+   "b0": "ROTA onun yerine karar verdi: \"Teslim edildi.\"",
+   "choices": {}
+  },
   "c2_2a3": {
    "title": "Sınıf",
    "choices": {},
@@ -87,6 +107,21 @@
    },
    "b0": "Teslimat onaylanmadı. Hesabınız 10 dakika içinde askıya alınacak.",
    "b1": "Bunları geri götür. Çocukların yüzünü taramasın."
+  },
+  "c2_2a4_a": {
+   "title": "Teneffüs",
+   "b0": "Kutu kucağında, hesap askıda. Arkasında Filiz gülümsüyor.",
+   "choices": {}
+  },
+  "c2_2a4_b": {
+   "title": "Teneffüs",
+   "b0": "Kutuyu kapıya bırakıp uzaklaşıyor. Cebinde bir bildirim: kazanç.",
+   "choices": {}
+  },
+  "c2_2a4_c": {
+   "title": "Teneffüs",
+   "b0": "Ekran yeşile döndü. Kutu olduğu yerde.",
+   "choices": {}
   },
   "c2_2a5": {
    "title": "Öğle Trafiği",
@@ -123,6 +158,21 @@
    "b0": "Endurocu onu kenara çekiyor.",
    "b1": "Paltolu adamı ben de tanırım. Elinde ne var?"
   },
+  "c2_2a7_a": {
+   "title": "Endurocu'nun Sorusu",
+   "b0": "Anlattıkça Endurocu gülümsüyor. Masanın altında bir ışık yanıp sönüyor.",
+   "choices": {}
+  },
+  "c2_2a7_b": {
+   "title": "Endurocu'nun Sorusu",
+   "b0": "Cico omuz silkiyor. Endurocu'nun gözleri kısılıyor.",
+   "choices": {}
+  },
+  "c2_2a7_c": {
+   "title": "Endurocu'nun Sorusu",
+   "b0": "Şef'in kaşı kalkıyor. Endurocu'nun gülüşü donuyor.",
+   "choices": {}
+  },
   "c2_2a8": {
    "title": "Kapıdaki Adam",
    "choices": {},
@@ -141,6 +191,31 @@
    "b0": "Elindekini ver ya da bizim için çalış.",
    "b1": "Okula bağış devam eder. Dolap yerinde kalır."
   },
+  "c2_2a9_a": {
+   "title": "Teklif",
+   "b0": "Zarf elinde. Gözleri yerde.",
+   "choices": {}
+  },
+  "c2_2a9_b": {
+   "title": "Teklif",
+   "b0": "Cam yavaşça kapanıyor.",
+   "choices": {}
+  },
+  "c2_2a9_c": {
+   "title": "Teklif",
+   "b0": "El sıkışıyor. Cebinde telefon kayıtta.",
+   "choices": {}
+  },
+  "c2_2a9_d": {
+   "title": "Teklif",
+   "b0": "Gece, ROTA'nın masası. Bir tık: çocukların adları listeden siliniyor.",
+   "choices": {}
+  },
+  "c2_2a9_e": {
+   "title": "Teklif",
+   "b0": "Adam saatine bakıyor. Araba sessizce gidiyor.",
+   "choices": {}
+  },
   "c2_2a10": {
    "title": "Merdivenler",
    "choices": {
@@ -151,6 +226,21 @@
    "b0": "Akşamüstü. Okulun basamakları.",
    "b1": "Ben de kadrosuzum. Her eylül sözleşmemi bekliyorum.",
    "b2": "Senin sınavın, benim sözleşmem. Aynı kuyruk."
+  },
+  "c2_2a10_a": {
+   "title": "Merdivenler",
+   "b0": "Anlattıkça Filiz'in eli ağzına gidiyor.",
+   "choices": {}
+  },
+  "c2_2a10_b": {
+   "title": "Merdivenler",
+   "b0": "Filiz konuşuyor. Çaylar soğuyor.",
+   "choices": {}
+  },
+  "c2_2a10_c": {
+   "title": "Merdivenler",
+   "b0": "Kalkıyor. Filiz arkasından bakıyor.",
+   "choices": {}
   },
   "c2_2a10b": {
    "title": "Gece Çağrısı",
@@ -278,6 +368,26 @@
    "b1": "Koliyi dolaba koyun. Hesabınız açılacak.",
    "b2": "Arkasında Filiz. Kenarda çocuğun kırmızı kapüşonu."
   },
+  "c2_2b2_a": {
+   "title": "Dolap",
+   "b0": "Koli dolapta. Ekran yeşil. Filiz başını çeviriyor.",
+   "choices": {}
+  },
+  "c2_2b2_b": {
+   "title": "Dolap",
+   "b0": "Koli hâlâ kucağında. Dolap bekliyor.",
+   "choices": {}
+  },
+  "c2_2b2_c": {
+   "title": "Dolap",
+   "b0": "Deklanşör. Kameranın kırmızı ışığı ona dönüyor.",
+   "choices": {}
+  },
+  "c2_2b2_d": {
+   "title": "Dolap",
+   "b0": "Dolap kendi kendine açılıp koliyi içine çekiyor.",
+   "choices": {}
+  },
   "c2_2b2b": {
    "title": "Mola Dedikodusu",
    "choices": {},
@@ -318,6 +428,21 @@
    "b0": "Al kardeşim. Kabile için.",
    "b1": "Şef kaşlarını çatıyor."
   },
+  "c2_2b5_a": {
+   "title": "Fon",
+   "b0": "Para kasada. Bandın üstünde küçük bir etiket parlıyor.",
+   "choices": {}
+  },
+  "c2_2b5_b": {
+   "title": "Fon",
+   "b0": "Para geri dönüyor. Endurocu'nun yüzü geriliyor.",
+   "choices": {}
+  },
+  "c2_2b5_c": {
+   "title": "Fon",
+   "b0": "Endurocu cevap veriyor. Gözleri kayıyor.",
+   "choices": {}
+  },
   "c2_2b6": {
    "title": "Filiz",
    "choices": {},
@@ -335,6 +460,26 @@
    },
    "b0": "Gece. Okulun basamakları. Tek bardak çay, iki kişi.",
    "b1": "Ben de kadrosuzum. Her eylül sözleşmemi bekliyorum."
+  },
+  "c2_2b7_a": {
+   "title": "Merdivenler",
+   "b0": "Filiz ilk kez gülümsüyor.",
+   "choices": {}
+  },
+  "c2_2b7_b": {
+   "title": "Merdivenler",
+   "b0": "Sokak lambaları birer birer yanıyor.",
+   "choices": {}
+  },
+  "c2_2b7_c": {
+   "title": "Merdivenler",
+   "b0": "Aralarında üç basamak. Kimse inmiyor.",
+   "choices": {}
+  },
+  "c2_2b7_d": {
+   "title": "Merdivenler",
+   "b0": "İkinci telefon avucunda. Filiz geri çekilmiyor.",
+   "choices": {}
   },
   "c2_2b7b": {
    "title": "Geçen Motor",
@@ -359,6 +504,31 @@
    },
    "b0": "Kapı açılıyor. Endurocu gülerek çıkıyor. Yanında paltolu adam.",
    "b1": "Adam Endurocu'nun omzunu sıvazlıyor. Bir meslektaş gibi."
+  },
+  "c2_2b9_a": {
+   "title": "Şüphe",
+   "b0": "Far kapalı. Arada iki lamba.",
+   "choices": {}
+  },
+  "c2_2b9_b": {
+   "title": "Şüphe",
+   "b0": "Şef'e fısıldıyor. Pencerede Endurocu da telefonda.",
+   "choices": {}
+  },
+  "c2_2b9_c": {
+   "title": "Şüphe",
+   "b0": "Gönder. Artık geri dönüş yok.",
+   "choices": {}
+  },
+  "c2_2b9_d": {
+   "title": "Şüphe",
+   "b0": "Mesaj gitti. Gözlerini kapatıyor.",
+   "choices": {}
+  },
+  "c2_2b9_e": {
+   "title": "Şüphe",
+   "b0": "Endurocu dönüyor. Göz göze geliyorlar.",
+   "choices": {}
   },
   "c2_2b10": {
    "title": "Sahil Yolu Kaçışı",

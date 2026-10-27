@@ -75,6 +75,18 @@ const SPOTS = {
 };
 
 const scenes = [];
+// Seçim sonrası sahneler: oyuncu seçiminin yaşandığını görür, sonra hikâye seçimin hedefine devam eder
+const extra = [];
+function afterScene(c, parentCode) {
+  if (!c.after) return id(c.to);
+  const code = c.after.id;
+  const sid = 'c2_' + code.toLowerCase().replace('-', '_');
+  const img = path.join(ROOT, 'assets/scenes/c2', `${code}.jpg`);
+  extra.push({ scene_id: sid, code, scene_type: 'cinematic', after_of: parentCode, text: ['b0'], next: id(c.to),
+    image_asset: fs.existsSync(img) ? `assets/scenes/c2/${code}.jpg` : `assets/scenes/c2/${parentCode}.jpg`, still_motion: true });
+  tr.scenes[sid] = { title: (S[parentCode] || {}).title || code, b0: c.after.t, choices: {} };
+  return sid;
+}
 const tr = { ui: { chapter2_title: 'Sabah Zili', c2_pick_title: 'Bölüm 1\'i nasıl bitirdin?', c2_pick_hint: 'Bölüm 2, Bölüm 1\'deki sonuna göre açılır.', c2_continue: 'Bölüm 2 · Sabah Zili', c2_new: 'yeni', c2_ready: 'Kaçışa hazır', c2_ready_sub: 'Telefonu eğerek sür', c2_gyro_title: 'Endurocu peşinde!', c2_gyro_how: 'Telefonu sağa sola eğ. Ya da ekranın iki yanına basılı tut. 35 saniye dayan.', c2_gyro_ready: 'Hazırım', c2_gyro_loading: 'Yükleniyor…', c2_gyro_caught: 'Yakalandın.', c2_gyro_retry: 'Tekrar dene', c2_gyro_cont: 'Hikâyeye devam et', c2_gyro_gap: 'Mesafe' }, speakers: { teacher: 'Filiz', enduro: 'Endurocu', courier: 'Kurye' }, characters: {}, scenes: {} };
 
 for (const [code, s] of Object.entries(S)) {
@@ -130,18 +142,19 @@ for (const [code, s] of Object.entries(S)) {
       // Kilitli seçenekler gizli değil, kilitli görünür; açık olanlar noktaları paylaşır
       const spots = SPOTS[Math.min(visible.length, 4)];
       scene.choices = visible.map((c, i) => {
-        const ch = { id: 'c' + i, hotspot: spots[i % spots.length], effects: fx[i] || [], next: id(c.to) };
+        const ch = { id: 'c' + i, hotspot: spots[i % spots.length], effects: fx[i] || [], next: afterScene(c, code) };
         if (c.lock) { ch.conditions = LOCK[c.lock]; if (!ch.conditions) throw new Error(`${code}: bilinmeyen kilit "${c.lock}"`); }
         T.choices['c' + i] = c.t;
         return ch;
       });
       if (tout) {
         scene.timer = { seconds: s.timer || 10, on_timeout: 'timeout' };
-        scene.choices.push({ id: 'timeout', hidden: true, effects: fx[visible.length] || [], next: id(tout.to) });
+        scene.choices.push({ id: 'timeout', hidden: true, effects: fx[visible.length] || [], next: afterScene(tout, code) });
       }
     }
   }
   scenes.push(scene);
+  scenes.push(...extra.splice(0));
 }
 
 const story = {

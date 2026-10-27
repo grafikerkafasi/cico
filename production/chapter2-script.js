@@ -56,10 +56,10 @@ module.exports = {
       { k: 'i', who: 'Filiz', t: 'Ücretli öğretmen. Ders başına para alır, çocuklar için her şeyini verir.' },
       { k: 's', who: 'Filiz', t: 'Alıcı kim? Bu koli bizim listede yok.' },
     ], choices: [
-      { t: 'İmzala, bırak, git', to: '2A5', sub: 'kazanç + · Filiz soğuk' },
-      { t: '"Birlikte açalım."', to: '2A3' },
-      { t: 'Listeyi göster', to: '2A3', lock: 'liste', sub: 'Filiz\'in güveni ++' },
-      { timeout: true, to: '2A5', sub: 'ROTA "teslim edildi" işaretler' },
+      { t: 'İmzala, bırak, git', to: '2A5', sub: 'kazanç + · Filiz soğuk', after: { id: '2A2-a', t: "Koli basamakta kaldı. Filiz'in bakışı sırtında." } },
+      { t: '"Birlikte açalım."', to: '2A3', after: { id: '2A2-b', t: "Bant yırtılıyor. Filiz eğiliyor: \"Bakalım.\"" } },
+      { t: 'Listeyi göster', to: '2A3', lock: 'liste', sub: 'Filiz\'in güveni ++', after: { id: '2A2-c', t: "Filiz ekrana eğiliyor. İlk kez ona güvenle bakıyor." } },
+      { timeout: true, to: '2A5', sub: 'ROTA "teslim edildi" işaretler', after: { id: '2A2-d', t: "ROTA onun yerine karar verdi: \"Teslim edildi.\"" } },
     ] },
     '2A3': { title: 'Sınıf', type: 'cinematic', beats: [
       { k: 'n', t: 'Koli açılıyor. Kameralar, tarayıcılar, kablolar.' },
@@ -72,9 +72,9 @@ module.exports = {
       { k: 'm', who: 'ROTA', t: 'Teslimat onaylanmadı. Hesabınız 10 dakika içinde askıya alınacak.' },
       { k: 's', who: 'Filiz', t: 'Bunları geri götür. Çocukların yüzünü taramasın.' },
     ], choices: [
-      { t: 'Kutuyu geri götür', to: '2A5', sub: 'hesap askıda · Filiz +' },
-      { t: '"Bırak, sonra konuşuruz."', to: '2A5', sub: 'kazanç +' },
-      { timeout: true, to: '2A5', sub: 'ROTA onaylar' },
+      { t: 'Kutuyu geri götür', to: '2A5', sub: 'hesap askıda · Filiz +', after: { id: '2A4-a', t: "Kutu kucağında, hesap askıda. Arkasında Filiz gülümsüyor." } },
+      { t: '"Bırak, sonra konuşuruz."', to: '2A5', sub: 'kazanç +', after: { id: '2A4-b', t: "Kutuyu kapıya bırakıp uzaklaşıyor. Cebinde bir bildirim: kazanç." } },
+      { timeout: true, to: '2A5', sub: 'ROTA onaylar', after: { id: '2A4-c', t: "Ekran yeşile döndü. Kutu olduğu yerde." } },
     ] },
     '2A5': { title: 'Öğle Trafiği', type: 'cinematic', beats: [
       { k: 'n', t: 'Öğle. Karaköy\'de korna, martı, sıcak asfalt.' },
@@ -100,9 +100,9 @@ module.exports = {
       { k: 'n', t: 'Endurocu onu kenara çekiyor.' },
       { k: 's', who: 'Endurocu', t: 'Paltolu adamı ben de tanırım. Elinde ne var?' },
     ], choices: [
-      { t: 'Anlat', to: '2A8', sub: 'sızıntı: Endurocu her şeyi öğrenir' },
-      { t: 'Geçiştir', to: '2A8' },
-      { t: '"Şefe sor."', to: '2A8', sub: 'Şefin gözü Endurocu\'yu tutmaz' },
+      { t: 'Anlat', to: '2A8', sub: 'sızıntı: Endurocu her şeyi öğrenir', after: { id: '2A7-a', t: "Anlattıkça Endurocu gülümsüyor. Masanın altında bir ışık yanıp sönüyor." } },
+      { t: 'Geçiştir', to: '2A8', after: { id: '2A7-b', t: "Cico omuz silkiyor. Endurocu'nun gözleri kısılıyor." } },
+      { t: '"Şefe sor."', to: '2A8', sub: 'Şefin gözü Endurocu\'yu tutmaz', after: { id: '2A7-c', t: "Şef'in kaşı kalkıyor. Endurocu'nun gülüşü donuyor." } },
     ] },
     '2A8': { title: 'Kapıdaki Adam', type: 'cinematic', beats: [
       { k: 'n', t: '16:00. Okul dağılıyor.' },
@@ -113,20 +113,20 @@ module.exports = {
       { k: 's', who: 'Paltolu adam', t: 'Elindekini ver ya da bizim için çalış.' },
       { k: 's', who: 'Paltolu adam', t: 'Okula bağış devam eder. Dolap yerinde kalır.' },
     ], choices: [
-      { t: 'Kabul et', to: '2A10', sub: 'kabul' },
-      { t: 'Reddet', to: '2A10', sub: 'ret' },
-      { t: 'Kabul ediyormuş gibi yap', to: '2A10', lock: 'diskler / liste', sub: 'çift oyun' },
-      { t: 'Sistemden çocukların kaydını sil', to: '2A10', lock: 'içeriden' },
-      { timeout: true, to: '2A10', sub: 'sessizlik "evet" sayılır' },
+      { t: 'Kabul et', to: '2A10', sub: 'kabul', after: { id: '2A9-a', t: "Zarf elinde. Gözleri yerde." } },
+      { t: 'Reddet', to: '2A10', sub: 'ret', after: { id: '2A9-b', t: "Cam yavaşça kapanıyor." } },
+      { t: 'Kabul ediyormuş gibi yap', to: '2A10', lock: 'diskler / liste', sub: 'çift oyun', after: { id: '2A9-c', t: "El sıkışıyor. Cebinde telefon kayıtta." } },
+      { t: 'Sistemden çocukların kaydını sil', to: '2A10', lock: 'içeriden', after: { id: '2A9-d', t: "Gece, ROTA'nın masası. Bir tık: çocukların adları listeden siliniyor." } },
+      { timeout: true, to: '2A10', sub: 'sessizlik "evet" sayılır', after: { id: '2A9-e', t: "Adam saatine bakıyor. Araba sessizce gidiyor." } },
     ] },
     '2A10': { title: 'Merdivenler', type: 'choice', love: true, beats: [
       { k: 'n', t: 'Akşamüstü. Okulun basamakları.' },
       { k: 's', who: 'Filiz', t: 'Ben de kadrosuzum. Her eylül sözleşmemi bekliyorum.' },
       { k: 's', who: 'Filiz', t: 'Senin sınavın, benim sözleşmem. Aynı kuyruk.' },
     ], choices: [
-      { t: 'Ona her şeyi anlat', to: '2A10b', sub: 'yakınlık ++ · o da tehlikede' },
-      { t: 'Sadece dinle', to: '2A10b', sub: 'yakınlık +' },
-      { t: '"Gitmem lazım."', to: '2A10b' },
+      { t: 'Ona her şeyi anlat', to: '2A10b', sub: 'yakınlık ++ · o da tehlikede', after: { id: '2A10-a', t: "Anlattıkça Filiz'in eli ağzına gidiyor." } },
+      { t: 'Sadece dinle', to: '2A10b', sub: 'yakınlık +', after: { id: '2A10-b', t: "Filiz konuşuyor. Çaylar soğuyor." } },
+      { t: '"Gitmem lazım."', to: '2A10b', after: { id: '2A10-c', t: "Kalkıyor. Filiz arkasından bakıyor." } },
     ] },
     '2A10b': { title: 'Gece Çağrısı', type: 'cinematic', bridge: true, beats: [
       { k: 'n', t: 'Gece. Eve dönüyor.' },
@@ -233,10 +233,10 @@ module.exports = {
       { k: 'm', who: 'ROTA', t: 'Koliyi dolaba koyun. Hesabınız açılacak.' },
       { k: 'n', t: 'Arkasında Filiz. Kenarda çocuğun kırmızı kapüşonu.' },
     ], choices: [
-      { t: 'Dolaba koy', to: '2B2b', sub: 'hesap açılır · Filiz kırgın' },
-      { t: 'Koymadan Filiz\'i uyar', to: '2B2b', sub: 'hesap kapanır · Filiz ++' },
-      { t: 'Ekranı ve kamerayı fotoğrafla', to: '2B2b', lock: 'fotoğraf / kanıt', sub: 'veri toplama kanıtı' },
-      { timeout: true, to: '2B2b', sub: 'koli otomatik dolaba alınır' },
+      { t: 'Dolaba koy', to: '2B2b', sub: 'hesap açılır · Filiz kırgın', after: { id: '2B2-a', t: "Koli dolapta. Ekran yeşil. Filiz başını çeviriyor." } },
+      { t: 'Koymadan Filiz\'i uyar', to: '2B2b', sub: 'hesap kapanır · Filiz ++', after: { id: '2B2-b', t: "Koli hâlâ kucağında. Dolap bekliyor." } },
+      { t: 'Ekranı ve kamerayı fotoğrafla', to: '2B2b', lock: 'fotoğraf / kanıt', sub: 'veri toplama kanıtı', after: { id: '2B2-c', t: "Deklanşör. Kameranın kırmızı ışığı ona dönüyor." } },
+      { timeout: true, to: '2B2b', sub: 'koli otomatik dolaba alınır', after: { id: '2B2-d', t: "Dolap kendi kendine açılıp koliyi içine çekiyor." } },
     ] },
     '2B2b': { title: 'Mola Dedikodusu', type: 'cinematic', beats: [
       { k: 'n', t: 'Grevden sonraki ilk sakin mola. Karaköy\'de çay ocağı.' },
@@ -268,9 +268,9 @@ module.exports = {
       { k: 's', who: 'Endurocu', t: 'Al kardeşim. Kabile için.' },
       { k: 'n', t: 'Şef kaşlarını çatıyor.' },
     ], choices: [
-      { t: 'Al', to: '2B6', sub: 'Kabile memnun · para izlenebilir, plan sızar' },
-      { t: 'Reddet', to: '2B6', sub: 'Endurocu bozulur' },
-      { t: 'Geçmişini sor', to: '2B6', sub: 'şef yalanı fark eder' },
+      { t: 'Al', to: '2B6', sub: 'Kabile memnun · para izlenebilir, plan sızar', after: { id: '2B5-a', t: "Para kasada. Bandın üstünde küçük bir etiket parlıyor." } },
+      { t: 'Reddet', to: '2B6', sub: 'Endurocu bozulur', after: { id: '2B5-b', t: "Para geri dönüyor. Endurocu'nun yüzü geriliyor." } },
+      { t: 'Geçmişini sor', to: '2B6', sub: 'şef yalanı fark eder', after: { id: '2B5-c', t: "Endurocu cevap veriyor. Gözleri kayıyor." } },
     ] },
     '2B6': { title: 'Filiz', type: 'cinematic', beats: [
       { k: 'n', t: 'Okul dağıldı. Boş sınıf, küçük sandalyeler.' },
@@ -281,10 +281,10 @@ module.exports = {
       { k: 'n', t: 'Gece. Okulun basamakları. Tek bardak çay, iki kişi.' },
       { k: 's', who: 'Filiz', t: 'Ben de kadrosuzum. Her eylül sözleşmemi bekliyorum.' },
     ], choices: [
-      { t: 'Açıl', to: '2B7b', sub: 'yakınlık ++' },
-      { t: 'Dinle', to: '2B7b', sub: 'yakınlık +' },
-      { t: 'Uzak dur', to: '2B7b' },
-      { t: 'Köstebek olduğunu itiraf et', to: '2B7b', lock: 'köstebek', sub: 'yakınlık +++ · o da artık biliyor' },
+      { t: 'Açıl', to: '2B7b', sub: 'yakınlık ++', after: { id: '2B7-a', t: "Filiz ilk kez gülümsüyor." } },
+      { t: 'Dinle', to: '2B7b', sub: 'yakınlık +', after: { id: '2B7-b', t: "Sokak lambaları birer birer yanıyor." } },
+      { t: 'Uzak dur', to: '2B7b', after: { id: '2B7-c', t: "Aralarında üç basamak. Kimse inmiyor." } },
+      { t: 'Köstebek olduğunu itiraf et', to: '2B7b', lock: 'köstebek', sub: 'yakınlık +++ · o da artık biliyor', after: { id: '2B7-d', t: "İkinci telefon avucunda. Filiz geri çekilmiyor." } },
     ] },
     '2B7b': { title: 'Geçen Motor', type: 'cinematic', bridge: true, beats: [
       { k: 'n', t: 'Bir motor gürültüsü. Dev bir far, hızla aşağı.' },
@@ -299,11 +299,11 @@ module.exports = {
       { k: 'n', t: 'Kapı açılıyor. Endurocu gülerek çıkıyor. Yanında paltolu adam.' },
       { k: 'n', t: 'Adam Endurocu\'nun omzunu sıvazlıyor. Bir meslektaş gibi.' },
     ], choices: [
-      { t: 'Takip et', to: '2B10' },
-      { t: 'Şefe haber ver', to: '2B10', sub: 'Endurocu deşifre olduğunu anlar' },
-      { t: 'İtiraf et: Endurocu\'yu da kendini de ifşa et', to: '2B10', lock: 'köstebek' },
-      { t: 'Planı adama yaz', to: '2B10', lock: 'köstebek' },
-      { timeout: true, to: '2B10', sub: 'Endurocu onu görür' },
+      { t: 'Takip et', to: '2B10', after: { id: '2B9-a', t: "Far kapalı. Arada iki lamba." } },
+      { t: 'Şefe haber ver', to: '2B10', sub: 'Endurocu deşifre olduğunu anlar', after: { id: '2B9-b', t: "Şef'e fısıldıyor. Pencerede Endurocu da telefonda." } },
+      { t: 'İtiraf et: Endurocu\'yu da kendini de ifşa et', to: '2B10', lock: 'köstebek', after: { id: '2B9-c', t: "Gönder. Artık geri dönüş yok." } },
+      { t: 'Planı adama yaz', to: '2B10', lock: 'köstebek', after: { id: '2B9-d', t: "Mesaj gitti. Gözlerini kapatıyor." } },
+      { timeout: true, to: '2B10', sub: 'Endurocu onu görür', after: { id: '2B9-e', t: "Endurocu dönüyor. Göz göze geliyorlar." } },
     ] },
     '2B10': { title: 'Sahil Yolu Kaçışı', type: 'interaction', game: true, beats: [
       { k: 'n', t: 'Yağmur. Tophane sahil yolu. Arkada tek bir far.' },
