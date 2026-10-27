@@ -333,15 +333,20 @@
       const g = c.createLinearGradient(0, 0, 0, wh);
       g.addColorStop(0, set.rain ? '#0b1422' : '#0c1626'); g.addColorStop(1, '#04080f');
       c.fillStyle = g; c.fillRect(0, 0, W, wh);
-      c.filter = 'blur(10px)';
+      // Yansımalar: filtre yok (iOS Safari canvas blur desteklemiyor); radyal geçiş kendiliğinden yumuşak
       let seed = 7; const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
-      for (let i = 0; i < 26; i++) {
-        const x = rnd() * W, y = rnd() * wh, rw = 6 + rnd() * 18, rh = 40 + rnd() * 120;
+      for (let i = 0; i < 30; i++) {
+        const x = rnd() * W, y = rnd() * wh, rw = 10 + rnd() * 22, rh = 50 + rnd() * 140;
         const warm = rnd() < 0.8;
-        c.fillStyle = warm ? `rgba(255,${150 + rnd() * 60 | 0},80,${0.25 + rnd() * 0.3})` : `rgba(120,170,255,${0.15 + rnd() * 0.2})`;
-        for (const dy of [-wh, 0, wh]) { c.beginPath(); c.ellipse(x, y + dy, rw, rh, 0, 0, Math.PI * 2); c.fill(); }
+        const a = warm ? 0.12 + rnd() * 0.16 : 0.08 + rnd() * 0.1;
+        const col = warm ? `255,${165 + rnd() * 50 | 0},90` : '130,175,255';
+        for (const dy of [-wh, 0, wh]) {
+          c.save(); c.translate(x, y + dy); c.scale(1, rh / rw);
+          const g = c.createRadialGradient(0, 0, 0, 0, 0, rw);
+          g.addColorStop(0, `rgba(${col},${a})`); g.addColorStop(0.45, `rgba(${col},${a * 0.45})`); g.addColorStop(1, `rgba(${col},0)`);
+          c.fillStyle = g; c.beginPath(); c.arc(0, 0, rw, 0, Math.PI * 2); c.fill(); c.restore();
+        }
       }
-      c.filter = 'none';
       return waterCv;
     }
 
