@@ -133,3 +133,8 @@ Oyun sonu metni (epilog) video gerektirmez: siyah ekran + seslendirme (bkz. `epi
   kısmaya izin vermediği için yumuşatma dosyaya gömülür; döngü dikişinde kesik duyulmaz). Orijinaller `assets/video/_master/`.
 - Bölüm 1: 74 MB → ~25 MB. Müzik (`assets/audio/c1_music.mp3`): kapak görseli atılıp 112 kbps → 2.4 MB.
 - Flow promptlarında "26" rozeti yalnızca Cico görünürken geçer; başka karakterlere rozet/numara eklenmez (B2a'da şefe rozet eklenmişti).
+
+## Bölüm 2 ses kuralı (2026-10-28)
+- Hiçbir klipte konuşma, kelime ya da dil duyulmaz (oyun global). Kalabalık olan yerde yalnızca mekânın ve sokağın genel uğultusu.
+- İstemde "murmur/chatter" gibi ifadeler kullanılmaz; Veo bunları gerçek konuşmaya çeviriyor (2A5b'de Arapçaya benzer konuşma çıktı).
+- Konuşma duyulan eski klipler `tools/compress-c2-videos.sh` içindeki NOVOICE listesinde: 300–5000 Hz bandı kesilir. Yeni istemle yeniden üretilince listeden çıkar.

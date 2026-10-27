@@ -6,11 +6,16 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 FF=$(command -v ffmpeg || echo /usr/local/bin/ffmpeg)
 mkdir -p assets/video/c2
+# Arka planda konuşma/dil duyulan klipler: konuşmanın anlaşılır bandı (300–5000 Hz) kesilir, dil kaybolur,
+# ortam sesi boğuk bir zemin olarak kalır. Yeni istemle yeniden üretilince listeden çıkarılmalı.
+NOVOICE=" 2A5b 2B2b 2A2 2A2-a 2A2-b 2A2-d 2A4 2A4-a 2A4-b 2A4-c "
+VF="asplit[a][b];[a]lowpass=f=300,lowpass=f=300,volume=1.8[l];[b]highpass=f=5000,highpass=f=5000,volume=0.7[h];[l][h]amix=inputs=2:normalize=0"
 for m in assets/video/c2/_master/*.mp4; do
   name=$(basename "$m"); case "$name" in *_v[0-9]*.mp4) continue;; esac
   out="assets/video/c2/$name"
-  [ -f "$out" ] && [ "$out" -nt "$m" ] && continue
-  "$FF" -loglevel error -y -i "$m" -vf "scale=540:960:flags=lanczos,format=yuv420p" \
+  [ -f "$out" ] && [ "$out" -nt "$m" ] && [ "${FORCE:-}" != 1 ] && continue
+  af=(); case "$NOVOICE" in *" ${name%.mp4} "*) af=(-af "$VF");; esac
+  "$FF" -loglevel error -y -i "$m" ${af[@]+"${af[@]}"} -vf "scale=540:960:flags=lanczos,format=yuv420p" \
     -c:v libx264 -profile:v high -preset slow -crf 28 -g 48 -c:a aac -b:a 80k -ac 2 -movflags +faststart "$out"
   printf '%-14s %6s KB → %5s KB\n' "$name" "$(( $(stat -f%z "$m") / 1024 ))" "$(( $(stat -f%z "$out") / 1024 ))"
 done

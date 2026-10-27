@@ -15,26 +15,27 @@
     'no gestures, no talking, no lip movement, no head turns, no walking; only their eyes blink and their chests breathe very slightly. ';
 
   const AUDIO = (ambient) =>
-    `Audio: natural ambient sound only — ${ambient}. The characters make no sound at all: no speech, no dialogue, no whispering, ` +
-    'no gasps, no sighs, no exclamations, no laughing, no humming. Any background crowd is only a low, indistinct murmur with no intelligible words. No music.';
+    `Audio: natural ambient sound only — ${ambient}. NO HUMAN VOICES AT ALL: no speech, no dialogue, no words, no language of any kind, ` +
+    'no talking or chatter in the background, no whispering, no shouting, no gasps, no sighs, no exclamations, no laughing, no humming, no singing. ' +
+    'Where there is a crowd, it is only a soft, blurred general hum of the place and the street, like distant room tone, in which no single voice or word can be heard. No music.';
 
   // Mekân grupları: ortamda ne hafifçe kıpırdar + ortam sesi
   const PLACE = {
-    school: { env: 'leaves sway gently, soft daylight shifts on the stone, a few pigeons on the ground peck quietly', amb: 'distant children playing in the schoolyard as a soft indistinct murmur, birds chirping, light street traffic far away' },
+    school: { env: 'leaves sway gently, soft daylight shifts on the stone, a few pigeons on the ground peck quietly', amb: 'the general sound of a school street: a soft distant crowd hum, birds chirping, light street traffic far away' },
     steps: { env: 'the street lamps glow and flicker very softly, leaves sway, pigeons on the cobblestones shuffle slightly, the cobblestones glisten', amb: 'a quiet evening street, distant traffic, a far-off seagull, leaves rustling' },
-    classroom: { env: 'dust floats in the light from the window, a curtain moves very slightly', amb: 'a quiet classroom, a faint murmur of children in a distant corridor, a clock ticking, birds outside' },
+    classroom: { env: 'dust floats in the light from the window, a curtain moves very slightly', amb: 'a quiet classroom, a clock ticking, chairs creaking faintly, birds outside' },
     warehouse: { env: 'fluorescent tubes flicker faintly, dust floats in the light', amb: 'fluorescent lights buzzing, a distant forklift, metal shutters rattling softly far away' },
     home: { env: 'the screen glow flickers softly on the walls, a curtain moves very slightly', amb: 'a quiet room, faint city hum outside, a fridge humming softly' },
     office: { env: 'monitor screens glow and flicker subtly, city lights twinkle outside the window', amb: 'a quiet office at night, air conditioning hum, a faint electronic buzz' },
     traffic: { env: 'heat shimmer above the asphalt, distant cars and seagulls move in the background', amb: 'midday Karaköy traffic hum, distant car horns, seagulls, scooters passing far away' },
-    teahouse: { env: 'steam rises from the tea glasses, the awning sways slightly, background figures move very little', amb: 'a busy tea stall by the waterfront, tea glasses clinking on saucers, a low indistinct murmur of couriers chatting, seagulls, distant traffic' },
-    kahvehane: { env: 'steam rises from the tea glasses, the hanging lamps glow and flicker softly', amb: 'an old Istanbul coffee house, tea glasses clinking, backgammon pieces clicking, a low indistinct murmur of men chatting' },
+    teahouse: { env: 'steam rises from the tea glasses, the awning sways slightly, background figures move very little', amb: 'a busy tea stall by the waterfront: tea glasses clinking on saucers, a kettle bubbling, a soft general crowd hum, seagulls, scooters and traffic in the distance' },
+    kahvehane: { env: 'steam rises from the tea glasses, the hanging lamps glow and flicker softly', amb: 'an old coffee house: tea glasses clinking, backgammon pieces clicking, chairs scraping, a soft general room hum' },
     hospital: { env: 'the fluorescent light flickers faintly, light from the window shifts slightly', amb: 'a quiet hospital corridor, a distant monitor beeping, soft ventilation hum' },
-    bridge_under: { env: 'the water glitters, the low sun shimmers, hanging lamps sway slightly, background couriers move very little', amb: 'water lapping under the Galata Bridge, seagulls, muffled traffic passing overhead, a low indistinct murmur of couriers' },
+    bridge_under: { env: 'the water glitters, the low sun shimmers, hanging lamps sway slightly, background couriers move very little', amb: 'water lapping under the Galata Bridge, seagulls, muffled traffic passing overhead, a soft general crowd hum' },
     night_street: { env: 'the street lamps flicker softly, rain falls lightly and puddles ripple, reflections shimmer on the wet cobblestones', amb: 'light rain on a narrow night street, water dripping from gutters, distant traffic, a street lamp buzzing' },
     bridge_night: { env: 'headlights and city lights shimmer, the water below glitters, light wind', amb: 'night traffic on the Galata Bridge, wind, a distant tram bell, the sea below' },
     coast_rain: { env: 'heavy rain falls and splashes on the road, puddles ripple, distant headlights shimmer', amb: 'heavy rain on asphalt, distant trucks passing, wind from the sea' },
-    blue_night: { env: 'blue emergency lights pulse softly across the walls, light rain falls', amb: 'a tense night street, a distant siren fading, light rain, a low indistinct murmur of a crowd far away' },
+    blue_night: { env: 'blue emergency lights pulse softly across the walls, light rain falls', amb: 'a tense night street, a distant siren fading, light rain, a soft distant street hum' },
     rain_morning: { env: 'rain falls steadily, puddles ripple on the steps, leaves drip', amb: 'steady morning rain on stone steps and leaves, distant traffic' },
   };
 
