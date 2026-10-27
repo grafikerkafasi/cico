@@ -189,7 +189,7 @@ const story = {
   clues: {},
   characters: { teacher: { speakers: ['teacher'] }, enduro: { speakers: ['enduro'] }, man: { speakers: ['man'] }, chief: { speakers: ['chief'] }, kid: { speakers: ['kid'] }, rota: { speakers: ['rota'] }, cico: { speakers: ['cico'] } },
   media_aspect: 9 / 16,
-  music: 'assets/audio/c1_music.mp3',
+  music: 'assets/audio/c2_music.mp3', // Flow Music: Dark Thriller Chase Score (B1 enstrümanları, daha derin/aksiyon)
   scenes,
   epilogue: [],
 };

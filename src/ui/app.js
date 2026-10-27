@@ -52,6 +52,8 @@
     discovery = store.get(discoveryKey(), { scenes: [], edges: [] });
     if (window.CICO.prefetch) prefetch = window.CICO.prefetch.createPrefetcher({ story, sceneEdges: E.sceneEdges, mediaUrl: native.mediaUrl });
     $('#app').style.setProperty('--ar', String(story.media_aspect || 9 / 16));
+    // Her bölümün kendi müziği: çalıyorsa yenisine yumuşak geçiş
+    if (music.ctx || music.el) startMusic();
   }
 
   // Bölüm 1 sonu → Bölüm 2'nin girişi. Kayıt yoksa oyuncu Bölüm 1'i nasıl bitirdiğini seçer.
@@ -287,11 +289,23 @@
       music.gain.connect(music.ctx.destination);
     }
     if (music.ctx.state !== 'running') music.ctx.resume().catch(() => {});
-    if (music.src || music.loading) { applySound(); return; }
-    music.loading = fetch(story.music)
+    if ((music.src || music.loading) && music.url === story.music) { applySound(); return; }
+    if (music.src) {
+      // Bölüm değişti: eski parça 1.2 sn'de kısılıp durur, yenisi aynı yumuşaklıkla açılır
+      const old = music.src, now = music.ctx.currentTime;
+      const fade = music.ctx.createGain(); // eski parça kendi kısıcısıyla söner, yenisinin açılışını etkilemez
+      fade.gain.setValueAtTime(1, now); fade.gain.linearRampToValueAtTime(0, now + 1.2);
+      old.disconnect(); old.connect(fade).connect(music.gain);
+      setTimeout(() => { try { old.stop(); fade.disconnect(); } catch (e) { /* zaten durmuş */ } }, 1300);
+      music.src = null;
+    }
+    const url = story.music;
+    music.url = url;
+    music.loading = fetch(url)
       .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
       .then((buf) => new Promise((res, rej) => music.ctx.decodeAudioData(buf, res, rej)))
       .then((decoded) => {
+        if (music.url !== url) return; // bu arada bölüm yine değişti
         music.buffer = decoded;
         const src = music.ctx.createBufferSource();
         src.buffer = decoded;
@@ -299,7 +313,9 @@
         src.connect(music.gain);
         src.start();
         music.src = src;
-        const now = music.ctx.currentTime;
+        music.loading = null;
+        const now = Math.max(music.ctx.currentTime, 0);
+        music.gain.gain.cancelScheduledValues(now);
         music.gain.gain.setValueAtTime(0, now);
         music.gain.gain.linearRampToValueAtTime(musicGainTarget(), now + 2.5);
       })
@@ -345,7 +361,7 @@
   function startMusicElement() {
     const bgm = $('#bgm');
     music.el = bgm;
-    if (!bgm.src) { bgm.src = story.music; bgm.volume = MUSIC_VOL; }
+    if (!bgm.src || !bgm.src.endsWith(story.music)) { bgm.src = story.music; bgm.volume = MUSIC_VOL; }
     bgm.muted = !settings.sound;
     const p = bgm.play();
     if (p && p.catch) p.catch(() => {});

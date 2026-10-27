@@ -144,7 +144,7 @@
   }
  },
  "media_aspect": 0.5625,
- "music": "assets/audio/c1_music.mp3",
+ "music": "assets/audio/c2_music.mp3",
  "scenes": [
   {
    "scene_id": "c2_2a0",
