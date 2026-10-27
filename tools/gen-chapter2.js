@@ -77,13 +77,18 @@ const SPOTS = {
 const scenes = [];
 // Seçim sonrası sahneler: oyuncu seçiminin yaşandığını görür, sonra hikâye seçimin hedefine devam eder
 const extra = [];
+// Flow klibi varsa (assets/video/c2/<KOD>.mp4) sahne sesiyle döngüde oynar; karar anında görsele solar
+function video(code) {
+  const v = path.join(ROOT, 'assets/video/c2', `${code}.mp4`);
+  return fs.existsSync(v) ? { scene_video: `assets/video/c2/${code}.mp4` } : {};
+}
 function afterScene(c, parentCode) {
   if (!c.after) return id(c.to);
   const code = c.after.id;
   const sid = 'c2_' + code.toLowerCase().replace('-', '_');
   const img = path.join(ROOT, 'assets/scenes/c2', `${code}.jpg`);
   extra.push({ scene_id: sid, code, scene_type: 'cinematic', after_of: parentCode, text: ['b0'], next: id(c.to),
-    image_asset: fs.existsSync(img) ? `assets/scenes/c2/${code}.jpg` : `assets/scenes/c2/${parentCode}.jpg`, still_motion: true });
+    image_asset: fs.existsSync(img) ? `assets/scenes/c2/${code}.jpg` : `assets/scenes/c2/${parentCode}.jpg`, still_motion: true, ...video(code) });
   tr.scenes[sid] = { title: (S[parentCode] || {}).title || code, b0: c.after.t, choices: {} };
   return sid;
 }
@@ -115,6 +120,7 @@ for (const [code, s] of Object.entries(S)) {
   const img = path.join(ROOT, 'assets/scenes/c2', `${code}.jpg`);
   scene.image_asset = fs.existsSync(img) ? `assets/scenes/c2/${code}.jpg` : 'assets/scenes/c2/2A13a.jpg';
   if (s.type !== 'ending') scene.still_motion = true;
+  Object.assign(scene, video(code));
 
   if (s.game) {
     // Jiroskop kaçışı (src/ui/gyro.js): sonuç 'escape' ya da 'caught' seçeneği olarak motora döner
