@@ -24,7 +24,8 @@ const CW = 138, IH = 245, CH = 292;        // kart
 const NW = 250, NG = 12;                   // not
 const COLW = CW + NG + NW + 46;            // sütun genişliği
 const GAP = 118, PADX = 30, PADY = 40;
-const CPL = 40;                            // not satırı başına yaklaşık karakter
+const CPL = 40;
+const ABW = 62, ABI = 110, ABH = 128, ABG = 10, AG = 34; // sonuç sahnesi kutusu                            // not satırı başına yaklaşık karakter
 
 function noteHeight(s) {
   let h = 34;
@@ -62,10 +63,13 @@ function board(key) {
   const codes = Object.keys(L.grid);
   const rows = Math.max(...codes.map((c) => L.grid[c][1])) + 1;
   const cols = Math.max(...codes.map((c) => L.grid[c][0])) + 1;
-  const rowH = [];
+  const rowH = [], rowC = [];
   for (let r = 0; r < rows; r++) {
     const inRow = codes.filter((c) => L.grid[c][1] === r);
-    rowH[r] = Math.max(CH, ...inRow.map((c) => noteHeight(data.scenes[c]))) + GAP;
+    const content = Math.max(CH, ...inRow.map((c) => noteHeight(data.scenes[c])));
+    const hasAft = inRow.some((c) => data.scenes[c].choices.some((x) => x.after));
+    rowC[r] = content + (hasAft ? 30 : 0);
+    rowH[r] = content + (hasAft ? AG + ABH : 0) + GAP;
   }
   const rowY = [PADY]; for (let r = 1; r < rows; r++) rowY[r] = rowY[r - 1] + rowH[r - 1];
   const W = PADX * 2 + cols * COLW, H = rowY[rows - 1] + rowH[rows - 1];
@@ -73,11 +77,32 @@ function board(key) {
   for (const c of codes) { const [x, y] = L.grid[c]; pos[c] = { x: PADX + x * COLW, y: rowY[y] }; }
 
   // kenarlar: aynı hedefe giden seçenekler birleşir
-  const wires = [], labels = [];
+  const wires = [], labels = [], aboxes = [];
+  const curve = (sx, sy, tx, ty, cls, mk) => { const my = (sy + ty) / 2; return `<path d="M${sx},${sy} C${sx},${my} ${tx},${my} ${tx},${ty}" class="${cls}" marker-end="url(#ah-${mk})"/>`; };
   for (const c of codes) {
     const s = data.scenes[c];
+    const afts = s.choices.filter((ch) => ch.after && pos[ch.to]);
+    if (afts.length) {
+      const a = pos[c];
+      const by = a.y + rowC[L.grid[c][1]] + AG;
+      const total = afts.length * ABW + (afts.length - 1) * ABG;
+      const bx0 = Math.min(a.x + CW / 2 - total / 2, a.x + CW - total);
+      const perT = {};
+      afts.forEach((ch, i) => {
+        const bx = bx0 + i * (ABW + ABG), cx = bx + ABW / 2;
+        const kind = ch.timeout ? 'to' : 'ch';
+        const off = (i - (afts.length - 1) / 2) * 12;
+        wires.push(curve(a.x + CW / 2 + off, a.y + CH, cx, by - 4, kind, kind === 'to' ? 'to' : 'n'));
+        const b = pos[ch.to]; perT[ch.to] = (perT[ch.to] || 0) + 1;
+        wires.push(curve(cx, by + ABH, b.x + CW / 2 + (perT[ch.to] - 1) * 6 - 6, b.y - 4, kind === 'to' ? 'to' : 'ch', kind === 'to' ? 'to' : 'n'));
+        const id = ch.after.id;
+        const label = ch.timeout ? '⏱ süre dolarsa' : (ch.lock ? '🔒 ' : '') + ch.t;
+        aboxes.push(`<div class="abox ${kind}" style="left:${bx}px;top:${by}px" title="${esc(label + ' — ' + ch.after.t)}">${hasImg(id) ? `<img src="img/${id}.jpg" alt="" loading="lazy">` : '<i></i>'}<span>${esc(id)}</span></div>`);
+      });
+    }
     const groups = new Map();
     for (const ch of s.choices) {
+      if (ch.after) continue;
       if (!pos[ch.to]) continue;
       const kind = ch.timeout ? 'to' : ch.auto ? 'cond' : ch.t ? 'ch' : 'plain';
       const key = ch.to + '|' + (kind === 'to' ? 'to' : 'x');
@@ -127,6 +152,7 @@ function board(key) {
       <marker id="ah-to" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ff6b85"/></marker>
     </defs>${wires.join('')}</svg>
     ${labels.join('\n')}
+    ${aboxes.join('\n')}
     ${cards}
   </div></div></div>
 </section>`;
@@ -217,6 +243,11 @@ p { max-width:68ch; }
 .note .vnote { margin:0 0 7px; padding:5px 7px; border-radius:6px; background:rgba(135,150,166,.12); color:var(--muted); font-size:11px; }
 .card .nb.redo { background:rgba(255,107,133,.92); }
 .note .tout { margin:6px 0 0; font:10.5px var(--mono); color:var(--rose); }
+.abox { position:absolute; width:${ABW}px; height:${ABH}px; box-sizing:border-box; border:1.5px solid rgba(98,209,164,.6); border-radius:9px; background:var(--panel); overflow:hidden; z-index:1; box-shadow:0 6px 18px rgba(0,0,0,.4); }
+.abox.to { border-color:rgba(255,107,133,.75); border-style:dashed; }
+.abox img, .abox i { display:block; width:100%; height:${ABI}px; object-fit:cover; background:#1b2430; }
+.abox span { display:block; font:600 9.5px/16px var(--mono); text-align:center; color:var(--green); }
+.abox.to span { color:var(--rose); }
 .aft { display:flex; gap:7px; align-items:flex-start; margin-top:4px; color:var(--muted); font-size:10.5px; font-style:italic; line-height:1.3; }
 .aft img, .aft .noimg { flex:none; width:44px; height:78px; object-fit:cover; border-radius:5px; border:1px solid var(--line); background:#1b2430; }
 .aft b { display:block; font:600 9.5px var(--mono); font-style:normal; color:#8796a6; margin-bottom:1px; }
