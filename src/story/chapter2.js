@@ -600,6 +600,7 @@
    ],
    "image_asset": "assets/scenes/c2/2A7.jpg",
    "still_motion": true,
+   "scene_video": "assets/video/c2/2A7.mp4",
    "choices": [
     {
      "id": "c0",
@@ -646,7 +647,8 @@
    ],
    "next": "c2_2a8",
    "image_asset": "assets/scenes/c2/2A7-a.jpg",
-   "still_motion": true
+   "still_motion": true,
+   "scene_video": "assets/video/c2/2A7-a.mp4"
   },
   {
    "scene_id": "c2_2a7_b",

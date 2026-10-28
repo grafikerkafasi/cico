@@ -9,8 +9,7 @@ mkdir -p assets/video/c2
 # Arka planda konuşma/dil duyulan klipler: konuşmanın anlaşılır bandı (300–5000 Hz) kesilir, dil kaybolur,
 # ortam sesi boğuk bir zemin olarak kalır. Yeni istemle yeniden üretilince listeden çıkarılmalı.
 NOVOICE=" 2A5b 2B2b 2A2 2A2-a 2A2-b 2A2-d 2A4 2A4-a 2A4-b 2A4-c "
-# Gemini'de üretilen klipler: ses Flow'dan ~20 dB kısık gelir; yükseltilip tepe sınırlanır
-GEMINI=" 2A6 2A7 "
+# Gemini'de üretilen klipler (10 sn; Flow 8 sn): ses Flow'dan ~20 dB kısık gelir; yükseltilip tepe sınırlanır
 GF="volume=16dB,alimiter=limit=0.7"
 VF="asplit[a][b];[a]lowpass=f=300,lowpass=f=300,volume=1.8[l];[b]highpass=f=5000,highpass=f=5000,volume=0.7[h];[l][h]amix=inputs=2:normalize=0"
 for m in assets/video/c2/_master/*.mp4; do
@@ -18,7 +17,8 @@ for m in assets/video/c2/_master/*.mp4; do
   out="assets/video/c2/$name"
   [ -f "$out" ] && [ "$out" -nt "$m" ] && [ "${FORCE:-}" != 1 ] && continue
   af=(); case "$NOVOICE" in *" ${name%.mp4} "*) af=(-af "$VF");; esac
-  case "$GEMINI" in *" ${name%.mp4} "*) af=(-af "$GF");; esac
+  dur=$( ("$FF" -hide_banner -i "$m" 2>&1 || true) | sed -n 's/.*Duration: 00:00:\([0-9]*\).*/\1/p')
+  [ "${dur:-8}" -ge 9 ] && af=(-af "$GF")
   "$FF" -loglevel error -y -i "$m" ${af[@]+"${af[@]}"} -vf "scale=540:960:flags=lanczos,format=yuv420p" \
     -c:v libx264 -profile:v high -preset slow -crf 28 -g 48 -c:a aac -b:a 80k -ac 2 -movflags +faststart "$out"
   printf '%-14s %6s KB → %5s KB\n' "$name" "$(( $(stat -f%z "$m") / 1024 ))" "$(( $(stat -f%z "$out") / 1024 ))"
