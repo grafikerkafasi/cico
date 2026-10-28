@@ -583,6 +583,7 @@
    ],
    "image_asset": "assets/scenes/c2/2A6.jpg",
    "still_motion": true,
+   "scene_video": "assets/video/c2/2A6.mp4",
    "next": "c2_2a7"
   },
   {
